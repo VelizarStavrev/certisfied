@@ -8,8 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class FooterComponent implements OnInit {
 
   constructor() { }
+  currentYear: number = 2023;
 
   ngOnInit(): void {
+    // Get the current year
+    this.currentYear = new Date().getFullYear();
   }
 
 }
