@@ -1,3 +1,39 @@
+@keyframes transformHamburgerTop {
+    25%  {
+        transform: translateY(8px);
+    }
+    100% {
+        transform: rotate(45deg) translateY(8px);
+    }
+}
+
+@keyframes transformHamburgerTopReverse {
+    25%  {
+        transform: translateY(8px);
+    }
+    100% {
+        transform: rotate(45deg) translateY(8px);
+    }
+}
+
+@keyframes transformHamburgerBottom {
+    25%  {
+        transform: translateY(-8px);
+    }
+    100% {
+        transform: rotate(-45deg) translateY(-8px);
+    }
+}
+
+@keyframes transformHamburgerBottomReverse {
+    25%  {
+        transform: translateY(-8px);
+    }
+    100% {
+        transform: rotate(-45deg) translateY(-8px);
+    }
+}
+
 header {
     padding: 20px 0;
     box-shadow: var(--box-shadow-bottom);
@@ -22,6 +58,54 @@ header {
             img {
                 height: 50px;
                 margin-right: 5px;
+            }
+        }
+        
+        .hamburger-button {
+            display: none;
+            background-color: transparent;
+            border: none;
+
+            &.active {
+                svg rect:nth-child(1) {
+                    transform-origin: center;
+                    animation-name: transformHamburgerTop;
+                    animation-duration: 1s;
+                    animation-fill-mode: forwards;
+                }
+    
+                svg rect:nth-child(2) {
+                    opacity: 0;
+                    transition: opacity 0s 0.25s;
+                }
+    
+                svg rect:nth-child(3) {
+                    transform-origin: center;
+                    animation-name: transformHamburgerBottom;
+                    animation-duration: 1s;
+                    animation-fill-mode: forwards;
+                }
+            }
+
+            &.active-reverse {
+                svg rect:nth-child(1) {
+                    transform-origin: center;
+                    animation-name: transformHamburgerTopReverse;
+                    animation-duration: 1s;
+                    animation-direction: reverse;
+                }
+
+                svg rect:nth-child(2) {
+                    opacity: 1;
+                    transition: opacity 0s 0.75s;
+                }
+
+                svg rect:nth-child(3) {
+                    transform-origin: center;
+                    animation-name: transformHamburgerBottomReverse;
+                    animation-duration: 1s;
+                    animation-direction: reverse;
+                }
             }
         }
 
@@ -62,6 +146,43 @@ header {
             
             &:hover {
                 text-decoration: underline;
+            }
+        }
+    }
+
+    @media only screen and (max-width: 776px) {
+        padding: 20px;
+
+        nav {
+            flex-wrap: wrap;
+
+            ul {
+                flex: 100%;
+                flex-direction: column;
+                text-align: center;
+                max-height: 0;
+                opacity: 0;
+                transition: opacity 0.5s, max-height 1s, margin-top 0.5s 0.5s;
+
+                &.visible {
+                    margin-top: 10px;
+                    max-height: 500px;
+                    opacity: 1;
+                    transition: opacity 0.5s, max-height 1s;
+                }
+    
+                li {
+                    margin: 0;
+                    margin-bottom: 5px;
+
+                    &:last-child {
+                        margin: 0;
+                    }
+                }
+            }
+
+            .hamburger-button {
+                display: block;
             }
         }
     }
