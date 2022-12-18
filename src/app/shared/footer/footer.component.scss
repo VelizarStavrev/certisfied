@@ -37,5 +37,17 @@ footer {
                 }
             }
         }
+
+        @media only screen and (max-width: 776px) {
+            flex-wrap: wrap;
+
+            ul {
+                position: relative;
+            }
+
+            p {
+                margin-bottom: 10px;
+            }
+        }
     }
 }
