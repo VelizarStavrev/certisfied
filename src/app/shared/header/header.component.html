@@ -1,0 +1,44 @@
+<header>
+    <nav>
+        <a class="link-home" routerLink='/'>
+            certisfied
+        </a>
+        
+        <ul>
+            <li>
+                <a routerLink='/login'>Login</a>
+            </li>
+
+            <li>
+                <a routerLink='/register'>Register</a>
+            </li>
+
+            <!-- <li *ngIf="!isLogged">
+                <a routerLink='/login'>Login</a>
+            </li>
+
+            <li *ngIf="isLogged">
+                <a routerLink='/profile'>Profile</a>
+            </li> -->
+
+            <li>
+                <a routerLink='/verify'>Verify</a>
+            </li>
+
+            <li>
+                <a routerLink='/documentation'>Documentation</a>
+            </li>
+
+            <li>
+                <a routerLink='/contacts'>Contacts</a>
+            </li>
+
+            <li>
+                <button class="header-button" onClick={changeLanguage}>
+                    <!-- {currentLanguage === 'en' ? 'BG' : 'EN'} -->
+                    BG
+                </button>
+            </li>
+        </ul>
+    </nav>
+</header>
