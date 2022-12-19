@@ -3,11 +3,11 @@
         <h1>Login</h1>
 
         <label>Username</label>
-        <input type='text' name='username' [(ngModel)]="username" #usernameInput="ngModel" required />
+        <input type="text" name="username" [(ngModel)]="username" #usernameInput="ngModel" required />
         <p class="login-error" [hidden]="usernameInput.valid || usernameInput.pristine">Username error</p>
 
         <label>Password</label>
-        <input type='password' name='password' [(ngModel)]="password" #passwordInput="ngModel" required />
+        <input type="password" name="password" [(ngModel)]="password" #passwordInput="ngModel" required />
         <p class="login-error" [hidden]="passwordInput.valid || passwordInput.pristine">Password error</p>
         <p class="login-error" *ngIf="formError">{{ formErrorMessage }}</p>
 
