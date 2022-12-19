@@ -1,6 +1,6 @@
 <header>
     <nav>
-        <a class="link-home" routerLink='/'>
+        <a class="link-home" routerLink="/">
             certisfied
         </a>
         
@@ -14,36 +14,36 @@
 
         <ul [class]="isVisible ? 'visible' : ''">
             <li>
-                <a routerLink='/login'>Login</a>
+                <a routerLink="/login" routerLinkActive="active">Login</a>
             </li>
 
             <li>
-                <a routerLink='/register'>Register</a>
+                <a routerLink="/register" routerLinkActive="active">Register</a>
             </li>
 
             <!-- <li *ngIf="!isLogged">
-                <a routerLink='/login'>Login</a>
+                <a routerLink="/login">Login</a>
             </li>
 
             <li *ngIf="isLogged">
-                <a routerLink='/profile'>Profile</a>
+                <a routerLink="/profile">Profile</a>
             </li> -->
 
             <li>
-                <a routerLink='/verify'>Verify</a>
+                <a routerLink="/verify" routerLinkActive="active">Verify</a>
             </li>
 
             <li>
-                <a routerLink='/documentation'>Documentation</a>
+                <a routerLink="/documentation" routerLinkActive="active">Documentation</a>
             </li>
 
             <li>
-                <a routerLink='/contacts'>Contacts</a>
+                <a routerLink="/contacts" routerLinkActive="active">Contacts</a>
             </li>
 
             <li>
-                <button class="header-button" onClick={changeLanguage}>
-                    <!-- {currentLanguage === 'en' ? 'BG' : 'EN'} -->
+                <button class="header-button">
+                    <!-- {currentLanguage === "en" ? "BG" : "EN"} -->
                     BG
                 </button>
             </li>
