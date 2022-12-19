@@ -1,0 +1,18 @@
+<div class="login-container">
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+        <h1>Login</h1>
+
+        <label>Username</label>
+        <input type='text' name='username' [(ngModel)]="username" #usernameInput="ngModel" required />
+        <p class="login-error" [hidden]="usernameInput.valid || usernameInput.pristine">Username error</p>
+
+        <label>Password</label>
+        <input type='password' name='password' [(ngModel)]="password" #passwordInput="ngModel" required />
+        <p class="login-error" [hidden]="passwordInput.valid || passwordInput.pristine">Password error</p>
+        <p class="login-error" *ngIf="formError">{{ formErrorMessage }}</p>
+
+        <app-button [buttonText]="buttonText" [buttonType]="buttonType" [buttonHTMLType]="buttonHTMLType" [buttonMarginTop]="buttonMarginTop"></app-button>
+        <app-button-link [buttonText]="buttonTextLink" [buttonType]="buttonTypeLink" [buttonLink]="buttonLink"></app-button-link>
+        <app-button-link [buttonText]="buttonTextLinkSecond" [buttonType]="buttonTypeLinkSecond" [buttonLink]="buttonLinkSecond" [buttonMarginTop]="buttonMarginTop"></app-button-link>
+    </form>
+</div>
