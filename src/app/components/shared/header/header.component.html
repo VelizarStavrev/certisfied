@@ -13,21 +13,19 @@
         </button>
 
         <ul [class]="isVisible ? 'visible' : ''">
-            <li>
-                <a routerLink="/login" routerLinkActive="active">Login</a>
-            </li>
-
-            <li>
-                <a routerLink="/register" routerLinkActive="active">Register</a>
-            </li>
-
-            <!-- <li *ngIf="!isLogged">
-                <a routerLink="/login">Login</a>
-            </li>
+            <ng-container *ngIf="!isLogged">
+                <li>
+                    <a routerLink="/login" routerLinkActive="active">Login</a>
+                </li>
+    
+                <li>
+                    <a routerLink="/register" routerLinkActive="active">Register</a>
+                </li>
+            </ng-container>
 
             <li *ngIf="isLogged">
-                <a routerLink="/profile">Profile</a>
-            </li> -->
+                <a routerLink="/profile" routerLinkActive="active">Profile</a>
+            </li>
 
             <li>
                 <a routerLink="/verify" routerLinkActive="active">Verify</a>
@@ -39,13 +37,6 @@
 
             <li>
                 <a routerLink="/contacts" routerLinkActive="active">Contacts</a>
-            </li>
-
-            <li>
-                <button class="header-button">
-                    <!-- {currentLanguage === "en" ? "BG" : "EN"} -->
-                    BG
-                </button>
             </li>
         </ul>
     </nav>

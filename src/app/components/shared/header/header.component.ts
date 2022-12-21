@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -10,9 +11,20 @@ export class HeaderComponent implements OnInit {
   isChanged: boolean = false;
   hamburgerClassList: string[] = ['hamburger-button'];
 
-  constructor() { }
+  // Set the isLogged to false initially
+  // Update it whenever the user status is updated
+  isLogged: boolean = this.userService.setUserStatus();
+  _subscription = this.userService.userStatus.subscribe((value) => {
+    this.isLogged = value;
+  });
+
+  constructor(public userService: UserService) { }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy() {
+    this._subscription.unsubscribe();
   }
 
   toggleVisibleClass() {
