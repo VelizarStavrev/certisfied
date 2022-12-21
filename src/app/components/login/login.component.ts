@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../services/user.service';
+import { Login } from '../../interfaces/login';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -22,11 +25,25 @@ export class LoginComponent implements OnInit {
   formErrorMessage = 'Form error';
 
   onSubmit() {
-    console.log('username', this.username);
-    console.log('password', this.password);
+    this.formError = false;
+    
+    this.userService.userLogin(this.username, this.password)
+      .subscribe((data: Login) => {
+
+        if (!data.status) {
+          this.formError = true;
+          this.formErrorMessage = data.message;
+          return;
+        }
+
+        localStorage.setItem('token', data.token);
+        this.userService.setUserStatus();
+        // this.router.navigate(['/dashboard/certificates']);
+        this.router.navigate(['/']);
+      });
   }
 
-  constructor() { }
+  constructor(public userService: UserService, public router: Router) { }
 
   ngOnInit(): void {
   }
