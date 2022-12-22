@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Register } from '../interfaces/register';
 import { Login } from '../interfaces/login';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -13,8 +14,8 @@ export class UserService {
 
   userUrl = 'http://localhost:8000/user';
 
-  userRegister() {
-    // TO DO - add user register
+  userRegister(data: object) {
+    return this.http.post<Register>(this.userUrl + '/register', data);
   }
 
   userLogin(username: string, password: string) {
@@ -26,7 +27,7 @@ export class UserService {
     localStorage.removeItem('token');
     this.setUserStatus();
     this.router.navigate(['/login']);
-    
+
     // TO DO - add message
   }
 
