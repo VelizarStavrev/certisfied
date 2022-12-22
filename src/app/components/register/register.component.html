@@ -2,7 +2,6 @@
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <h1>Register</h1>
 
-        <!-- <div class={formSuccessDisplay ? "" : "hidden"}> -->
         <div>
             <label>E-mail</label>
             <input type="text" name="email" formControlName="email" />
@@ -10,6 +9,7 @@
                 <p *ngIf="email?.errors?.['required']" class="register-error">This field is required.</p>
                 <p *ngIf="email?.errors?.['email']" class="register-error">A valid e-mail is required.</p>
             </div>
+            <p *ngIf="emailExistsError" class="register-error">E-mail already exists!</p>
 
             <label>Username</label>
             <input type="text" name="username" formControlName="username" />
@@ -17,6 +17,7 @@
                 <p *ngIf="username?.errors?.['required']" class="register-error">This field is required.</p>
                 <p *ngIf="username?.errors?.['minlength']" class="register-error">A minimum length of 3 is required.</p>
             </div>
+            <p *ngIf="usernameExistsError" class="register-error">Username already exists!</p>
 
             <label>Password</label>
             <input type="password" name="password" formControlName="password" />
@@ -32,15 +33,9 @@
                 <p *ngIf="repassword?.errors?.['minlength']" class="register-error">A minimum length of 6 is required.</p>
             </div>
             
-            <app-button [buttonText]="buttonText" [buttonType]="buttonType" [buttonHTMLType]="buttonHTMLType" [buttonMarginTop]="buttonMarginTop"></app-button>
+            <app-button [buttonDisabled]="!registerForm.valid" [buttonText]="buttonText" [buttonType]="buttonType" [buttonHTMLType]="buttonHTMLType" [buttonMarginTop]="buttonMarginTop"></app-button>
             <p *ngIf="formError" class="register-error">An error occured.</p>
             <app-button-link [buttonText]="buttonTextLink" [buttonType]="buttonTypeLink" [buttonLink]="buttonLink" [buttonMarginTop]="buttonMarginTop"></app-button-link>
         </div>
-
-        <!-- <div class={"register-success " + (formSuccessDisplay ? "hidden" : "")}>
-            <img src={successIcon} alt="" />
-            
-            <p>You have successfully registered a new user!</p>
-        </div> -->
     </form>
 </div>
