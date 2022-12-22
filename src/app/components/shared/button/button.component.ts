@@ -13,6 +13,7 @@ export class ButtonComponent implements OnInit {
   @Input() buttonMarginBottom = ''; // decorate the property with @Input()
   @Input() buttonMarginLeft = ''; // decorate the property with @Input()
   @Input() buttonMarginRight = ''; // decorate the property with @Input()
+  @Input() buttonDisabled = false; // decorate the property with @Input()
   @Input() buttonFunc = () => {}; // decorate the property with @Input()
   buttonClasses = '';
 
