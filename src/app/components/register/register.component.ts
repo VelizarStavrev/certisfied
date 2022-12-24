@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { Register } from 'src/app/interfaces/register';
 import { Router } from '@angular/router';
+import { MessageService } from 'src/app/services/message.service';
 
 @Component({
   selector: 'app-register',
@@ -46,7 +47,9 @@ export class RegisterComponent implements OnInit {
       this.userService.userRegister(this.registerForm.value)
         .subscribe((data: Register) => {
           if (data.status) {
-            // TO DO - add message
+            // Add a message for successful registration
+            this.messageService.setMessage({type: 'message-success', message: 'Successfully logged in.'});
+
             // TO DO - hide loader
 
             this.router.navigate(['/login']);
@@ -68,8 +71,10 @@ export class RegisterComponent implements OnInit {
           }
 
           this.formError = true;
-          console.log(this.emailExistsError);
-          // TO DO - add message
+
+          // Add an error message for unsuccessful registration
+          this.messageService.setMessage({type: 'message-success', message: 'An error occured.'});
+
           // TO DO - hide loader
         });
       return;
@@ -79,7 +84,7 @@ export class RegisterComponent implements OnInit {
     this.formError = true;
   }
 
-  constructor(public userService: UserService, public router: Router) { }
+  constructor(public userService: UserService, public router: Router, public messageService: MessageService) { }
 
   ngOnInit(): void {
   }
