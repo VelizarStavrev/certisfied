@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Login } from '../../interfaces/login';
 import { Router } from '@angular/router';
+import { MessageService } from 'src/app/services/message.service';
 
 @Component({
   selector: 'app-login',
@@ -40,10 +41,13 @@ export class LoginComponent implements OnInit {
         this.userService.setUserStatus();
         // this.router.navigate(['/dashboard/certificates']);
         this.router.navigate(['/']);
+
+        // Add a message for successful login
+        this.messageService.setMessage({type: 'message-success', message: 'Successfully logged in.'});
       });
   }
 
-  constructor(public userService: UserService, public router: Router) { }
+  constructor(public userService: UserService, public router: Router, public messageService: MessageService) { }
 
   ngOnInit(): void {
   }
