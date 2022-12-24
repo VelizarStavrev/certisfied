@@ -23,11 +23,11 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this._subscription.unsubscribe();
   }
 
-  toggleVisibleClass() {
+  toggleVisibleClass(): void {
     this.isVisible = !this.isVisible;
 
     if (this.isVisible) {

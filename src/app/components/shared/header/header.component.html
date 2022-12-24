@@ -23,9 +23,15 @@
                 </li>
             </ng-container>
 
-            <li *ngIf="isLogged">
-                <a routerLink="/profile" routerLinkActive="active">Profile</a>
-            </li>
+            <ng-container *ngIf="isLogged">
+                <li>
+                    <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+                </li>
+    
+                <li>
+                    <a routerLink="/profile" routerLinkActive="active">Profile</a>
+                </li>
+            </ng-container>
 
             <li>
                 <a routerLink="/verify" routerLinkActive="active">Verify</a>
