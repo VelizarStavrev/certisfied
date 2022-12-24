@@ -4,6 +4,7 @@ import { UserService } from 'src/app/services/user.service';
 import { Register } from 'src/app/interfaces/register';
 import { Router } from '@angular/router';
 import { MessageService } from 'src/app/services/message.service';
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-register',
@@ -40,7 +41,8 @@ export class RegisterComponent implements OnInit {
     this.emailExistsError = false;
     this.usernameExistsError = false;
 
-    // TO DO - Start the loader
+    // Show the loader
+    this.loaderService.showLoader(true);
 
     // Send the form if it is valid
     if (this.registerForm.valid) {
@@ -50,9 +52,10 @@ export class RegisterComponent implements OnInit {
             // Add a message for successful registration
             this.messageService.setMessage({type: 'message-success', message: 'Successfully logged in.'});
 
-            // TO DO - hide loader
-
             this.router.navigate(['/login']);
+
+            // Hide the loader
+            this.loaderService.showLoader(false);
             return;
           }
 
@@ -73,9 +76,10 @@ export class RegisterComponent implements OnInit {
           this.formError = true;
 
           // Add an error message for unsuccessful registration
-          this.messageService.setMessage({type: 'message-success', message: 'An error occured.'});
+          this.messageService.setMessage({type: 'message-error', message: 'An error occured.'});
 
-          // TO DO - hide loader
+          // Hide the loader
+          this.loaderService.showLoader(false);
         });
       return;
     }
@@ -84,7 +88,12 @@ export class RegisterComponent implements OnInit {
     this.formError = true;
   }
 
-  constructor(public userService: UserService, public router: Router, public messageService: MessageService) { }
+  constructor(
+    public userService: UserService, 
+    public router: Router, 
+    public messageService: MessageService,
+    public loaderService: LoaderService
+  ) { }
 
   ngOnInit(): void {
   }
