@@ -33,9 +33,26 @@
                 <p *ngIf="repassword?.errors?.['minlength']" class="register-error">A minimum length of 6 is required.</p>
             </div>
             
-            <app-button [buttonDisabled]="!registerForm.valid" [buttonText]="buttonText" [buttonType]="buttonType" [buttonHTMLType]="buttonHTMLType" [buttonMarginTop]="buttonMarginTop"></app-button>
+            <app-button 
+                [buttonDisabled]="!registerForm.valid" 
+                [buttonText]="buttonText" 
+                [buttonType]="buttonType" 
+                [buttonHTMLType]="buttonHTMLType" 
+                [buttonMarginTop]="buttonMarginTop"
+                [buttonWidth80]="buttonWidth80"
+            >
+            </app-button>
+
             <p *ngIf="formError" class="register-error">An error occured.</p>
-            <app-button-link [buttonText]="buttonTextLink" [buttonType]="buttonTypeLink" [buttonLink]="buttonLink" [buttonMarginTop]="buttonMarginTop"></app-button-link>
+            
+            <app-button-link
+                [buttonText]="buttonTextLink"
+                [buttonType]="buttonTypeLink"
+                [buttonLink]="buttonLink"
+                [buttonMarginTop]="buttonMarginTop"
+                [buttonWidth80]="buttonTextLinkWidth80"
+            >
+            </app-button-link>
         </div>
     </form>
 </div>

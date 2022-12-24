@@ -15,10 +15,12 @@ export class RegisterComponent implements OnInit {
   buttonText: string = 'Register';
   buttonType: string = 'Primary';
   buttonHTMLType: string = 'submit';
-  buttonMarginTop: string = 'true';
+  buttonMarginTop: boolean = true;
+  buttonWidth80: boolean = true;
   buttonLink: string = '/login';
   buttonTypeLink: string = 'Secondary';
   buttonTextLink: string = 'Login';
+  buttonTextLinkWidth80: boolean = true;
 
   registerForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
