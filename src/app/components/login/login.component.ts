@@ -14,13 +14,15 @@ export class LoginComponent implements OnInit {
   buttonText: string = 'Login';
   buttonType: string = 'Primary';
   buttonHTMLType: string = 'submit';
-  buttonMarginTop: string = 'true';
+  buttonMarginTop: boolean = true;
+  buttonWidth80: boolean = true;
   buttonLink: string = '/password-reset';
   buttonTypeLink: string = 'Link';
   buttonTextLink: string = 'Forgotten password?';
   buttonLinkSecond: string = '/register';
   buttonTypeLinkSecond: string = 'Secondary';
   buttonTextLinkSecond: string = 'Register';
+  buttonTextLinkSecondWidth80: boolean = true;
   username: string = '';
   password: string = '';
   formError: boolean = false;
