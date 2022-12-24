@@ -12,6 +12,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ButtonComponent } from './components/shared/button/button.component';
 import { ButtonLinkComponent } from './components/shared/button-link/button-link.component';
 import { RegisterComponent } from './components/register/register.component';
+import { MessageComponent } from './components/shared/message/message.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { RegisterComponent } from './components/register/register.component';
     LoginComponent,
     ButtonComponent,
     ButtonLinkComponent,
-    RegisterComponent
+    RegisterComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
