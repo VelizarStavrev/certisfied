@@ -4,13 +4,14 @@ import { Register } from '../interfaces/register';
 import { Login } from '../interfaces/login';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { MessageService } from './message.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private http: HttpClient, public router: Router) { }
+  constructor(private http: HttpClient, public router: Router, public messageService: MessageService) { }
 
   userUrl = 'http://localhost:8000/user';
 
@@ -28,7 +29,8 @@ export class UserService {
     this.setUserStatus();
     this.router.navigate(['/login']);
 
-    // TO DO - add message
+    // Add a message for successful logout
+    this.messageService.setMessage({type: 'message-success', message: 'Successfully logged out.'});
   }
 
   // Allow the user status to be subscribed to
