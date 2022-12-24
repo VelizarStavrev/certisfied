@@ -9,10 +9,11 @@ export class ButtonLinkComponent implements OnInit {
   @Input() buttonText: string = 'Click'; // decorate the property with @Input()
   @Input() buttonType: string = 'Primary'; // decorate the property with @Input()
   @Input() buttonLink: string = ''; // decorate the property with @Input()
-  @Input() buttonMarginTop: string = ''; // decorate the property with @Input()
-  @Input() buttonMarginBottom: string = ''; // decorate the property with @Input()
-  @Input() buttonMarginLeft: string = ''; // decorate the property with @Input()
-  @Input() buttonMarginRight: string = ''; // decorate the property with @Input()
+  @Input() buttonMarginTop: boolean = false; // decorate the property with @Input()
+  @Input() buttonMarginBottom: boolean = false; // decorate the property with @Input()
+  @Input() buttonMarginLeft: boolean = false; // decorate the property with @Input()
+  @Input() buttonMarginRight: boolean = false; // decorate the property with @Input()
+  @Input() buttonWidth80: boolean = false; // decorate the property with @Input()
   @Input() buttonFunc = () => { }; // decorate the property with @Input()
   buttonClasses: string[] = [];
 
@@ -50,6 +51,10 @@ export class ButtonLinkComponent implements OnInit {
 
     if (this.buttonMarginRight) {
       this.buttonClasses.push('button-margin-right');
+    }
+
+    if (this.buttonWidth80) {
+      this.buttonClasses.push('button-width-80');
     }
   }
 }
