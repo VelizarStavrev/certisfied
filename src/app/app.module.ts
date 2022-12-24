@@ -13,6 +13,7 @@ import { ButtonComponent } from './components/shared/button/button.component';
 import { ButtonLinkComponent } from './components/shared/button-link/button-link.component';
 import { RegisterComponent } from './components/register/register.component';
 import { MessageComponent } from './components/shared/message/message.component';
+import { LoaderComponent } from './components/shared/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { MessageComponent } from './components/shared/message/message.component'
     ButtonComponent,
     ButtonLinkComponent,
     RegisterComponent,
-    MessageComponent
+    MessageComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
