@@ -12,7 +12,7 @@ export class MessageComponent implements OnInit {
     this.currentMessages = value;
   });
 
-  removeMessage(index: number) {
+  removeMessage(index: number): void {
     this.currentMessages.splice(index, 1);
   }
 
@@ -21,7 +21,7 @@ export class MessageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this._subscription.unsubscribe();
   }
   
