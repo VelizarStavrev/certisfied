@@ -14,6 +14,7 @@ import { ButtonLinkComponent } from './components/shared/button-link/button-link
 import { RegisterComponent } from './components/register/register.component';
 import { MessageComponent } from './components/shared/message/message.component';
 import { LoaderComponent } from './components/shared/loader/loader.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { LoaderComponent } from './components/shared/loader/loader.component';
     ButtonLinkComponent,
     RegisterComponent,
     MessageComponent,
-    LoaderComponent
+    LoaderComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

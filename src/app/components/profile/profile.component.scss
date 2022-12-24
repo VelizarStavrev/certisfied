@@ -1,0 +1,17 @@
+.profile-container {
+    max-width: 1040px;
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    width: 100%;
+    align-items: center;
+
+    .profile-button-container {
+        margin: 20px 0;
+        
+        .active {
+            background-color: var(--secondary-color);
+            color: var(--main-color);
+        }
+    }
+}
