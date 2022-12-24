@@ -19,7 +19,7 @@ export class LoaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this._subscription.unsubscribe();
   }
   
