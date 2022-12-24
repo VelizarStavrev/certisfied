@@ -11,22 +11,22 @@ import { LoaderService } from 'src/app/services/loader.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  buttonText = 'Login';
-  buttonType = 'Primary';
-  buttonHTMLType = 'submit';
-  buttonMarginTop = 'true';
-  buttonLink = '/password-reset';
-  buttonTypeLink = 'Link';
-  buttonTextLink = 'Forgotten password?';
-  buttonLinkSecond = '/register';
-  buttonTypeLinkSecond = 'Secondary';
-  buttonTextLinkSecond = 'Register';
-  username = '';
-  password = '';
-  formError = false;
-  formErrorMessage = 'Form error';
+  buttonText: string = 'Login';
+  buttonType: string = 'Primary';
+  buttonHTMLType: string = 'submit';
+  buttonMarginTop: string = 'true';
+  buttonLink: string = '/password-reset';
+  buttonTypeLink: string = 'Link';
+  buttonTextLink: string = 'Forgotten password?';
+  buttonLinkSecond: string = '/register';
+  buttonTypeLinkSecond: string = 'Secondary';
+  buttonTextLinkSecond: string = 'Register';
+  username: string = '';
+  password: string = '';
+  formError: boolean = false;
+  formErrorMessage: string = 'Form error';
 
-  onSubmit() {
+  onSubmit(): void {
     // Remove the form errors
     this.formError = false;
     
@@ -45,8 +45,7 @@ export class LoginComponent implements OnInit {
 
         localStorage.setItem('token', data.token);
         this.userService.setUserStatus();
-        // this.router.navigate(['/dashboard/certificates']);
-        this.router.navigate(['/']);
+        this.router.navigate(['/dashboard/certificates']);
 
         // Add a message for successful login
         this.messageService.setMessage({type: 'message-success', message: 'Successfully logged in.'});
