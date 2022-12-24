@@ -6,51 +6,51 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./button.component.scss']
 })
 export class ButtonComponent implements OnInit {
-  @Input() buttonText = 'Click'; // decorate the property with @Input()
-  @Input() buttonType = 'Primary'; // decorate the property with @Input()
-  @Input() buttonHTMLType = 'button'; // decorate the property with @Input()
-  @Input() buttonMarginTop = ''; // decorate the property with @Input()
-  @Input() buttonMarginBottom = ''; // decorate the property with @Input()
-  @Input() buttonMarginLeft = ''; // decorate the property with @Input()
-  @Input() buttonMarginRight = ''; // decorate the property with @Input()
-  @Input() buttonDisabled = false; // decorate the property with @Input()
+  @Input() buttonText: string = 'Click'; // decorate the property with @Input()
+  @Input() buttonType: string = 'Primary'; // decorate the property with @Input()
+  @Input() buttonHTMLType: string = 'button'; // decorate the property with @Input()
+  @Input() buttonMarginTop: string = ''; // decorate the property with @Input()
+  @Input() buttonMarginBottom: string = ''; // decorate the property with @Input()
+  @Input() buttonMarginLeft: string = ''; // decorate the property with @Input()
+  @Input() buttonMarginRight: string = ''; // decorate the property with @Input()
+  @Input() buttonDisabled: boolean = false; // decorate the property with @Input()
   @Input() buttonFunc = () => {}; // decorate the property with @Input()
-  buttonClasses = '';
+  buttonClasses: string[] = ['button-base'];
 
   constructor() { }
 
   ngOnInit(): void {
     switch (this.buttonType) {
         case 'Primary':
-            this.buttonClasses = 'button-base button-primary';
+            this.buttonClasses.push('button-primary');
             break;
 
         case 'Secondary':
-            this.buttonClasses = 'button-base button-secondary';
+            this.buttonClasses.push('button-secondary');
             break;
 
         case 'Error':
-            this.buttonClasses = 'button-base button-error';
+            this.buttonClasses.push('button-error');
             break;
 
         default:
-            this.buttonClasses = 'button-base button-primary';
+            this.buttonClasses.push('button-primary');
     }
 
     if (this.buttonMarginTop) {
-        this.buttonClasses += ' button-margin-top';
+        this.buttonClasses.push('button-margin-top');
     }
 
     if (this.buttonMarginBottom) {
-        this.buttonClasses += ' button-margin-bottom';
+        this.buttonClasses.push('button-margin-bottom');
     }
 
     if (this.buttonMarginLeft) {
-        this.buttonClasses += ' button-margin-left';
+        this.buttonClasses.push('button-margin-left');
     }
 
     if (this.buttonMarginRight) {
-        this.buttonClasses += ' button-margin-right';
+        this.buttonClasses.push('button-margin-right');
     }
   }
 }
