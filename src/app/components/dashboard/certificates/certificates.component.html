@@ -1,0 +1,60 @@
+<div class="dashboard-container">
+    <div class="dashboard-search-and-nav">
+        <input class="dashboard-search" placeholder="Search . . ." />
+
+        <app-button-link [buttonText]="buttonNewTextLink" [buttonType]="buttonNewTypeLink" [buttonLink]="buttonNewLink" [buttonMarginLeft]="buttonNewMarginLeft"></app-button-link>
+        <app-button-link [buttonText]="buttonOtherTextLink" [buttonType]="buttonOtherTypeLink" [buttonLink]="buttonOtherLink" [buttonMarginLeft]="buttonNewMarginLeft"></app-button-link>
+    </div>
+
+    <table class="dashboard-table">
+        <thead>
+            <tr>
+                <th colspan="5" class="dashboard-table-header">YOUR CERTIFICATES</th>
+            </tr>
+
+            <tr>
+                <th class="dashboard-table-number">№</th>
+                <th class="dashboard-table-name">Name</th>
+                <th class="dashboard-table-template">Template used</th>
+                <th class="dashboard-table-created">Date created</th>
+                <th class="dashboard-table-actions">Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let certificate of certificates; index as i;">
+                <td class="dashboard-table-number">{{ i + 1 }}</td>
+                <td class="dashboard-table-name">{{ certificate?.name }}</td>
+                <td class="dashboard-table-template">{{ certificate?.template_name }}</td>
+                <td class="dashboard-table-created">{{ certificate?.created }}</td>
+                <td class="dashboard-table-actions">
+                    <a class="dashboard-actions-button-link dashboard-actions-item" routerLink="/certificate/{{certificate?.id}}">
+                        <img [src]="viewIcon" alt="View" />
+                    </a>
+
+                    <a class="dashboard-actions-button-link dashboard-actions-item" routerLink="/dashboard/certificate/edit/{{certificate?.id}}">
+                        <img [src]="editIcon" alt="Edit" />
+                    </a>
+
+                    <button type="button" class="dashboard-actions-item" (click)="deleteCertificate(i)">
+                        <img [src]="deleteIcon" alt="Delete" />
+                    </button>
+                </td>
+            </tr>
+
+            <tr *ngIf="!certificates.length" class="dashboard-table-message" colspan="5">
+                <td colspan="5">No certificates were found.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <app-button 
+        *ngIf="remainingCertificates.length > 0"
+        [buttonText]="buttonText" 
+        [buttonType]="buttonType" 
+        [buttonHTMLType]="buttonHTMLType" 
+        [buttonMarginBottom]="buttonMarginBottom"
+        (click)="loadMoreCertificates()"
+    >
+    </app-button>
+</div>
