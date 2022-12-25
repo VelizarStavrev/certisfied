@@ -5,6 +5,7 @@ import { Login } from '../interfaces/login';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { MessageService } from './message.service';
+import { variables } from '../variables';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class UserService {
 
   constructor(private http: HttpClient, public router: Router, public messageService: MessageService) { }
 
-  userUrl = 'http://localhost:8000/user';
+  userUrl = variables.serverURL + '/user';
 
   userRegister(data: object) {
     return this.http.post<Register>(this.userUrl + '/register', data);
@@ -40,5 +41,10 @@ export class UserService {
     const currentUserStatus = !!localStorage.getItem('token');
     this.userStatus.next(currentUserStatus);
     return currentUserStatus;
+  }
+
+  getUserToken(): string | null {
+    const currentUserToken: string | null = localStorage.getItem('token');
+    return currentUserToken;
   }
 }
