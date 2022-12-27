@@ -16,6 +16,7 @@ import { MessageComponent } from './components/shared/message/message.component'
 import { LoaderComponent } from './components/shared/loader/loader.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CertificatesComponent } from './components/dashboard/certificates/certificates.component';
+import { TemplatesComponent } from './components/dashboard/templates/templates.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { CertificatesComponent } from './components/dashboard/certificates/certi
     MessageComponent,
     LoaderComponent,
     ProfileComponent,
-    CertificatesComponent
+    CertificatesComponent,
+    TemplatesComponent
   ],
   imports: [
     BrowserModule,
