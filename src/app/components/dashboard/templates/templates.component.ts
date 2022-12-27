@@ -3,7 +3,7 @@ import { TemplateService } from 'src/app/services/template.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { MessageService } from 'src/app/services/message.service';
 import { Templates } from 'src/app/interfaces/templates';
-import { Template } from 'src/app/interfaces/template';
+import { TemplateInTemplates } from 'src/app/interfaces/templateInTemplates';
 
 @Component({
   selector: 'app-templates',
@@ -26,8 +26,8 @@ export class TemplatesComponent implements OnInit {
   viewIcon: string = '../../../../assets/icons/view.svg';
   editIcon: string = '../../../../assets/icons/edit.svg';
   deleteIcon: string = '../../../../assets/icons/delete.svg';
-  templates: {name: string, created: string, id: string}[] = [];
-  remainingTemplates: {name: string, created: string, id: string}[] = [];
+  templates: TemplateInTemplates[] = [];
+  remainingTemplates: TemplateInTemplates[] = [];
   templateLimit: number = 15;
 
   constructor(public templateService: TemplateService, public loaderService: LoaderService, public messageService: MessageService) { }
@@ -40,13 +40,13 @@ export class TemplatesComponent implements OnInit {
     this.templateService.getTemplates()
       .subscribe((data: Templates) => {
         if (data.status) {
-          const templatesToShow: Template[] = [];
-          const dataArray: Template[] = structuredClone(data.data);
+          const templatesToShow: TemplateInTemplates[] = [];
+          const dataArray: TemplateInTemplates[] = structuredClone(data.data);
 
           const loopLimit: number = dataArray.length > this.templateLimit ? this.templateLimit : dataArray.length;
           
           for (let i = 0; i < loopLimit; i++) {
-            const currentTemplate: Template | undefined = dataArray?.shift();
+            const currentTemplate: TemplateInTemplates | undefined = dataArray?.shift();
             currentTemplate ? templatesToShow.push(currentTemplate) : '';
           }
 
@@ -70,8 +70,8 @@ export class TemplatesComponent implements OnInit {
   }
 
   loadMoreTemplates(): void {
-    const templatesToShow: Template[] = [...this.templates];
-    const templatesToRemain: Template[] = [...this.remainingTemplates];
+    const templatesToShow: TemplateInTemplates[] = [...this.templates];
+    const templatesToRemain: TemplateInTemplates[] = [...this.remainingTemplates];
 
     const loopLimit: number = templatesToRemain.length > this.templateLimit ? this.templateLimit : templatesToRemain.length;
 
