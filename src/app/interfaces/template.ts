@@ -1,5 +1,11 @@
 export interface Template {
-    name: string, 
-    created: string, 
-    id: string
+    data: {
+        id: string,
+        name: string, 
+        created: string, 
+        edited: string, 
+        notes: string
+    },
+    message: string,
+    status: boolean
 }
