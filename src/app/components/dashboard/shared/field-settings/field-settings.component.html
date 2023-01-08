@@ -1,0 +1,101 @@
+<div id="field-settings" [ngClass]="{'template-certificate-field-list': true, 'template-certificate-field-settings': true, 'hidden': visibility}">
+    <div class="template-certificate-field-list-header">
+        Settings
+    </div>
+
+    <div class="template-certificate-field-list-content">
+        <div *ngFor="let data of currentFieldData?.properties; index as i" 
+            [ngClass]="{
+                'template-certificate-field-settings': true,
+                'template-certificate-field-settings-colors': data.type === 'color', 
+                'template-certificate-field-settings-upload': data.type === 'upload'
+            }"
+        >
+            <label>{{data.label}}</label>
+
+            <ng-container [ngSwitch]="data.type">
+                <ng-container *ngSwitchCase="'text'">
+                    <!-- If has unit -->
+                    <ng-container *ngIf="data.unit; else noUnit">
+                        <!-- If has units -->
+                        <ng-container *ngIf="data.units; else oneUnit">
+                            <div class="template-certificate-field-settings-input-with-unit template-certificate-field-settings-input-with-unit-selectable">
+                                <input type="text" [value]="data.value" (keyup)="updateField(data.name, $event, '', i)" />
+
+                                <ng-container *ngFor="let unit of data.units">
+                                    <div 
+                                        (click)="updateFieldUnit(data.name, unit, i)" 
+                                        [ngClass]="{
+                                            'template-certificate-field-settings-unit': true, 
+                                            'template-certificate-field-settings-unit-active': data.unit === unit
+                                        }"
+                                    >
+                                        {{unit}}
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </ng-container>
+
+                        <!-- Else -->
+                        <ng-template #oneUnit>
+                            <div class="template-certificate-field-settings-input-with-unit">
+                                <input type="text" [value]="data.value" (keyup)="updateField(data.name, $event, '', i)" />
+                                <div class="template-certificate-field-settings-unit">{{data.unit}}</div>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+
+                    <!-- Else -->
+                    <ng-template #noUnit>
+                        <input type="text" [value]="data.value" (keyup)="updateField(data.name, $event, '', i)" />
+                    </ng-template>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'select'">
+                    <select [value]="data.value" (change)="updateField(data.name, $event, '', i)">
+                        <option *ngFor="let option of data.options" [value]="option">{{option}}</option>
+                    </select>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'boolean'">
+                    <div class="template-certificate-field-settings-boolean-container">
+                        <label for="true-bool" [ngClass]="{'template-certificate-field-settings-boolean-active': data.value === '1'}">
+                            <input type="radio" name="true-bool" id="true-bool" [checked]="data.value === '1'" (change)="updateField(data.name, $event, '1', i)" />
+                            True
+                        </label>
+
+                        <label for="false-bool" [ngClass]="{'template-certificate-field-settings-boolean-active': !(data.value === '1')}">
+                            <input type="radio" name="false-bool" id="false-bool" [checked]="!(data.value === '1')" (change)="updateField(data.name, $event, '0', i)" />
+                            False
+                        </label>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'color'">
+                    <input type="color" [value]="data.value" (change)="updateField(data.name, $event, '', i)" />
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'upload'">
+                    <label class="button-base button-secondary template-certificate-field-settings-upload-button" for="upload">
+                        Upload 
+                        <img src={{arrowIcon}} alt="" />
+                    </label>
+
+                    <input id="upload" type="file" accept=".jpeg, .jpg, .png" (change)="updateField(data.name, $event, '', i)" />
+                </ng-container>
+            </ng-container>
+        </div>
+        
+        <p *ngIf="!currentFieldData?.properties" class="template-certificate-field-text">An error occured.</p>
+    </div>
+
+    <div class="template-certificate-field-list-button">
+        <app-button 
+            [buttonText]="buttonText" 
+            [buttonType]="buttonType" 
+            [buttonHTMLType]="buttonHTMLType" 
+            (click)="hideFieldSettingsMenu()"
+        >
+        </app-button>
+    </div>
+</div>
