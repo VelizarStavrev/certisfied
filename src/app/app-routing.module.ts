@@ -6,6 +6,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CertificatesComponent } from './components/dashboard/certificates/certificates.component';
 import { TemplatesComponent } from './components/dashboard/templates/templates.component';
+import { TemplateComponent } from './components/dashboard/template/template.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -20,6 +21,10 @@ const routes: Routes = [
     children: [
       { path: 'certificates', component: CertificatesComponent },
       { path: 'templates', component: TemplatesComponent },
+      { path: 'template', children: [
+        { path: 'edit/:id', component: TemplateComponent },
+        { path: 'new', component: TemplateComponent },
+      ]},
     ]
   },
 

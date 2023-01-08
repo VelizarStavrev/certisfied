@@ -17,6 +17,11 @@ import { LoaderComponent } from './components/shared/loader/loader.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CertificatesComponent } from './components/dashboard/certificates/certificates.component';
 import { TemplatesComponent } from './components/dashboard/templates/templates.component';
+import { TemplateComponent } from './components/dashboard/template/template.component';
+import { FieldListComponent } from './components/dashboard/shared/field-list/field-list.component';
+import { FieldAddComponent } from './components/dashboard/shared/field-add/field-add.component';
+import { TimestampToDatePipe } from './pipes/timestamp-to-date.pipe';
+import { FieldSettingsComponent } from './components/dashboard/shared/field-settings/field-settings.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +37,12 @@ import { TemplatesComponent } from './components/dashboard/templates/templates.c
     LoaderComponent,
     ProfileComponent,
     CertificatesComponent,
-    TemplatesComponent
+    TemplatesComponent,
+    TemplateComponent,
+    FieldListComponent,
+    FieldAddComponent,
+    TimestampToDatePipe,
+    FieldSettingsComponent
   ],
   imports: [
     BrowserModule,
