@@ -1,0 +1,29 @@
+<div class="template-certificate-field-list">
+    <div class="template-certificate-field-list-header">
+        Fields
+    </div>
+
+    <div id="field-list" class="template-certificate-field-list-content">
+        <div 
+            *ngFor="let field of listArray;" 
+            [ngClass]="{'template-certificate-field': true, 'template-certificate-field-active': listActiveIndex === field.id}"
+        >
+            {{ field.type }}
+
+            <div class="template-certificate-field-buttons">
+                <button type="button" class="button-edit" (click)="buttonEditClickIndex(field.id)"><img [src]="editIcon" alt="Edit" /></button>
+                <button type="button" class="button-delete" (click)="buttonDeleteClickIndex(field.id)"><img [src]="deleteIcon" alt="Delete" /></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="template-certificate-field-list-button">
+        <app-button 
+            [buttonText]="buttonAddFieldText" 
+            [buttonType]="buttonAddFieldType" 
+            [buttonHTMLType]="buttonAddFieldHTMLType" 
+            (click)="buttonAddClick()"
+        >
+        </app-button>
+    </div>
+</div>
