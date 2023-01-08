@@ -1,0 +1,83 @@
+.template-certificate-field-list {
+    width: 165px;
+    box-shadow: 2px 2px 5px rgba(8,14,20,0.15);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+
+    &.template-certificate-field-menu {
+        align-self: flex-end;
+    }
+    
+    &.hidden {
+        display: none;
+    }
+    
+    .template-certificate-field-list-header {
+        text-transform: uppercase;
+        font-weight: bold;
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid lightgray;
+    }
+    
+    .template-certificate-field-list-content {
+        border-bottom: 1px solid lightgray;
+        height: 100%;
+        overflow: auto;
+        
+        .template-certificate-field {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid lightgray;
+    
+            &:last-child {
+                border-bottom: none;
+            }
+    
+            button {
+                height: 16px;
+                width: 16px;
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+            
+                &:last-child {
+                    margin-left: 5px;
+                }
+                
+                img {
+                    height: 16px;
+                    width: 16px;
+                    pointer-events: none;
+                }
+            }
+        }
+        
+        .template-certificate-field-text {
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .template-certificate-field-active {
+            background-color: #000000;
+            color: #FFFFFF;
+        
+            button {
+                pointer-events: none;
+            }
+        }
+        
+        .template-certificate-field-clickable:hover {
+            background-color: #000000;
+            color: #FFFFFF;
+            cursor: pointer;
+        }
+    }
+    
+    .template-certificate-field-list-button {
+        padding: 10px;
+        text-align: center;
+    }
+}
