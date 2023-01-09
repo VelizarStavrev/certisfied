@@ -1,5 +1,5 @@
 export interface TemplateInTemplates {
     name: string, 
-    created: string, 
+    created: number, 
     id: string
 }

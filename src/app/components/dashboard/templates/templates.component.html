@@ -23,18 +23,18 @@
         <tbody>
             <tr *ngFor="let template of templates; index as i;">
                 <td class="dashboard-table-number">{{ i + 1 }}</td>
-                <td class="dashboard-table-name">{{ template?.name }}</td>
-                <td class="dashboard-table-created">{{ template?.created }}</td>
+                <td class="dashboard-table-name">{{ template.name }}</td>
+                <td class="dashboard-table-created">{{ template.created | timestampToDate }}</td>
                 <td class="dashboard-table-actions">
-                    <a class="dashboard-actions-button-link dashboard-actions-item" routerLink="/dashboard/template/{{template?.id}}">
+                    <a class="dashboard-actions-button-link dashboard-actions-item" routerLink="/dashboard/template/{{template.id}}">
                         <img [src]="viewIcon" alt="View" />
                     </a>
 
-                    <a class="dashboard-actions-button-link dashboard-actions-item" routerLink="/dashboard/template/edit/{{template?.id}}">
+                    <a class="dashboard-actions-button-link dashboard-actions-item" routerLink="/dashboard/template/edit/{{template.id}}">
                         <img [src]="editIcon" alt="Edit" />
                     </a>
 
-                    <button type="button" class="dashboard-actions-item" (click)="deleteTemplate(i)">
+                    <button type="button" class="dashboard-actions-item" (click)="deleteTemplate(template.id, i)">
                         <img [src]="deleteIcon" alt="Delete" />
                     </button>
                 </td>

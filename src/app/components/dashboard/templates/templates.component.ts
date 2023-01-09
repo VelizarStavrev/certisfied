@@ -4,6 +4,8 @@ import { LoaderService } from 'src/app/services/loader.service';
 import { MessageService } from 'src/app/services/message.service';
 import { Templates } from 'src/app/interfaces/templates';
 import { TemplateInTemplates } from 'src/app/interfaces/templateInTemplates';
+import { Template } from 'src/app/interfaces/template';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-templates',
@@ -30,7 +32,11 @@ export class TemplatesComponent implements OnInit {
   remainingTemplates: TemplateInTemplates[] = [];
   templateLimit: number = 15;
 
-  constructor(public templateService: TemplateService, public loaderService: LoaderService, public messageService: MessageService) { }
+  constructor(public templateService: TemplateService, 
+    public loaderService: LoaderService, 
+    public messageService: MessageService,
+    public router: Router
+  ) { }
 
   ngOnInit(): void {
     // Show the loader
@@ -86,14 +92,30 @@ export class TemplatesComponent implements OnInit {
     this.messageService.setMessage({type: 'message-success', message: 'More templates loaded successfully!'});
   }
 
-  deleteTemplate(i: number): void {
-    // TO DO
-    console.log('Delete certificate ' + i);
-    // Get a new list
-    // Show a loader
-    // Hide a loader
-    // Show a message
-    // Realod the list
+  deleteTemplate(templateId: string, templateIndex: number): void {
+    // Show the loader
+    this.loaderService.showLoader(true);
+    
+    this.templateService.deleteTemplate(templateId)
+      .subscribe((data: Template) => {
+        if (data.status) {
+          // Remove the index from the array
+          this.templates.splice(templateIndex, 1);
+          
+          // Set a new message
+          this.messageService.setMessage({type: 'message-success', message: data.message});
+
+          // Hide the loader
+          this.loaderService.showLoader(false);
+          return;
+        }
+
+        // Add a success message
+        this.messageService.setMessage({type: 'message-error', message: data.message});
+
+        // Hide the loader
+        this.loaderService.showLoader(false);
+      });
   }
 
 }
