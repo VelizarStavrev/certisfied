@@ -26,8 +26,8 @@ export class CertificatesComponent implements OnInit {
   viewIcon: string = '../../../../assets/icons/view.svg';
   editIcon: string = '../../../../assets/icons/edit.svg';
   deleteIcon: string = '../../../../assets/icons/delete.svg';
-  certificates: {name: string, template_name: string, created: string, id: string}[] = [];
-  remainingCertificates: {name: string, template_name: string, created: string, id: string}[] = [];
+  certificates: Certificate[] = [];
+  remainingCertificates: Certificate[] = [];
   certificateLimit: number = 15;
 
   constructor(public certificateService: CertificateService, public loaderService: LoaderService, public messageService: MessageService) { }

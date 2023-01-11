@@ -24,9 +24,9 @@
         <tbody>
             <tr *ngFor="let certificate of certificates; index as i;">
                 <td class="dashboard-table-number">{{ i + 1 }}</td>
-                <td class="dashboard-table-name">{{ certificate?.name }}</td>
-                <td class="dashboard-table-template">{{ certificate?.template_name }}</td>
-                <td class="dashboard-table-created">{{ certificate?.created }}</td>
+                <td class="dashboard-table-name">{{ certificate.name }}</td>
+                <td class="dashboard-table-template">{{ certificate.template_name }}</td>
+                <td class="dashboard-table-created">{{ certificate.created | timestampToDate }}</td>
                 <td class="dashboard-table-actions">
                     <a class="dashboard-actions-button-link dashboard-actions-item" routerLink="/certificate/{{certificate?.id}}">
                         <img [src]="viewIcon" alt="View" />
