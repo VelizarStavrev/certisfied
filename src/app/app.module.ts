@@ -22,6 +22,7 @@ import { FieldListComponent } from './components/dashboard/shared/field-list/fie
 import { FieldAddComponent } from './components/dashboard/shared/field-add/field-add.component';
 import { TimestampToDatePipe } from './pipes/timestamp-to-date.pipe';
 import { FieldSettingsComponent } from './components/dashboard/shared/field-settings/field-settings.component';
+import { TemplateViewComponent } from './components/dashboard/template-view/template-view.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { FieldSettingsComponent } from './components/dashboard/shared/field-sett
     FieldListComponent,
     FieldAddComponent,
     TimestampToDatePipe,
-    FieldSettingsComponent
+    FieldSettingsComponent,
+    TemplateViewComponent
   ],
   imports: [
     BrowserModule,
