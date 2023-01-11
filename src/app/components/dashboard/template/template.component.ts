@@ -6,7 +6,7 @@ import { MessageService } from 'src/app/services/message.service';
 import { Template } from 'src/app/interfaces/template';
 import { Router } from '@angular/router';
 import { Field } from 'src/app/interfaces/field';
-import { Properties } from 'src/app/interfaces/properties';
+import { CertificateHelperService } from 'src/app/services/certificate-helper.service';
 
 @Component({
   selector: 'app-template',
@@ -104,11 +104,8 @@ export class TemplateComponent implements OnInit {
             this.templateNotes = receivedData.notes;
             this.setOrientation(receivedData.orientation);
 
-            // Update the field sorted array
-            this.updateFieldSortedArray();
-
-            // Update the field list styling
-            this.updateFieldListStyling();
+            // Update field structure and styling
+            this.updateFieldStructureAndStyling();
 
             // Add a success message
             this.messageService.setMessage({type: 'message-success', message: data.message});
@@ -222,6 +219,14 @@ export class TemplateComponent implements OnInit {
   currentFieldListSorted: Field[] = [];
   currentFieldListStyling: any[] = [];
 
+  updateFieldStructureAndStyling() {
+    // Update the field sorted array
+    this.currentFieldListSorted = this.certificateHelperService.updateFieldSortedArray(this.currentFieldList);
+
+    // Update the field list styling
+    this.currentFieldListStyling = this.certificateHelperService.updateFieldListStyling(this.currentFieldListSorted);
+  }
+
   // Add field menu
   currentFieldListActive: number | null = null;
   isFieldAddMenuHidden: boolean = true;
@@ -267,11 +272,8 @@ export class TemplateComponent implements OnInit {
     fieldList[fieldData.id] = fieldData;
     this.currentFieldList = fieldList;
 
-    // Update the field sorted array
-    this.updateFieldSortedArray();
-
-    // Update the field list styling
-    this.updateFieldListStyling();
+    // Update field structure and styling
+    this.updateFieldStructureAndStyling();
 
     // Hide the new field menu
     this.hideFieldAddMenu(true);
@@ -288,11 +290,8 @@ export class TemplateComponent implements OnInit {
     // Set the new field list structure
     this.currentFieldList = fieldList;
 
-    // Update the field sorted array
-    this.updateFieldSortedArray();
-
-    // Update the field list styling
-    this.updateFieldListStyling();
+    // Update field structure and styling
+    this.updateFieldStructureAndStyling();
   }
 
   updateField(fieldData: any) {
@@ -301,11 +300,8 @@ export class TemplateComponent implements OnInit {
     fieldList[fieldData.fieldId].properties[fieldData.fieldPropertyName].value = fieldData.fieldValue;
     this.currentFieldList = fieldList;
 
-    // Update the field sorted array
-    this.updateFieldSortedArray();
-
-    // Update the field list styling
-    this.updateFieldListStyling();
+    // Update field structure and styling
+    this.updateFieldStructureAndStyling();
 
     // Update the field data array
     this.currentFieldData ? this.currentFieldData.properties[fieldData.fieldIndex].value = fieldData.fieldValue : null;
@@ -317,11 +313,8 @@ export class TemplateComponent implements OnInit {
     fieldList[fieldData.fieldId].properties[fieldData.fieldPropertyName].unit = fieldData.fieldUnit;
     this.currentFieldList = fieldList;
 
-    // Update the field sorted array
-    this.updateFieldSortedArray();
-
-    // Update the field list styling
-    this.updateFieldListStyling();
+    // Update field structure and styling
+    this.updateFieldStructureAndStyling();
 
     // Update the field data array
     this.currentFieldData ? this.currentFieldData.properties[fieldData.fieldIndex].unit = fieldData.fieldUnit : null;
@@ -369,107 +362,8 @@ export class TemplateComponent implements OnInit {
     this.isFieldSettingsMenuHidden = false;
   }
 
-  sortFieldList(currentFieldListArray: any) {
-    currentFieldListArray.sort((a: any, b: any) => {
-        let firstValue = a[1]['properties']['zIndex'].value;
-        let secondValue = b[1]['properties']['zIndex'].value;
-
-        return secondValue - firstValue;
-    });
-
-    let currentFieldListSortedObject: any = {};
-
-    for (let fieldPair of currentFieldListArray) {
-        let currentKey = fieldPair[0];
-        let currentValue = fieldPair[1];
-
-        currentFieldListSortedObject[currentKey] = currentValue;
-    }
-
-    return currentFieldListSortedObject;
-  }
-
-  updateFieldSortedArray() {
-    // Convert to array and sort field list
-    let currentFieldListArray = Object.entries(this.currentFieldList);
-    let currentFieldListSortedObject = this.sortFieldList(currentFieldListArray);
-    this.currentFieldListSorted = currentFieldListSortedObject;
-
-    let currentFieldListSortedArray: any[] = [];
-    Object.entries(currentFieldListSortedObject).map(([key, value]) => {
-      currentFieldListSortedArray.push(value);
-    });
-
-    this.currentFieldListSorted = currentFieldListSortedArray;
-  }
-
   setFieldId(id: number | null) { 
     this.currentFieldListActive = id;
-  }
-
-  getFieldStyles(properties: Properties[]) {
-    let currentProperties = structuredClone(properties);
-
-    for (let property in currentProperties) {
-      if (['content', 'url', 'editable', 'autoGenerated', 'unit', 'units'].includes(property)) {
-        continue;
-      }
-
-      if (property === 'transform') {
-        currentProperties[property].value = 'rotate(' + currentProperties[property].value + 'deg)';
-      }
-
-      if (['left', 'top', 'maxWidth', 'fontSize', 'height', 'width'].includes(property)) {
-        currentProperties[property].value = currentProperties[property].value + currentProperties[property].unit;
-      }
-    }
-
-    let finalCSSObject: any = {};
-
-    for (let property in currentProperties) {
-        let currentCSSProperty = property;
-        let currentCSSValue = currentProperties[property].value;
-        finalCSSObject[currentCSSProperty] = currentCSSValue;
-    }
-
-    finalCSSObject['position'] = 'absolute';
-    return finalCSSObject;
-  }
-
-  updateFieldListStyling() {
-    // Set the field styles to an array
-    let fieldListStyling: any = [];
-
-    this.currentFieldListSorted.forEach((element: any) => {
-      let currentStyles: any = this.getFieldStyles(element.properties);
-      let currentFieldData: any = {
-        id: element.id,
-        template_id: element.template_id,
-        type: element.type,
-        styles: currentStyles
-      };
-
-      // Field specific data and styles
-      switch(element.type) {
-        case 'Text':
-          currentFieldData.content = element.properties.content.value;
-          currentFieldData.styles.width = '100%';
-          break;
-
-        case 'Image':
-          currentFieldData.url = element.properties.url.value;
-          break;
-
-        case 'Link':
-          currentFieldData.content = element.properties.content.value;
-          currentFieldData.url = element.properties.url.value;
-          break;
-      }
-
-      fieldListStyling.push(currentFieldData);
-    });
-
-    this.currentFieldListStyling = fieldListStyling;
   }
 
   // Drag functionality
@@ -501,11 +395,8 @@ export class TemplateComponent implements OnInit {
     fieldList[fieldId].properties.top.value = fieldY;
     this.currentFieldList = fieldList;
 
-    // Update the field sorted array
-    this.updateFieldSortedArray();
-
-    // Update the field list styling
-    this.updateFieldListStyling();
+    // Update field structure and styling
+    this.updateFieldStructureAndStyling();
   }
 
   // Certificate buttons and display
@@ -539,7 +430,8 @@ export class TemplateComponent implements OnInit {
     public templateService: TemplateService, 
     public loaderService: LoaderService, 
     public messageService: MessageService,
-    public router: Router
+    public router: Router,
+    public certificateHelperService: CertificateHelperService
   ) { }
 
   // TO DO - error on view init
