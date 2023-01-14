@@ -1,4 +1,4 @@
-.template-certificate-field-list {
+.field-list {
     width: 165px;
     box-shadow: 2px 2px 5px rgba(8, 14, 20, 0.15);
     border-radius: 10px;
@@ -6,15 +6,11 @@
     flex-direction: column;
     max-height: 790px;
 
-    &.template-certificate-field-menu {
-        align-self: flex-end;
-    }
-    
     &.hidden {
         display: none;
     }
     
-    .template-certificate-field-list-header {
+    .field-list-header {
         text-transform: uppercase;
         font-weight: bold;
         padding: 10px;
@@ -22,12 +18,12 @@
         border-bottom: 1px solid lightgray;
     }
 
-    .template-certificate-field-list-content {
+    .field-list-content {
         border-bottom: 1px solid lightgray;
         height: 100%;
         overflow: auto;
 
-        .template-certificate-field {
+        .field {
             display: flex;
             justify-content: space-between;
             padding: 10px;
@@ -36,32 +32,14 @@
             &:last-child {
                 border-bottom: none;
             }
-
-            button {
-                height: 16px;
-                width: 16px;
-                background-color: transparent;
-                border: none;
-                cursor: pointer;
-
-                &:last-child {
-                    margin-left: 5px;
-                }
-
-                img {
-                    height: 16px;
-                    width: 16px;
-                    pointer-events: none;
-                }
-            }
         }
 
-        .template-certificate-field-text {
+        .field-text {
             padding: 10px;
             text-align: center;
         }
         
-        .template-certificate-field-active {
+        .field-active {
             background-color: #000000;
             color: #FFFFFF;
         
@@ -70,7 +48,7 @@
             }
         }
 
-        .template-certificate-field-settings {
+        .field-settings {
             padding: 10px;
             border-bottom: 1px solid lightgray;
             
@@ -105,7 +83,7 @@
                 background-color: transparent;
             }
 
-            .template-certificate-field-settings-boolean-container {
+            .field-settings-boolean-container {
                 width: 100%;
                 margin-top: 5px;
                 border: none;
@@ -136,13 +114,13 @@
                     display: none;
                 }
 
-                .template-certificate-field-settings-boolean-active {
+                .field-settings-boolean-active {
                     background-color: var(--secondary-color);
                     color: var(--main-color);
                 }
             }
 
-            .template-certificate-field-settings-input-with-unit {
+            .field-settings-input-with-unit {
                 display: flex;
                 width: 100%;
                 margin-top: 5px;
@@ -156,15 +134,15 @@
                     box-shadow: none;
                 }
 
-                .template-certificate-field-settings-unit {
+                .field-settings-unit {
                     margin: 10px 0;
                     padding: 0 10px;
                     border-left: 1px solid var(--table-border-color);
                     color: var(--table-border-color);
                 }
 
-                &.template-certificate-field-settings-input-with-unit-selectable {
-                    .template-certificate-field-settings-unit {
+                &.field-settings-input-with-unit-selectable {
+                    .field-settings-unit {
                         cursor: pointer;
 
                         &:hover {
@@ -172,13 +150,13 @@
                         }
                     }
 
-                    .template-certificate-field-settings-unit-active {
+                    .field-settings-unit-active {
                         color: var(--secondary-color);
                     }
                 }
             }
 
-            &.template-certificate-field-settings-colors {
+            &.field-settings-colors {
                 input {
                     cursor: pointer;
                     padding: 10px;
@@ -192,7 +170,7 @@
                 }
             }
 
-            &.template-certificate-field-settings-upload {
+            &.field-settings-upload {
                 .button-base {
                     border: none;
                     background-color: transparent;
@@ -215,7 +193,7 @@
                     }
                 }
 
-                .template-certificate-field-settings-upload-button {
+                .field-settings-upload-button {
                     display: flex;
                     align-items: center;
                     justify-content: center;
@@ -246,7 +224,7 @@
         }
     }
 
-    .template-certificate-field-list-button {
+    .field-list-button {
         padding: 10px;
         text-align: center;
     }

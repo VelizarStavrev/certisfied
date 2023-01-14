@@ -1,38 +1,38 @@
-<div id="field-menu" [ngClass]="{'template-certificate-field-list': true, 'template-certificate-field-menu': true, 'hidden': visibility}">
-    <div class="template-certificate-field-list-header">
+<div id="field-menu" [ngClass]="{'field-list': true, 'field-menu': true, 'hidden': visibility}">
+    <div class="field-list-header">
         Add field
     </div>
 
-    <div class="template-certificate-field-list-content">
+    <div class="field-list-content">
         <div (click)="setFieldTypeToAdd('Text')" [ngClass]="{
-                'template-certificate-field': true, 
-                'template-certificate-field-clickable': true, 
-                'template-certificate-field-active': fieldTypeToAdd === 'Text'
+                'field': true, 
+                'field-clickable': true, 
+                'field-active': fieldTypeToAdd === 'Text'
             }"
         >
             Text
         </div>
 
         <div (click)="setFieldTypeToAdd('Image')" [ngClass]="{
-                'template-certificate-field': true, 
-                'template-certificate-field-clickable': true, 
-                'template-certificate-field-active': fieldTypeToAdd === 'Image'
+                'field': true, 
+                'field-clickable': true, 
+                'field-active': fieldTypeToAdd === 'Image'
             }"
         >
             Image
         </div>
 
         <div (click)="setFieldTypeToAdd('Link')" [ngClass]="{
-                'template-certificate-field': true, 
-                'template-certificate-field-clickable': true, 
-                'template-certificate-field-active': fieldTypeToAdd === 'Link'
+                'field': true, 
+                'field-clickable': true, 
+                'field-active': fieldTypeToAdd === 'Link'
             }"
         >
             Link
         </div>
     </div>
 
-    <div class="template-certificate-field-list-button">
+    <div class="field-list-button">
         <app-button 
             [buttonText]="buttonAddFieldText" 
             [buttonType]="buttonAddFieldType" 

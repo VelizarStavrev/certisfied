@@ -1,14 +1,14 @@
-<div id="field-settings" [ngClass]="{'template-certificate-field-list': true, 'template-certificate-field-settings': true, 'hidden': visibility}">
-    <div class="template-certificate-field-list-header">
+<div [ngClass]="{'field-list': true, 'hidden': visibility}">
+    <div class="field-list-header">
         Settings
     </div>
 
-    <div class="template-certificate-field-list-content">
+    <div class="field-list-content">
         <div *ngFor="let data of currentFieldData?.properties; index as i" 
             [ngClass]="{
-                'template-certificate-field-settings': true,
-                'template-certificate-field-settings-colors': data.type === 'color', 
-                'template-certificate-field-settings-upload': data.type === 'upload'
+                'field-settings': true,
+                'field-settings-colors': data.type === 'color', 
+                'field-settings-upload': data.type === 'upload'
             }"
         >
             <label>{{data.label}}</label>
@@ -19,15 +19,15 @@
                     <ng-container *ngIf="data.unit; else noUnit">
                         <!-- If has units -->
                         <ng-container *ngIf="data.units; else oneUnit">
-                            <div class="template-certificate-field-settings-input-with-unit template-certificate-field-settings-input-with-unit-selectable">
+                            <div class="field-settings-input-with-unit field-settings-input-with-unit-selectable">
                                 <input type="text" [value]="data.value" (keyup)="updateField(data.name, $event, '', i)" />
 
                                 <ng-container *ngFor="let unit of data.units">
                                     <div 
                                         (click)="updateFieldUnit(data.name, unit, i)" 
                                         [ngClass]="{
-                                            'template-certificate-field-settings-unit': true, 
-                                            'template-certificate-field-settings-unit-active': data.unit === unit
+                                            'field-settings-unit': true, 
+                                            'field-settings-unit-active': data.unit === unit
                                         }"
                                     >
                                         {{unit}}
@@ -38,9 +38,9 @@
 
                         <!-- Else -->
                         <ng-template #oneUnit>
-                            <div class="template-certificate-field-settings-input-with-unit">
+                            <div class="field-settings-input-with-unit">
                                 <input type="text" [value]="data.value" (keyup)="updateField(data.name, $event, '', i)" />
-                                <div class="template-certificate-field-settings-unit">{{data.unit}}</div>
+                                <div class="field-settings-unit">{{data.unit}}</div>
                             </div>
                         </ng-template>
                     </ng-container>
@@ -58,13 +58,13 @@
                 </ng-container>
 
                 <ng-container *ngSwitchCase="'boolean'">
-                    <div class="template-certificate-field-settings-boolean-container">
-                        <label for="true-bool" [ngClass]="{'template-certificate-field-settings-boolean-active': data.value === '1'}">
+                    <div class="field-settings-boolean-container">
+                        <label for="true-bool" [ngClass]="{'field-settings-boolean-active': data.value === '1'}">
                             <input type="radio" name="true-bool" id="true-bool" [checked]="data.value === '1'" (change)="updateField(data.name, $event, '1', i)" />
                             True
                         </label>
 
-                        <label for="false-bool" [ngClass]="{'template-certificate-field-settings-boolean-active': !(data.value === '1')}">
+                        <label for="false-bool" [ngClass]="{'field-settings-boolean-active': !(data.value === '1')}">
                             <input type="radio" name="false-bool" id="false-bool" [checked]="!(data.value === '1')" (change)="updateField(data.name, $event, '0', i)" />
                             False
                         </label>
@@ -76,7 +76,7 @@
                 </ng-container>
 
                 <ng-container *ngSwitchCase="'upload'">
-                    <label class="button-base button-secondary template-certificate-field-settings-upload-button" for="upload">
+                    <label class="button-base button-secondary field-settings-upload-button" for="upload">
                         Upload 
                         <img src={{arrowIcon}} alt="" />
                     </label>
@@ -86,10 +86,10 @@
             </ng-container>
         </div>
         
-        <p *ngIf="!currentFieldData?.properties" class="template-certificate-field-text">An error occured.</p>
+        <p *ngIf="!currentFieldData?.properties" class="field-text">An error occured.</p>
     </div>
 
-    <div class="template-certificate-field-list-button">
+    <div class="field-list-button">
         <app-button 
             [buttonText]="buttonText" 
             [buttonType]="buttonType" 

@@ -1,11 +1,11 @@
-.template-certificate-field-list {
+.field-list {
     width: 165px;
     box-shadow: 2px 2px 5px rgba(8, 14, 20, 0.15);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
 
-    .template-certificate-field-list-header {
+    .field-list-header {
         text-transform: uppercase;
         font-weight: bold;
         padding: 10px;
@@ -13,12 +13,12 @@
         border-bottom: 1px solid lightgray;
     }
 
-    .template-certificate-field-list-content {
+    .field-list-content {
         border-bottom: 1px solid lightgray;
         height: 100%;
         overflow: auto;
 
-        .template-certificate-field {
+        .field {
             display: flex;
             justify-content: space-between;
             padding: 10px;
@@ -47,12 +47,12 @@
             }
         }
 
-        .template-certificate-field-text {
+        .field-text {
             padding: 10px;
             text-align: center;
         }
         
-        .template-certificate-field-active {
+        .field-active {
             background-color: #000000;
             color: #FFFFFF;
         
@@ -62,7 +62,7 @@
         }
     }
 
-    .template-certificate-field-list-button {
+    .field-list-button {
         padding: 10px;
         text-align: center;
     }
