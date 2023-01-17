@@ -1,29 +1,29 @@
-<div class="template-container">
-    <div class="template-container-text-container">
-        <div class="template-text-pair-two-rows">
-            <p class="template-text-pair-header">Template name:</p>
+<div class="main-container">
+    <div class="text-container">
+        <div class="text-pair-two-rows">
+            <p class="text-pair-header">Template name:</p>
             <p>{{templateName}}</p>
         </div>
 
-        <div class="template-text-pair-one-row">
-            <p class="template-text-pair-header">Created date:</p>
+        <div class="text-pair-one-row">
+            <p class="text-pair-header">Created date:</p>
             <p>{{templateCreatedDate | timestampToDate}}</p>
         </div>
 
-        <div class="template-text-pair-one-row">
-            <p class="template-text-pair-header">Last edit date:</p>
+        <div class="text-pair-one-row">
+            <p class="text-pair-header">Last edit date:</p>
             <p>{{templateEditedDate | timestampToDate}}</p>
         </div>
 
-        <div class="template-text-pair-two-rows">
-            <p class="template-text-pair-header">Notes:</p>
+        <div class="text-pair-two-rows">
+            <p class="text-pair-header">Notes:</p>
             <p>{{templateNotes}}</p>
         </div>
     </div>
 
-    <div class="template-certificate-and-fields-container">
-        <div #certificateMainContainer class="template-certificate-main-container">
-            <div class="template-certificate-container-FE" 
+    <div class="certificate-and-fields-container">
+        <div #certificateMainContainer class="certificate-main-container">
+            <div class="container-FE" 
                 [ngStyle]="{
                     'height': certificateHeight
                 }" 
@@ -33,11 +33,11 @@
                         'scale': certificateWidthDifferencePercent
                     }" 
                     [ngClass]="{
-                        'template-certificate-container-vertical': orientation === 'vertical', 
-                        'template-certificate-container-horizontal': orientation === 'horizontal'
+                        'container-vertical': orientation === 'vertical', 
+                        'container-horizontal': orientation === 'horizontal'
                     }"
                 >
-                    <div #certificateContainer class="template-certificate-container" [ngStyle]="{
+                    <div #certificateContainer [ngStyle]="{
                         'width': '100%',
                         'height': '100%',
                         'position': 'relative',
@@ -63,27 +63,27 @@
                             </ng-container>
                         </div>
 
-                        <p *ngIf="!currentFieldListStyling.length" class="template-certificate-field-text">The template has no fields.</p>
+                        <p *ngIf="!currentFieldListStyling.length" class="no-field-text">The template has no fields.</p>
                     </div>
                 </div>
             </div>
 
-            <div class="template-certificate-button-container">
-                <div class="template-certificate-button-container-radio">
-                    <label for="orientation-portrait" class="template-radio-button-container" *ngIf="orientation === 'vertical'">
+            <div class="button-container">
+                <div class="button-container-radio">
+                    <label for="orientation-portrait" class="radio-button-container" *ngIf="orientation === 'vertical'">
                         <input type="radio" name="orientation" id="orientation-portrait" value="portrait" checked="true" />
                         <span class="checkmark"></span>
                         Portrait
                     </label>
             
-                    <label for="orientation-landscape" class="template-radio-button-container" *ngIf="orientation === 'horizontal'">
+                    <label for="orientation-landscape" class="radio-button-container" *ngIf="orientation === 'horizontal'">
                         <input type="radio" name="orientation" id="orientation-landscape" value="landscape" checked="true" />
                         <span class="checkmark"></span>
                         Landscape
                     </label>
                 </div>
             
-                <div class="template-certificate-button-container-button">
+                <div class="button-container-button">
                     <app-button-link 
                         [buttonText]="buttonCancelText" 
                         [buttonType]="buttonCancelType" 

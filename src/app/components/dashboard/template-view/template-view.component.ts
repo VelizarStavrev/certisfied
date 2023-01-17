@@ -99,7 +99,7 @@ export class TemplateViewComponent implements OnInit {
             this.setOrientation(receivedData.orientation);
 
             // Update the field sorted array
-            this.currentFieldListSorted = this.certificateHelperService.updateFieldSortedArray(this.currentFieldListSorted);
+            this.currentFieldListSorted = this.certificateHelperService.updateFieldSortedArray(this.currentFieldList);
 
             // Update the field list styling
             this.currentFieldListStyling = this.certificateHelperService.updateFieldListStyling(this.currentFieldListSorted);
