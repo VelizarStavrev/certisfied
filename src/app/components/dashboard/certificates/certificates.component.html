@@ -36,7 +36,7 @@
                         <img [src]="editIcon" alt="Edit" />
                     </a>
 
-                    <button type="button" class="dashboard-actions-item" (click)="deleteCertificate(i)">
+                    <button type="button" class="dashboard-actions-item" (click)="deleteCertificate(certificate.id, i)">
                         <img [src]="deleteIcon" alt="Delete" />
                     </button>
                 </td>
