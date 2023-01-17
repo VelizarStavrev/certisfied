@@ -1,0 +1,155 @@
+<div class="main-container">
+    <div class="text-container">
+        <div class="text-pair-two-rows">
+            <p class="text-pair-header">Certificate name:</p>
+            <input type="text" [value]="certificateName" [(ngModel)]="certificateName" />
+        </div>
+
+        <div class="text-pair-two-rows">
+            <p class="text-pair-header">Certificate template:</p>
+
+            <select [value]="templateValue" [(ngModel)]="templateValue" (change)="getTemplateById()">
+                <option value="" disabled></option>
+                
+                <option *ngFor="let template of templates;" [value]="template.id">
+                    {{template.name}}
+                </option>
+            </select>
+        </div>
+
+        <ng-container *ngIf="isEditCertificate">
+            <div class="text-pair-one-row">
+                <p class="text-pair-header">Created date:</p>
+                <p>{{certificateCreatedDate | timestampToDate}}</p>
+            </div>
+    
+            <div class="text-pair-one-row">
+                <p class="text-pair-header">Last edit date:</p>
+                <p>{{certificateEditedDate | timestampToDate}}</p>
+            </div>
+        </ng-container>
+
+        <div class="text-pair-two-rows">
+            <p class="text-pair-header">Notes:</p>
+            <textarea [value]="certificateNotes" [(ngModel)]="certificateNotes"></textarea>
+        </div>
+    </div>
+
+    <div class="certificate-and-fields-container">
+        <div #certificateMainContainer class="certificate-main-container">
+            <div class="container-FE" 
+                [ngStyle]="{
+                    'height': certificateHeight
+                }" 
+            >
+                <div #certificateFEContainer 
+                    [ngStyle]="{
+                        'scale': certificateWidthDifferencePercent
+                    }" 
+                    [ngClass]="{
+                        'container-vertical': orientation === 'vertical', 
+                        'container-horizontal': orientation === 'horizontal'
+                    }"
+                >
+                    <div #certificateContainer [ngStyle]="{
+                        'width': '100%',
+                        'height': '100%',
+                        'position': 'relative',
+                        'overflow': 'hidden'
+                    }">
+                        <div *ngFor="let field of currentFieldListStyling; index as i;" 
+                            [draggable]="field.styles.editable == 1 ? true : null" 
+                            [ngStyle]="field.styles" 
+                            [ngClass]="{'active': currentFieldListActive === field.id}" 
+                            (click)="field.styles.editable == 1 ? showFieldEditMenu(field.id) : null" 
+                        >
+                            <ng-container [ngSwitch]="field.type">
+                                <ng-container *ngSwitchCase="'Text'">
+                                    {{field.content}}
+                                </ng-container>
+
+                                <ng-container *ngSwitchCase="'Image'">
+                                    <img [ngStyle]="{'height': 'inherit', 'width': 'inherit'}" [src]="field.url" alt="" />
+                                </ng-container>
+
+                                <ng-container *ngSwitchCase="'Link'">
+                                    <a [ngStyle]="{'fontSize': 'inherit', 'color': 'inherit', 'textDecoration': 'inherit'}" [href]="field.url">
+                                        {{field.content}}
+                                    </a>
+                                </ng-container>
+                            </ng-container>
+                        </div>
+
+                        <p *ngIf="!currentFieldListStyling.length" class="no-field-text">Add field to start.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Certificate buttons -->
+            <div class="button-container">
+                <div class="button-container-radio">
+                    <label for="orientation-portrait" class="radio-button-container">
+                        <input type="radio" name="orientation" id="orientation-portrait" value="portrait" [checked]="true" />
+                        <span class="checkmark"></span>
+                        {{orientation === 'vertical' ? 'Portrait' : 'Landscape'}}
+                    </label>
+                </div>
+            
+                <div class="template-certificate-button-container-button">
+                    <app-button 
+                        [buttonText]="buttonSaveText" 
+                        [buttonType]="buttonSaveType" 
+                        [buttonHTMLType]="buttonSaveHTMLType" 
+                        (click)="saveCertificate()" 
+                    >
+                    </app-button>
+    
+                    <app-button 
+                        [buttonText]="buttonResetText" 
+                        [buttonType]="buttonResetType" 
+                        [buttonHTMLType]="buttonResetHTMLType" 
+                        [buttonMarginLeft]="buttonResetMarginLeft"
+                        (click)="getCertificate()" 
+                    >
+                    </app-button>
+                    
+                    <app-button 
+                        *ngIf="isEditCertificate"
+                        [buttonText]="buttonDeleteText" 
+                        [buttonType]="buttonDeleteType" 
+                        [buttonHTMLType]="buttonDeleteHTMLType" 
+                        [buttonMarginLeft]="buttonDeleteMarginLeft"
+                        (click)="deleteCertificate()" 
+                    >
+                    </app-button>
+    
+                    <app-button-link 
+                        [buttonText]="buttonCancelText" 
+                        [buttonType]="buttonCancelType" 
+                        [buttonLink]="buttonCancelLink"
+                        [buttonMarginLeft]="buttonCancelMarginLeft"
+                    >
+                    </app-button-link>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fields -->
+        <div class="field-management">
+            <app-field-list 
+                [listArray]="currentFieldListSorted" 
+                [listActiveIndex]="currentFieldListActive" 
+                (buttonEditClickFunc)="showFieldEditMenu($event)" 
+                [notEditable]="true" 
+                [editableFields]="editableFields"
+            ></app-field-list>
+            
+            <app-field-settings 
+                [visibility]="isFieldSettingsMenuHidden" 
+                [currentFieldData]="currentFieldData" 
+                (buttonDoneClick)="hideFieldSettingsMenu()" 
+                (editField)="updateField($event)" 
+            ></app-field-settings>
+        </div>
+    </div>
+</div>

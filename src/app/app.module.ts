@@ -23,6 +23,7 @@ import { FieldAddComponent } from './components/dashboard/shared/field-add/field
 import { TimestampToDatePipe } from './pipes/timestamp-to-date.pipe';
 import { FieldSettingsComponent } from './components/dashboard/shared/field-settings/field-settings.component';
 import { TemplateViewComponent } from './components/dashboard/template-view/template-view.component';
+import { CertificateComponent } from './components/dashboard/certificate/certificate.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { TemplateViewComponent } from './components/dashboard/template-view/temp
     FieldAddComponent,
     TimestampToDatePipe,
     FieldSettingsComponent,
-    TemplateViewComponent
+    TemplateViewComponent,
+    CertificateComponent,
   ],
   imports: [
     BrowserModule,
