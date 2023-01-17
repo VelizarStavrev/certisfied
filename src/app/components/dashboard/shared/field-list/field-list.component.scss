@@ -18,6 +18,10 @@
         height: 100%;
         overflow: auto;
 
+        &.field-list-content-no-border {
+            border: none;
+        }
+
         .field {
             display: flex;
             justify-content: space-between;

@@ -9,6 +9,8 @@ import { Field } from 'src/app/interfaces/field';
 export class FieldListComponent implements OnInit {
   @Input() listArray: Field[] = [];
   @Input() listActiveIndex: number | null = null;
+  @Input() notEditable: boolean = false;
+  @Input() editableFields: string[] = [];
   @Output() buttonAddClickFunc = new EventEmitter<number>();
   @Output() buttonEditClickFunc = new EventEmitter<number>();
   @Output() buttonDeleteClickFunc = new EventEmitter<number>();

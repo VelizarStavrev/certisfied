@@ -3,21 +3,22 @@
         Fields
     </div>
 
-    <div class="field-list-content">
-        <div 
-            *ngFor="let field of listArray;" 
-            [ngClass]="{'field': true, 'field-active': listActiveIndex === field.id}"
-        >
-            {{ field.type }}
-
-            <div class="field-buttons">
-                <button type="button" class="button-edit" (click)="buttonEditClickIndex(field.id)"><img [src]="editIcon" alt="Edit" /></button>
-                <button type="button" class="button-delete" (click)="buttonDeleteClickIndex(field.id)"><img [src]="deleteIcon" alt="Delete" /></button>
+    <div [ngClass]="{'field-list-content': true, 'field-list-content-no-border': notEditable}">
+        <ng-container *ngFor="let field of listArray;" >
+            <div *ngIf="!notEditable || editableFields.includes(field.id.toString())" [ngClass]="{'field': true, 'field-active': listActiveIndex === field.id}">
+                {{ field.type }}
+    
+                <div class="field-buttons">
+                    <button type="button" class="button-edit" (click)="buttonEditClickIndex(field.id)"><img [src]="editIcon" alt="Edit" /></button>
+                    <button *ngIf="!notEditable" type="button" class="button-delete" (click)="buttonDeleteClickIndex(field.id)"><img [src]="deleteIcon" alt="Delete" /></button>
+                </div>
             </div>
-        </div>
+        </ng-container>
+
+        <p *ngIf="!listArray.length || (notEditable && !editableFields.length)" class="field-text">No fields.</p>
     </div>
 
-    <div class="field-list-button">
+    <div class="field-list-button" *ngIf="!notEditable">
         <app-button 
             [buttonText]="buttonAddFieldText" 
             [buttonType]="buttonAddFieldType" 
