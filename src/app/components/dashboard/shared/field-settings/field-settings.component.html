@@ -59,13 +59,13 @@
 
                 <ng-container *ngSwitchCase="'boolean'">
                     <div class="field-settings-boolean-container">
-                        <label for="true-bool" [ngClass]="{'field-settings-boolean-active': data.value === '1'}">
-                            <input type="radio" name="true-bool" id="true-bool" [checked]="data.value === '1'" (change)="updateField(data.name, $event, '1', i)" />
+                        <label [for]="'true-bool-' + data.orderNum" [ngClass]="{'field-settings-boolean-active': data.value === '1'}">
+                            <input type="radio" [name]="'true-bool-' + data.orderNum" [id]="'true-bool-' + data.orderNum" [checked]="data.value === '1'" (change)="updateField(data.name, $event, '1', i)" />
                             True
                         </label>
 
-                        <label for="false-bool" [ngClass]="{'field-settings-boolean-active': !(data.value === '1')}">
-                            <input type="radio" name="false-bool" id="false-bool" [checked]="!(data.value === '1')" (change)="updateField(data.name, $event, '0', i)" />
+                        <label [for]="'true-false-' + data.orderNum" [ngClass]="{'field-settings-boolean-active': !(data.value === '1')}">
+                            <input type="radio" [name]="'true-false-' + data.orderNum" [id]="'true-false-' + data.orderNum" [checked]="!(data.value === '1')" (change)="updateField(data.name, $event, '0', i)" />
                             False
                         </label>
                     </div>
