@@ -407,12 +407,14 @@ export class CertificateComponent implements OnInit {
     let currentFieldDataPropertiesObject = currentFieldDataObject.properties;
     let currentFieldDataPropertiesArray: any[] = [];
 
-    // TO DO
-    // Sort the fields by order
-    // Won't work until a new certificate is created
+    // Display only editable fields for the certificate component edit menu
+    if (currentFieldDataPropertiesObject.editable.value) {
+      currentFieldDataPropertiesArray.push(currentFieldDataPropertiesObject.content);
+    }
 
-    Object.entries(currentFieldDataPropertiesObject).map(([key, value]) => {
-      currentFieldDataPropertiesArray.push(value);
+    // Sort the fields by order number
+    currentFieldDataPropertiesArray.sort((a, b): any => {
+      return a.orderNum - b.orderNum;
     });
 
     let finalFieldData: any = structuredClone(currentFieldDataObject);
