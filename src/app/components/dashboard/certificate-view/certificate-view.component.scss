@@ -1,0 +1,19 @@
+:host {
+    align-self: stretch;
+    width: 100%;
+    display: flex;
+}
+
+.main-container {
+    max-width: 1040px;
+    margin: 20px auto;
+    width: 100%;
+    align-self: stretch;
+
+
+    iframe {
+        height: 100%;
+        width: 100%;
+        border: 2px solid lightgray;
+    }
+}

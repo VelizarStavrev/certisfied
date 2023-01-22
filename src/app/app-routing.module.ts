@@ -6,6 +6,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CertificatesComponent } from './components/dashboard/certificates/certificates.component';
 import { CertificateComponent } from './components/dashboard/certificate/certificate.component';
+import { CertificateViewComponent } from './components/dashboard/certificate-view/certificate-view.component';
 import { TemplatesComponent } from './components/dashboard/templates/templates.component';
 import { TemplateComponent } from './components/dashboard/template/template.component';
 import { TemplateViewComponent } from './components/dashboard/template-view/template-view.component';
@@ -34,7 +35,7 @@ const routes: Routes = [
       ]},
     ]
   },
-  // { path: 'certificate/:id', component: CertificateComponent },
+  { path: 'certificate/:id', component: CertificateViewComponent },
 
   { path: '**', component: HomeComponent }
 ];
