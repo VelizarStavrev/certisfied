@@ -10,29 +10,42 @@ import { CertificateViewComponent } from './components/dashboard/certificate-vie
 import { TemplatesComponent } from './components/dashboard/templates/templates.component';
 import { TemplateComponent } from './components/dashboard/template/template.component';
 import { TemplateViewComponent } from './components/dashboard/template-view/template-view.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'dashboard', 
+  { path: 'profile', 
+    component: ProfileComponent,
+    canActivate: [AuthGuard]
+  },
+  { 
+    path: 'dashboard', 
     redirectTo: '/dashboard/certificates', 
     pathMatch: 'full',
   },
-  { path: 'dashboard', 
+  { 
+    path: 'dashboard', 
+    canActivate: [AuthGuard],
     children: [
       { path: 'certificates', component: CertificatesComponent },
-      { path: 'certificate', children: [
-        { path: 'edit/:id', component: CertificateComponent },
-        { path: 'new', component: CertificateComponent },
-      ]},
+      { 
+        path: 'certificate', 
+        children: [
+          { path: 'edit/:id', component: CertificateComponent },
+          { path: 'new', component: CertificateComponent },
+        ]
+      },
       { path: 'templates', component: TemplatesComponent },
-      { path: 'template', children: [
-        { path: 'new', component: TemplateComponent },
-        { path: ':id', component: TemplateViewComponent },
-        { path: 'edit/:id', component: TemplateComponent },
-      ]},
+      { 
+        path: 'template', 
+        children: [
+          { path: 'new', component: TemplateComponent },
+          { path: ':id', component: TemplateViewComponent },
+          { path: 'edit/:id', component: TemplateComponent },
+        ]
+      },
     ]
   },
   { path: 'certificate/:id', component: CertificateViewComponent },
