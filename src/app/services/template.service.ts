@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { variables } from '../variables';
-import { UserService } from './user.service';
 import { Templates } from '../interfaces/templates';
 import { Template} from '../interfaces/template';
 
@@ -10,23 +9,16 @@ import { Template} from '../interfaces/template';
 })
 export class TemplateService {
 
-  constructor(private http: HttpClient, private userService: UserService) { }
+  constructor(private http: HttpClient) { }
 
   serverUrl = variables.serverURL;
-  userToken = this.userService.getUserToken();
 
   getTemplates() {
-    return this.http.get<Templates>(this.serverUrl + '/templates', 
-      { headers: {
-        'Authorization': 'Bearer ' + this.userToken
-      }});
+    return this.http.get<Templates>(this.serverUrl + '/templates');
   }
 
   getTemplate(templateId: string) {
-    return this.http.get<Template>(this.serverUrl + '/template/' + templateId, 
-      { headers: {
-        'Authorization': 'Bearer ' + this.userToken
-      }});
+    return this.http.get<Template>(this.serverUrl + '/template/' + templateId);
   }
 
   createTemplate(
@@ -37,11 +29,7 @@ export class TemplateService {
       fields: []
     }
   ) {
-    return this.http.post<Template>(this.serverUrl + '/template/new', 
-      fieldData, // Body
-      { headers: {
-        'Authorization': 'Bearer ' + this.userToken
-      }});
+    return this.http.post<Template>(this.serverUrl + '/template/new', fieldData);
   }
 
   editTemplate(
@@ -53,18 +41,10 @@ export class TemplateService {
       fields: []
     }
   ) {
-    return this.http.post<Template>(this.serverUrl + '/template/edit/' + templateId, 
-      fieldData, // Body
-      { headers: {
-        'Authorization': 'Bearer ' + this.userToken
-      }});
+    return this.http.post<Template>(this.serverUrl + '/template/edit/' + templateId, fieldData);
   }
 
   deleteTemplate(templateId: string) {
-    return this.http.post<Template>(this.serverUrl + '/template/delete/' + templateId, 
-      null,
-      { headers: {
-        'Authorization': 'Bearer ' + this.userToken
-      }});
+    return this.http.post<Template>(this.serverUrl + '/template/delete/' + templateId, null);
   }
 }
