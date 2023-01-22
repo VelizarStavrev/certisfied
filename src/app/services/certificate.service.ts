@@ -53,4 +53,11 @@ export class CertificateService {
       }});
   }
 
+  getCertificateFile(certificateId: string) {
+    return this.http.get<Certificate>(this.serverUrl + '/certificate/file/' + certificateId, 
+      { headers: {
+        'Authorization': 'Bearer ' + this.userToken
+      }});
+  }
+
 }
