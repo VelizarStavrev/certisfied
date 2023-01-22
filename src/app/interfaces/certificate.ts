@@ -19,5 +19,6 @@ export interface Certificate {
         notes: string,
         fields: any[],
         orientation: string
-    }
+    },
+    url: string
 }
