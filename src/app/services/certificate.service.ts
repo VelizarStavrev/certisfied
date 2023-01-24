@@ -37,4 +37,8 @@ export class CertificateService {
     return this.http.get<Certificate>(this.serverUrl + '/certificate/file/' + certificateId);
   }
 
+  verifyCertificate(certificateId: string) {
+    return this.http.get<Certificate>(this.serverUrl + '/verify/' + certificateId);
+  }
+
 }
