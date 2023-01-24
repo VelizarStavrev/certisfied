@@ -26,6 +26,7 @@ import { FieldSettingsComponent } from './components/dashboard/shared/field-sett
 import { TemplateViewComponent } from './components/dashboard/template-view/template-view.component';
 import { CertificateComponent } from './components/dashboard/certificate/certificate.component';
 import { CertificateViewComponent } from './components/dashboard/certificate-view/certificate-view.component';
+import { VerifyComponent } from './components/verify/verify.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { CertificateViewComponent } from './components/dashboard/certificate-vie
     TemplateViewComponent,
     CertificateComponent,
     CertificateViewComponent,
+    VerifyComponent,
   ],
   imports: [
     BrowserModule,

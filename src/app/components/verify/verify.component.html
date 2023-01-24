@@ -1,0 +1,35 @@
+<div class="verify-container">
+    <p class="verify-help-text">Please enter a certificate code to validate it's existence.</p>
+
+    <div class="verify-search-container">
+        <input class="verify-search" placeholder="Search . . ." [value]="certificateId" [(ngModel)]="certificateId" />
+        
+        <app-button 
+            [buttonText]="buttonText" 
+            [buttonType]="buttonType" 
+            [buttonHTMLType]="buttonHTMlType" 
+            [buttonMarginLeft]="buttonMarginLeft"
+            (click)="verifyCertificate()"
+        ></app-button>
+    </div>
+
+    <div *ngIf="messageType === 'success'" class="verify-message-container">
+        <img [src]="successIcon" alt="" />
+
+        <p>The certificate was found!</p>
+        
+        <p>You can view it at 
+            <app-button-link
+                [buttonText]="buttonLinkText"
+                [buttonType]="buttonLinkType"
+                [buttonLink]="buttonLinkLink"
+            ></app-button-link>.
+        </p>
+    </div>
+
+    <div *ngIf="messageType === 'error'" class="verify-message-container">
+        <img [src]="errorIcon" alt="" />
+
+        <p>No certificates were found with the provided information.</p>
+    </div>
+</div>

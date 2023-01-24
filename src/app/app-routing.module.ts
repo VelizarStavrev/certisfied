@@ -11,6 +11,7 @@ import { TemplatesComponent } from './components/dashboard/templates/templates.c
 import { TemplateComponent } from './components/dashboard/template/template.component';
 import { TemplateViewComponent } from './components/dashboard/template-view/template-view.component';
 import { AuthGuard } from './guards/auth.guard';
+import { VerifyComponent } from './components/verify/verify.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -49,6 +50,7 @@ const routes: Routes = [
     ]
   },
   { path: 'certificate/:id', component: CertificateViewComponent },
+  { path: 'verify', component: VerifyComponent },
 
   { path: '**', component: HomeComponent }
 ];
