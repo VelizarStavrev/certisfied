@@ -1,0 +1,33 @@
+<div class="contacts-container">
+    <form>
+        <h1>CONTACT</h1>
+
+        <label>E-mail</label>
+        <input type="text" name="email" [value]="email" [(ngModel)]="email" />
+        <p class="contacts-error">Invalid e-mail!</p>
+
+        <label>Names</label>
+        <input type="text" name="names" [value]="names" [(ngModel)]="names" />
+        <p class="contacts-error">Invalid names!</p>
+
+        <label>Message</label>
+        <textarea name="message" [value]="message" [(ngModel)]="message"></textarea>
+        <p class="contacts-error">Invalid message!</p>
+
+        <app-button 
+            [buttonText]="buttonText" 
+            [buttonType]="buttonType" 
+            [buttonHTMLType]="buttonHTMlType" 
+            [buttonMarginTop]="buttonMarginTop"
+            (click)="sendData()"
+        ></app-button>
+    </form>
+
+    <div class="contacts-text">
+        <p>Feel free to contact us if you have any questions, if issues occur or if you have any suggestions to make our service better.</p>
+        <p>You can use the provided contact form or you can use the contact data below:</p>
+        <p>E-mail: example@email.com</p>
+        <p>Phone: +359 XXX XX XX XX</p>
+        <p>LinkedIn: linkedin.com/example</p>
+    </div>
+</div>

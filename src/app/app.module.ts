@@ -27,6 +27,7 @@ import { TemplateViewComponent } from './components/dashboard/template-view/temp
 import { CertificateComponent } from './components/dashboard/certificate/certificate.component';
 import { CertificateViewComponent } from './components/dashboard/certificate-view/certificate-view.component';
 import { VerifyComponent } from './components/verify/verify.component';
+import { ContactsComponent } from './components/contacts/contacts.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { VerifyComponent } from './components/verify/verify.component';
     CertificateComponent,
     CertificateViewComponent,
     VerifyComponent,
+    ContactsComponent,
   ],
   imports: [
     BrowserModule,
