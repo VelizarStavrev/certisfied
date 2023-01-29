@@ -24,58 +24,16 @@
     </div>
 
     <div class="certificate-and-fields-container">
-        <div #certificateMainContainer class="certificate-main-container">
-            <div class="container-FE" 
-                [ngStyle]="{
-                    'height': certificateHeight
-                }" 
-            >
-                <div #certificateFEContainer 
-                    [ngStyle]="{
-                        'scale': certificateWidthDifferencePercent
-                    }" 
-                    [ngClass]="{
-                        'container-vertical': orientation === 'vertical', 
-                        'container-horizontal': orientation === 'horizontal'
-                    }"
-                >
-                    <div #certificateContainer [ngStyle]="{
-                        'width': '100%',
-                        'height': '100%',
-                        'position': 'relative',
-                        'overflow': 'hidden'
-                    }">
-                        <div *ngFor="let field of currentFieldListStyling; index as i;" 
-                            draggable="true" 
-                            [ngStyle]="field.styles" 
-                            [ngClass]="{'active': currentFieldListActive === field.id}" 
-                            (click)="showFieldEditMenu(field.id)" 
-                            (dragstart)="setInitialFieldPosition($event)"
-                            (dragend)="updateFieldPosition($event, field.id)"
-                        >
-                            <ng-container [ngSwitch]="field.type">
-                                <ng-container *ngSwitchCase="'Text'">
-                                    {{field.content}}
-                                </ng-container>
+        <div class="certificate-and-buttons-container">
+            <app-certificate-display
+                parentType="template"
+                [orientation]="orientation"
+                [currentFieldListStyling]="currentFieldListStyling"
+                [currentFieldListActive]="currentFieldListActive"
+                (buttonFieldClickFunc)="showFieldEditMenu($event)" 
+                (updateFieldFunc)="updateFieldPosition($event)"
+            ></app-certificate-display>
 
-                                <ng-container *ngSwitchCase="'Image'">
-                                    <img [ngStyle]="{'height': 'inherit', 'width': 'inherit'}" [src]="field.url" alt="" />
-                                </ng-container>
-
-                                <ng-container *ngSwitchCase="'Link'">
-                                    <a [ngStyle]="{'fontSize': 'inherit', 'color': 'inherit', 'textDecoration': 'inherit'}" [href]="field.url">
-                                        {{field.content}}
-                                    </a>
-                                </ng-container>
-                            </ng-container>
-                        </div>
-
-                        <p *ngIf="!currentFieldListStyling.length" class="no-field-text">Add field to start.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Certificate buttons -->
             <div class="button-container">
                 <div class="button-container-radio">
                     <label for="orientation-portrait" class="radio-button-container">
@@ -130,7 +88,6 @@
             </div>
         </div>
 
-        <!-- Fields -->
         <div class="field-management">
             <app-field-list 
                 [listArray]="currentFieldListSorted" 

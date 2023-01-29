@@ -22,52 +22,13 @@
     </div>
 
     <div class="certificate-and-fields-container">
-        <div #certificateMainContainer class="certificate-main-container">
-            <div class="container-FE" 
-                [ngStyle]="{
-                    'height': certificateHeight
-                }" 
-            >
-                <div #certificateFEContainer 
-                    [ngStyle]="{
-                        'scale': certificateWidthDifferencePercent
-                    }" 
-                    [ngClass]="{
-                        'container-vertical': orientation === 'vertical', 
-                        'container-horizontal': orientation === 'horizontal'
-                    }"
-                >
-                    <div #certificateContainer [ngStyle]="{
-                        'width': '100%',
-                        'height': '100%',
-                        'position': 'relative',
-                        'overflow': 'hidden'
-                    }">
-                        <div *ngFor="let field of currentFieldListStyling; index as i;" 
-                            [ngStyle]="field.styles" 
-                        >
-                            <ng-container [ngSwitch]="field.type">
-                                <ng-container *ngSwitchCase="'Text'">
-                                    {{field.content}}
-                                </ng-container>
-
-                                <ng-container *ngSwitchCase="'Image'">
-                                    <img [ngStyle]="{'height': 'inherit', 'width': 'inherit'}" [src]="field.url" alt="" />
-                                </ng-container>
-
-                                <ng-container *ngSwitchCase="'Link'">
-                                    <a [ngStyle]="{'fontSize': 'inherit', 'color': 'inherit', 'textDecoration': 'inherit'}" [href]="field.url">
-                                        {{field.content}}
-                                    </a>
-                                </ng-container>
-                            </ng-container>
-                        </div>
-
-                        <p *ngIf="!currentFieldListStyling.length" class="no-field-text">The template has no fields.</p>
-                    </div>
-                </div>
-            </div>
-
+        <div class="certificate-and-buttons-container">
+            <app-certificate-display
+                parentType="template-view"
+                [orientation]="orientation"
+                [currentFieldListStyling]="currentFieldListStyling"
+            ></app-certificate-display>
+    
             <div class="button-container">
                 <div class="button-container-radio">
                     <label for="orientation-portrait" class="radio-button-container" *ngIf="orientation === 'vertical'">

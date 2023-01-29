@@ -127,22 +127,6 @@ export class TemplateViewComponent implements OnInit {
   setOrientation(type: string): void {
     // Set the type
     this.orientation = type;
-
-    // TO DO - impelement a better solution
-    // Due to quick updates the properties are not yet updated
-    // When the function runs
-    setTimeout(() => {
-      // Set the dimensions of the certificate
-      this.setDimensions();
-    }, 1);
-  }
-
-  setDimensions(): void {
-    const certificateMainContainerWidth: number = this.certificateMainContainer?.nativeElement.clientWidth;
-    const certificateFEContainerWidth: number = this.certificateFEContainer?.nativeElement.clientWidth;
-    const certificateWidthDifferencePercentResult = certificateMainContainerWidth / certificateFEContainerWidth;
-    this.certificateWidthDifferencePercent = certificateWidthDifferencePercentResult;
-    this.certificateHeight = (this.certificateFEContainer?.nativeElement.clientHeight * certificateWidthDifferencePercentResult) + 'px';
   }
 
   constructor(private route: ActivatedRoute,

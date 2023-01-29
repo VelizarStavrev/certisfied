@@ -1,0 +1,100 @@
+<div #certificateMainContainer class="certificate-main-container">
+    <div class="container-FE" 
+        [ngStyle]="{
+            'height': certificateHeight
+        }" 
+    >
+        <div #certificateFEContainer 
+            [ngStyle]="{
+                'scale': certificateWidthDifferencePercent
+            }" 
+            [ngClass]="{
+                'container-vertical': orientation === 'vertical', 
+                'container-horizontal': orientation === 'horizontal'
+            }"
+        >
+            <div #certificateContainer [ngStyle]="{
+                'width': '100%',
+                'height': '100%',
+                'position': 'relative',
+                'overflow': 'hidden'
+            }">
+                <ng-container *ngIf="parentType === 'certificate'">
+                    <div *ngFor="let field of currentFieldListStyling; index as i;" 
+                        [draggable]="field.styles.editable == 1 ? true : null" 
+                        [ngStyle]="field.styles" 
+                        [ngClass]="{'active': currentFieldListActive === field.id}" 
+                        (click)="field.styles.editable == 1 ? showFieldEditMenu(field.id) : null" 
+                    >
+                        <ng-container [ngSwitch]="field.type">
+                            <ng-container *ngSwitchCase="'Text'">
+                                {{field.content}}
+                            </ng-container>
+    
+                            <ng-container *ngSwitchCase="'Image'">
+                                <img [ngStyle]="{'height': 'inherit', 'width': 'inherit'}" [src]="field.url" alt="" />
+                            </ng-container>
+    
+                            <ng-container *ngSwitchCase="'Link'">
+                                <a [ngStyle]="{'fontSize': 'inherit', 'color': 'inherit', 'textDecoration': 'inherit'}" [href]="field.url">
+                                    {{field.content}}
+                                </a>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="parentType === 'template'">
+                    <div *ngFor="let field of currentFieldListStyling; index as i;" 
+                        draggable="true" 
+                        [ngStyle]="field.styles" 
+                        [ngClass]="{'active': currentFieldListActive === field.id}" 
+                        (click)="showFieldEditMenu(field.id)" 
+                        (dragstart)="setInitialFieldPosition($event)"
+                        (dragend)="updateFieldPosition($event, field.id)"
+                    >
+                        <ng-container [ngSwitch]="field.type">
+                            <ng-container *ngSwitchCase="'Text'">
+                                {{field.content}}
+                            </ng-container>
+
+                            <ng-container *ngSwitchCase="'Image'">
+                                <img [ngStyle]="{'height': 'inherit', 'width': 'inherit'}" [src]="field.url" alt="" />
+                            </ng-container>
+
+                            <ng-container *ngSwitchCase="'Link'">
+                                <a [ngStyle]="{'fontSize': 'inherit', 'color': 'inherit', 'textDecoration': 'inherit'}" [href]="field.url">
+                                    {{field.content}}
+                                </a>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="parentType === 'template-view'">
+                    <div *ngFor="let field of currentFieldListStyling; index as i;" 
+                        [ngStyle]="field.styles" 
+                    >
+                        <ng-container [ngSwitch]="field.type">
+                            <ng-container *ngSwitchCase="'Text'">
+                                {{field.content}}
+                            </ng-container>
+
+                            <ng-container *ngSwitchCase="'Image'">
+                                <img [ngStyle]="{'height': 'inherit', 'width': 'inherit'}" [src]="field.url" alt="" />
+                            </ng-container>
+
+                            <ng-container *ngSwitchCase="'Link'">
+                                <a [ngStyle]="{'fontSize': 'inherit', 'color': 'inherit', 'textDecoration': 'inherit'}" [href]="field.url">
+                                    {{field.content}}
+                                </a>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </ng-container>
+
+                <p *ngIf="!currentFieldListStyling.length" class="no-field-text">Add field to start.</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -58,61 +58,15 @@
     .certificate-and-fields-container {
         display: flex;
 
-        .certificate-main-container {
+        .certificate-and-buttons-container {
             max-width: calc(100% - (165px + 165px + 20px));
 
-            // All certificate display related styles
-            .container-FE {
-                margin-bottom: 10px;
-                border: 2px solid lightgray;
-                box-sizing: content-box;
-                overflow: hidden;
-                font-family: DejaVu;
-
-                .container-horizontal {
-                    height: 210mm;
-                    width: 297mm;
-                    transform-origin: top left;
-                }
-                
-                .container-vertical {
-                    height: 297mm;
-                    width: 210mm;
-                    transform-origin: top left;
-                }
-                
-                div[draggable="true"] {
-                    cursor: move;
-                    
-                    a, 
-                    img {
-                        cursor: move;
-                        pointer-events: none;
-                    }
-                    
-                    &:hover {
-                        outline: 2px solid black;
-                    }
-                }
-                
-                .active {
-                    outline: 2px solid black;
-                }
-                
-                .no-field-text {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    height: 100%;
-                }
-            }
-            
             // Certificate radio buttons and buttons
             // Certificate buttons
             .button-container {
                 display: flex;
                 justify-content: space-between;
-
+    
                 // Custom radio buttons
                 .button-container-radio .radio-button-container {
                     display: inline-flex;

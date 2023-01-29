@@ -1,0 +1,47 @@
+.certificate-main-container {
+    // All certificate display related styles
+    .container-FE {
+        margin-bottom: 10px;
+        border: 2px solid lightgray;
+        box-sizing: content-box;
+        overflow: hidden;
+        font-family: DejaVu;
+
+        .container-horizontal {
+            height: 210mm;
+            width: 297mm;
+            transform-origin: top left;
+        }
+        
+        .container-vertical {
+            height: 297mm;
+            width: 210mm;
+            transform-origin: top left;
+        }
+        
+        div[draggable="true"] {
+            cursor: move;
+            
+            a, 
+            img {
+                cursor: move;
+                pointer-events: none;
+            }
+            
+            &:hover {
+                outline: 2px solid black;
+            }
+        }
+        
+        .active {
+            outline: 2px solid black;
+        }
+        
+        .no-field-text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+    }
+}

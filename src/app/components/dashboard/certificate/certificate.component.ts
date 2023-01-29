@@ -123,14 +123,6 @@ export class CertificateComponent implements OnInit {
             // Update field structure and styling
             this.updateFieldStructureAndStyling();
 
-            // TO DO - impelement a better solution
-            // Due to quick updates the properties are not yet updated
-            // When the function runs
-            setTimeout(() => {
-              // Set the dimensions of the certificate
-              this.setDimensions();
-            }, 1);
-
             // Add a success message
             this.messageService.setMessage({type: 'message-success', message: data.message});
 
@@ -328,14 +320,6 @@ export class CertificateComponent implements OnInit {
           // Update field structure and styling
           this.updateFieldStructureAndStyling();
 
-          // TO DO - impelement a better solution
-          // Due to quick updates the properties are not yet updated
-          // When the function runs
-          setTimeout(() => {
-            // Set the dimensions of the certificate
-            this.setDimensions();
-          }, 1);
-
           // Add a success message
           this.messageService.setMessage({type: 'message-success', message: data.message});
 
@@ -365,20 +349,6 @@ export class CertificateComponent implements OnInit {
 
     // Update the field list styling
     this.currentFieldListStyling = this.certificateHelperService.updateFieldListStyling(this.currentFieldListSorted);
-  }
-
-  // Size control
-  @ViewChild('certificateMainContainer') certificateMainContainer: ElementRef | undefined;
-  @ViewChild('certificateFEContainer') certificateFEContainer: ElementRef | undefined;
-  certificateWidthDifferencePercent: number = 1;
-  certificateHeight: string = '297mm';
-
-  setDimensions(): void {
-    const certificateMainContainerWidth: number = this.certificateMainContainer?.nativeElement.clientWidth;
-    const certificateFEContainerWidth: number = this.certificateFEContainer?.nativeElement.clientWidth;
-    const certificateWidthDifferencePercentResult = certificateMainContainerWidth / certificateFEContainerWidth;
-    this.certificateWidthDifferencePercent = certificateWidthDifferencePercentResult;
-    this.certificateHeight = (this.certificateFEContainer?.nativeElement.clientHeight * certificateWidthDifferencePercentResult) + 'px';
   }
 
   setFieldId(id: number | null) { 
@@ -447,12 +417,6 @@ export class CertificateComponent implements OnInit {
     public router: Router,
     public certificateHelperService: CertificateHelperService
   ) { }
-
-  // TO DO - error on view init
-  ngAfterViewInit(): void {
-    // Set the dimensions of the certificate
-    this.setDimensions();
-  }
 
   ngOnInit(): void {
     this.getTemplates();

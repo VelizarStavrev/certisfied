@@ -367,64 +367,23 @@ export class TemplateComponent implements OnInit {
     this.currentFieldListActive = id;
   }
 
-  // Drag functionality
-  @ViewChild('certificateContainer') certificateContainer: ElementRef | undefined;
-  currentDragFieldDifferenceX: number = 0;
-  currentDragFieldDifferenceY: number = 0;
-
-  setInitialFieldPosition(event: any) {
-    this.currentDragFieldDifferenceX = event.pageX - event.target.offsetLeft;
-    this.currentDragFieldDifferenceY = event.pageY - event.target.offsetTop;
-  }
-
-  updateFieldPosition(event: any, fieldId: number) {
-    const fieldEndX = event.pageX;
-    const fieldEndY = event.pageY;
-    const containerHeight = this.certificateContainer?.nativeElement.clientHeight;
-    const containerHeightOffset = this.certificateContainer?.nativeElement.offsetTop;
-    const containerWidth = this.certificateContainer?.nativeElement.clientWidth;
-    const containerWidthOffset = this.certificateContainer?.nativeElement.offsetLeft;
-    const pageHeaderHeight = 70; // Due to the position of the main component, the offsetTop excludes the header
-    const fieldDragOffsetX = this.currentDragFieldDifferenceX - containerWidthOffset;
-    const fieldDragOffsetY = this.currentDragFieldDifferenceY - pageHeaderHeight - containerHeightOffset;
-    const fieldX = ((((fieldEndX - fieldDragOffsetX) - containerWidthOffset) / containerWidth) * 100).toFixed(2);
-    const fieldY = (((fieldEndY - fieldDragOffsetY - (containerHeightOffset + pageHeaderHeight)) / containerHeight) * 100).toFixed(2);
-
+  updateFieldPosition(fieldData: any) {
     // Set the field data
     let fieldList = structuredClone(this.currentFieldList);
-    fieldList[fieldId].properties.left.value = fieldX;
-    fieldList[fieldId].properties.top.value = fieldY;
+    fieldList[fieldData.fieldId].properties.left.value = fieldData.fieldX;
+    fieldList[fieldData.fieldId].properties.top.value = fieldData.fieldY;
     this.currentFieldList = fieldList;
 
     // Update field structure and styling
     this.updateFieldStructureAndStyling();
-  }
 
-  // Certificate buttons and display
-  @ViewChild('certificateMainContainer') certificateMainContainer: ElementRef | undefined;
-  @ViewChild('certificateFEContainer') certificateFEContainer: ElementRef | undefined;
-  certificateWidthDifferencePercent: number = 1;
-  certificateHeight: string = '297mm';
+    // Set the fieldId again to refresh the menu
+    this.showFieldEditMenu(fieldData.fieldId);
+  }
 
   setOrientation(type: string): void {
     // Set the type
     this.orientation = type;
-
-    // TO DO - impelement a better solution
-    // Due to quick updates the properties are not yet updated
-    // When the function runs
-    setTimeout(() => {
-      // Set the dimensions of the certificate
-      this.setDimensions();
-    }, 1);
-  }
-
-  setDimensions(): void {
-    const certificateMainContainerWidth: number = this.certificateMainContainer?.nativeElement.clientWidth;
-    const certificateFEContainerWidth: number = this.certificateFEContainer?.nativeElement.clientWidth;
-    const certificateWidthDifferencePercentResult = certificateMainContainerWidth / certificateFEContainerWidth;
-    this.certificateWidthDifferencePercent = certificateWidthDifferencePercentResult;
-    this.certificateHeight = (this.certificateFEContainer?.nativeElement.clientHeight * certificateWidthDifferencePercentResult) + 'px';
   }
 
   constructor(private route: ActivatedRoute, 
@@ -434,12 +393,6 @@ export class TemplateComponent implements OnInit {
     public router: Router,
     public certificateHelperService: CertificateHelperService
   ) { }
-
-  // TO DO - error on view init
-  ngAfterViewInit(): void {
-    // Set the dimensions of the certificate
-    this.setDimensions();
-  }
 
   ngOnInit(): void {
     this.getTemplate();
