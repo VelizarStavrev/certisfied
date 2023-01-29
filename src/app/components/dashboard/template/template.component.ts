@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TemplateService } from 'src/app/services/template.service';
 import { LoaderService } from 'src/app/services/loader.service';
@@ -7,6 +7,8 @@ import { Template } from 'src/app/interfaces/template';
 import { Router } from '@angular/router';
 import { Field } from 'src/app/interfaces/field';
 import { CertificateHelperService } from 'src/app/services/certificate-helper.service';
+import { Properties } from 'src/app/interfaces/properties';
+import { TemplateData } from 'src/app/interfaces/template-data';
 
 @Component({
   selector: 'app-template',
@@ -41,7 +43,7 @@ export class TemplateComponent implements OnInit {
   buttonDeleteType: string = 'Error';
   buttonDeleteHTMLType: string = 'button';
   buttonDeleteMarginLeft: boolean = true;
-  
+
   buttonCancelText: string = 'Cancel';
   buttonCancelType: string = 'Secondary';
   buttonCancelLink: string = '/dashboard/templates';
@@ -59,48 +61,38 @@ export class TemplateComponent implements OnInit {
             const receivedData = data.data;
 
             for (let field in receivedData.fields) {
-                let properties: { 
-                  field_id: string, 
-                  label: string, 
-                  name: string, 
-                  orderNum: string, 
-                  type: string, 
-                  value: string, 
-                  unit?: string, 
-                  units?: string | [],
-                  options?: string | [] 
-                }[] = receivedData.fields[field].properties;
-                
-                for (let property in properties) {
-                  let currentProperty: any = properties[property];
+              let properties: Properties[] = receivedData.fields[field].properties;
 
-                  if (currentProperty.unit === 'NULL') {
-                    delete currentProperty.unit;
-                  }
+              for (let property in properties) {
+                let currentProperty: any = properties[property];
 
-                  if (currentProperty.units === 'NULL') {
-                    delete currentProperty.units;
-                  }
-
-                  if (currentProperty.options === 'NULL') {
-                    delete currentProperty.options;
-                  }
-
-                  if (currentProperty.units) {
-                    currentProperty.units = currentProperty.units.split(', ');
-                  }
-
-                  if (currentProperty.options) {
-                    currentProperty.options = currentProperty.options.split(', ');
-                  }
+                if (currentProperty.unit === 'NULL') {
+                  delete currentProperty.unit;
                 }
+
+                if (currentProperty.units === 'NULL') {
+                  delete currentProperty.units;
+                }
+
+                if (currentProperty.options === 'NULL') {
+                  delete currentProperty.options;
+                }
+
+                if (currentProperty.units) {
+                  currentProperty.units = currentProperty.units.split(', ');
+                }
+
+                if (currentProperty.options) {
+                  currentProperty.options = currentProperty.options.split(', ');
+                }
+              }
             }
 
             // Set the data
             this.currentFieldList = receivedData.fields;
             this.templateName = receivedData.name;
-            this.templateCreatedDate = receivedData.created;
-            this.templateEditedDate = receivedData.edited;
+            this.templateCreatedDate = receivedData.created || 0;
+            this.templateEditedDate = receivedData.edited || 0;
             this.templateNotes = receivedData.notes;
             this.setOrientation(receivedData.orientation);
 
@@ -108,16 +100,16 @@ export class TemplateComponent implements OnInit {
             this.updateFieldStructureAndStyling();
 
             // Add a success message
-            this.messageService.setMessage({type: 'message-success', message: data.message});
+            this.messageService.setMessage({ type: 'message-success', message: data.message });
 
             // Hide the loader
             this.loaderService.showLoader(false);
             return;
           }
-  
+
           // Add a success message
-          this.messageService.setMessage({type: 'message-error', message: data.message});
-  
+          this.messageService.setMessage({ type: 'message-error', message: data.message });
+
           // Redirect to the templates list
           this.router.navigate(['/dashboard/templates/']);
 
@@ -128,12 +120,7 @@ export class TemplateComponent implements OnInit {
   }
 
   saveTemplate(): void {
-    let data: {
-      name: string,
-      notes: string,
-      orientation: string,
-      fields: []
-    } = {
+    let data: TemplateData = {
       name: this.templateName,
       notes: this.templateNotes,
       orientation: this.orientation,
@@ -146,44 +133,12 @@ export class TemplateComponent implements OnInit {
     if (this.isEditTemplate) {
       this.templateService.editTemplate(this.templateId, data)
         .subscribe((data: Template) => {
-          if (data.status) {
-            // Set a new message
-            this.messageService.setMessage({type: 'message-success', message: data.message});
-  
-            // Redirect the user
-            this.router.navigate(['/dashboard/templates/']);
-            
-            // Hide the loader
-            this.loaderService.showLoader(false);
-            return;
-          }
-  
-          // Add a success message
-          this.messageService.setMessage({type: 'message-error', message: data.message});
-
-          // Hide the loader
-          this.loaderService.showLoader(false);
+          this.handleResponse(data);
         });
     } else {
       this.templateService.createTemplate(data)
         .subscribe((data: Template) => {
-          if (data.status) {
-            // Set a new message
-            this.messageService.setMessage({type: 'message-success', message: data.message});
-  
-            // Redirect the user
-            this.router.navigate(['/dashboard/templates/']);
-            
-            // Hide the loader
-            this.loaderService.showLoader(false);
-            return;
-          }
-  
-          // Add a success message
-          this.messageService.setMessage({type: 'message-error', message: data.message});
-
-          // Hide the loader
-          this.loaderService.showLoader(false);
+          this.handleResponse(data);
         });
     }
   }
@@ -191,27 +146,27 @@ export class TemplateComponent implements OnInit {
   deleteTemplate(): void {
     // Show the loader
     this.loaderService.showLoader(true);
-    
+
     this.templateService.deleteTemplate(this.templateId)
       .subscribe((data: Template) => {
-        if (data.status) {
-          // Set a new message
-          this.messageService.setMessage({type: 'message-success', message: data.message});
-
-          // Redirect the user
-          this.router.navigate(['/dashboard/templates/']);
-          
-          // Hide the loader
-          this.loaderService.showLoader(false);
-          return;
-        }
-
-        // Add a success message
-        this.messageService.setMessage({type: 'message-error', message: data.message});
-
-        // Hide the loader
-        this.loaderService.showLoader(false);
+        this.handleResponse(data);
       });
+  }
+
+  private handleResponse(responseData: Template): void {
+    if (responseData.status) {
+      // Set a new message
+      this.messageService.setMessage({ type: 'message-success', message: responseData.message });
+
+      // Redirect the user
+      this.router.navigate(['/dashboard/templates/']);
+    } else {
+      // Add an error message
+      this.messageService.setMessage({ type: 'message-error', message: responseData.message });
+    }
+
+    // Hide the loader
+    this.loaderService.showLoader(false);
   }
 
   // Shared field list
@@ -249,13 +204,13 @@ export class TemplateComponent implements OnInit {
 
     // If there are no fields, set a z-index of 1
     if (Object.keys(fieldList).length <= 0) {
-        return 0;
+      return 0;
     }
 
     for (const field in fieldList) {
-        const currentField = fieldList[field];
-        const currentFieldZIndex = currentField.properties.zIndex.value;
-        zIndexArray.push(currentFieldZIndex);
+      const currentField = fieldList[field];
+      const currentFieldZIndex = currentField.properties.zIndex.value;
+      zIndexArray.push(currentFieldZIndex);
     }
 
     let maxZIndex = Math.max(...zIndexArray);
@@ -276,9 +231,6 @@ export class TemplateComponent implements OnInit {
     this.updateFieldStructureAndStyling();
 
     // Hide the new field menu
-    this.hideFieldAddMenu(true);
-
-    // Hide the menu
     this.hideFieldAddMenu(true);
   }
 
@@ -363,7 +315,7 @@ export class TemplateComponent implements OnInit {
     this.isFieldSettingsMenuHidden = false;
   }
 
-  setFieldId(id: number | null) { 
+  setFieldId(id: number | null) {
     this.currentFieldListActive = id;
   }
 
@@ -386,9 +338,9 @@ export class TemplateComponent implements OnInit {
     this.orientation = type;
   }
 
-  constructor(private route: ActivatedRoute, 
-    public templateService: TemplateService, 
-    public loaderService: LoaderService, 
+  constructor(private route: ActivatedRoute,
+    public templateService: TemplateService,
+    public loaderService: LoaderService,
     public messageService: MessageService,
     public router: Router,
     public certificateHelperService: CertificateHelperService

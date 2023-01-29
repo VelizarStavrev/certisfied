@@ -6,6 +6,7 @@ import { LoaderService } from 'src/app/services/loader.service';
 import { MessageService } from 'src/app/services/message.service';
 import { Template } from 'src/app/interfaces/template';
 import { CertificateHelperService } from 'src/app/services/certificate-helper.service';
+import { Properties } from 'src/app/interfaces/properties';
 
 @Component({
   selector: 'app-template-view',
@@ -53,18 +54,8 @@ export class TemplateViewComponent implements OnInit {
             const receivedData = data.data;
 
             for (let field in receivedData.fields) {
-              let properties: { 
-                field_id: string, 
-                label: string, 
-                name: string, 
-                orderNum: string, 
-                type: string, 
-                value: string, 
-                unit?: string, 
-                units?: string | [],
-                options?: string | [] 
-              }[] = receivedData.fields[field].properties;
-              
+              let properties: Properties[] = receivedData.fields[field].properties;
+
               for (let property in properties) {
                 let currentProperty: any = properties[property];
 
@@ -93,8 +84,8 @@ export class TemplateViewComponent implements OnInit {
             // Set the data
             this.currentFieldList = receivedData.fields;
             this.templateName = receivedData.name;
-            this.templateCreatedDate = receivedData.created;
-            this.templateEditedDate = receivedData.edited;
+            this.templateCreatedDate = receivedData.created || 0;
+            this.templateEditedDate = receivedData.edited || 0;
             this.templateNotes = receivedData.notes;
             this.setOrientation(receivedData.orientation);
 
@@ -105,16 +96,16 @@ export class TemplateViewComponent implements OnInit {
             this.currentFieldListStyling = this.certificateHelperService.updateFieldListStyling(this.currentFieldListSorted);
 
             // Add a success message
-            this.messageService.setMessage({type: 'message-success', message: data.message});
+            this.messageService.setMessage({ type: 'message-success', message: data.message });
 
             // Hide the loader
             this.loaderService.showLoader(false);
             return;
           }
-  
+
           // Add a success message
-          this.messageService.setMessage({type: 'message-error', message: data.message});
-  
+          this.messageService.setMessage({ type: 'message-error', message: data.message });
+
           // Redirect to the templates list
           this.router.navigate(['/dashboard/templates/']);
 
@@ -130,8 +121,8 @@ export class TemplateViewComponent implements OnInit {
   }
 
   constructor(private route: ActivatedRoute,
-    public templateService: TemplateService, 
-    public loaderService: LoaderService, 
+    public templateService: TemplateService,
+    public loaderService: LoaderService,
     public messageService: MessageService,
     public router: Router,
     public certificateHelperService: CertificateHelperService
