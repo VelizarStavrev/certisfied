@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoaderService } from 'src/app/services/loader.service';
 import { MessageService } from 'src/app/services/message.service';
@@ -9,6 +9,7 @@ import { Certificate } from 'src/app/interfaces/certificate';
 import { Field } from 'src/app/interfaces/field';
 import { Templates } from 'src/app/interfaces/templates';
 import { Template } from 'src/app/interfaces/template';
+import { Properties } from 'src/app/interfaces/properties';
 
 @Component({
   selector: 'app-certificate',
@@ -44,7 +45,7 @@ export class CertificateComponent implements OnInit {
   buttonDeleteType: string = 'Error';
   buttonDeleteHTMLType: string = 'button';
   buttonDeleteMarginLeft: boolean = true;
-  
+
   buttonCancelText: string = 'Cancel';
   buttonCancelType: string = 'Secondary';
   buttonCancelLink: string = '/dashboard/certificates';
@@ -63,17 +64,7 @@ export class CertificateComponent implements OnInit {
             const certificateData = data.data;
 
             for (let field in receivedData.fields) {
-              let properties: { 
-                field_id: string, 
-                label: string, 
-                name: string, 
-                orderNum: string, 
-                type: string, 
-                value: string, 
-                unit?: string, 
-                units?: string | [],
-                options?: string | [] 
-              }[] = receivedData.fields[field].properties;
+              let properties: Properties[] = receivedData.fields[field].properties;
 
               for (let property in properties) {
                 let currentProperty: any = properties[property];
@@ -124,16 +115,16 @@ export class CertificateComponent implements OnInit {
             this.updateFieldStructureAndStyling();
 
             // Add a success message
-            this.messageService.setMessage({type: 'message-success', message: data.message});
+            this.messageService.setMessage({ type: 'message-success', message: data.message });
 
             // Hide the loader
             this.loaderService.showLoader(false);
             return;
           }
-  
+
           // Add a success message
-          this.messageService.setMessage({type: 'message-error', message: data.message});
-  
+          this.messageService.setMessage({ type: 'message-error', message: data.message });
+
           // Redirect to the templates list
           this.router.navigate(['/dashboard/certificates/']);
 
@@ -184,36 +175,12 @@ export class CertificateComponent implements OnInit {
     if (this.isEditCertificate) {
       this.certificateService.editCertificate(this.certificateId, data)
         .subscribe((data: Certificate) => {
-          if (data.status) {
-            // Add a success message
-            this.messageService.setMessage({type: 'message-success', message: data.message});
-          } else {
-            // Add an error message
-            this.messageService.setMessage({type: 'message-error', message: data.message});
-          }
-  
-          // Redirect to the templates list
-          this.router.navigate(['/dashboard/certificates/']);
-
-          // Hide the loader
-          this.loaderService.showLoader(false);
+          this.handleResponse(data);
         });
     } else {
       this.certificateService.createCertificate(data)
         .subscribe((data: Certificate) => {
-          if (data.status) {
-            // Add a success message
-            this.messageService.setMessage({type: 'message-success', message: data.message});
-          } else {
-            // Add an error message
-            this.messageService.setMessage({type: 'message-error', message: data.message});
-          }
-  
-          // Redirect to the templates list
-          this.router.navigate(['/dashboard/certificates/']);
-
-          // Hide the loader
-          this.loaderService.showLoader(false);
+          this.handleResponse(data);
         });
     }
   }
@@ -221,27 +188,27 @@ export class CertificateComponent implements OnInit {
   deleteCertificate() {
     // Show the loader
     this.loaderService.showLoader(true);
-    
+
     this.certificateService.deleteCertificate(this.certificateId)
       .subscribe((data: Certificate) => {
-        if (data.status) {
-          // Set a new message
-          this.messageService.setMessage({type: 'message-success', message: data.message});
-
-          // Redirect the user
-          this.router.navigate(['/dashboard/certificates/']);
-          
-          // Hide the loader
-          this.loaderService.showLoader(false);
-          return;
-        }
-
-        // Add an error message
-        this.messageService.setMessage({type: 'message-error', message: data.message});
-
-        // Hide the loader
-        this.loaderService.showLoader(false);
+        this.handleResponse(data);
       });
+  }
+
+  private handleResponse(responseData: Certificate): void {
+    if (responseData.status) {
+      // Add a success message
+      this.messageService.setMessage({ type: 'message-success', message: responseData.message });
+
+      // Redirect to the templates list
+      this.router.navigate(['/dashboard/certificates/']);
+    } else {
+      // Add an error message
+      this.messageService.setMessage({ type: 'message-error', message: responseData.message });
+    }
+
+    // Hide the loader
+    this.loaderService.showLoader(false);
   }
 
   getTemplates() {
@@ -263,41 +230,31 @@ export class CertificateComponent implements OnInit {
           const receivedData = data.data;
 
           for (let field in receivedData.fields) {
-              let properties: { 
-                field_id: string, 
-                label: string, 
-                name: string, 
-                orderNum: string, 
-                type: string, 
-                value: string, 
-                unit?: string, 
-                units?: string | [],
-                options?: string | [] 
-              }[] = receivedData.fields[field].properties;
-              
-              for (let property in properties) {
-                let currentProperty: any = properties[property];
+            let properties: Properties[] = receivedData.fields[field].properties;
 
-                if (currentProperty.unit === 'NULL') {
-                  delete currentProperty.unit;
-                }
+            for (let property in properties) {
+              let currentProperty: any = properties[property];
 
-                if (currentProperty.units === 'NULL') {
-                  delete currentProperty.units;
-                }
-
-                if (currentProperty.options === 'NULL') {
-                  delete currentProperty.options;
-                }
-
-                if (currentProperty.units) {
-                  currentProperty.units = currentProperty.units.split(', ');
-                }
-
-                if (currentProperty.options) {
-                  currentProperty.options = currentProperty.options.split(', ');
-                }
+              if (currentProperty.unit === 'NULL') {
+                delete currentProperty.unit;
               }
+
+              if (currentProperty.units === 'NULL') {
+                delete currentProperty.units;
+              }
+
+              if (currentProperty.options === 'NULL') {
+                delete currentProperty.options;
+              }
+
+              if (currentProperty.units) {
+                currentProperty.units = currentProperty.units.split(', ');
+              }
+
+              if (currentProperty.options) {
+                currentProperty.options = currentProperty.options.split(', ');
+              }
+            }
           }
 
           const editableFields = [];
@@ -315,13 +272,13 @@ export class CertificateComponent implements OnInit {
           // Set the data
           this.currentFieldList = receivedData.fields;
           this.orientation = receivedData.orientation;
-          this.templateValue = receivedData.id;
+          this.templateValue = receivedData.id || '';
 
           // Update field structure and styling
           this.updateFieldStructureAndStyling();
 
           // Add a success message
-          this.messageService.setMessage({type: 'message-success', message: data.message});
+          this.messageService.setMessage({ type: 'message-success', message: data.message });
 
           // Hide the loader
           this.loaderService.showLoader(false);
@@ -329,7 +286,7 @@ export class CertificateComponent implements OnInit {
         }
 
         // Add an error message
-        this.messageService.setMessage({type: 'message-error', message: data.message});
+        this.messageService.setMessage({ type: 'message-error', message: data.message });
 
         // Hide the loader
         this.loaderService.showLoader(false);
@@ -342,7 +299,7 @@ export class CertificateComponent implements OnInit {
   currentFieldListStyling: any[] = [];
   currentFieldListActive: number | null = null;
   editableFields: string[] = [];
-  
+
   updateFieldStructureAndStyling() {
     // Update the field sorted array
     this.currentFieldListSorted = this.certificateHelperService.updateFieldSortedArray(this.currentFieldList);
@@ -351,7 +308,7 @@ export class CertificateComponent implements OnInit {
     this.currentFieldListStyling = this.certificateHelperService.updateFieldListStyling(this.currentFieldListSorted);
   }
 
-  setFieldId(id: number | null) { 
+  setFieldId(id: number | null) {
     this.currentFieldListActive = id;
   }
 
@@ -410,9 +367,9 @@ export class CertificateComponent implements OnInit {
   }
 
   constructor(private route: ActivatedRoute,
-    public certificateService: CertificateService, 
-    public templateService: TemplateService, 
-    public loaderService: LoaderService, 
+    public certificateService: CertificateService,
+    public templateService: TemplateService,
+    public loaderService: LoaderService,
     public messageService: MessageService,
     public router: Router,
     public certificateHelperService: CertificateHelperService
