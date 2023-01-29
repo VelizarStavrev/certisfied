@@ -28,6 +28,7 @@ import { CertificateComponent } from './components/dashboard/certificate/certifi
 import { CertificateViewComponent } from './components/dashboard/certificate-view/certificate-view.component';
 import { VerifyComponent } from './components/verify/verify.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
+import { DocumentationComponent } from './components/documentation/documentation.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { ContactsComponent } from './components/contacts/contacts.component';
     CertificateViewComponent,
     VerifyComponent,
     ContactsComponent,
+    DocumentationComponent,
   ],
   imports: [
     BrowserModule,

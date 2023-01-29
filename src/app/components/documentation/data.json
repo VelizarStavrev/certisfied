@@ -1,0 +1,86 @@
+{
+    "website": {
+        "introduction": {
+            "header": "Introduction - Website",
+            "content": "Example text for the content that would be under the title of the selected document section. That can span on multiple roles and have multiple symbols"
+        },
+        "getting-started": {
+            "header": "Getting started - Website",
+            "content": "Example text for the content that would be under the title of the selected document section. That can span on multiple roles and have multiple symbols"
+        },
+        "creating-a-template": {
+            "header": "Creating a template - Website",
+            "content": "Example text for the content that would be under the title of the selected document section. That can span on multiple roles and have multiple symbols"
+        },
+        "viewing-a-template": {
+            "header": "Viewing a template - Website",
+            "content": "Example text for the content that would be under the title of the selected document section. That can span on multiple roles and have multiple symbols"
+        },
+        "editing-a-template": {
+            "header": "Editing a template - Website",
+            "content": "Example text for the content that would be under the title of the selected document section. That can span on multiple roles and have multiple symbols"
+        },
+        "deleting-a-template": {
+            "header": "Deleting a template - Website",
+            "content": "Example text for the content that would be under the title of the selected document section. That can span on multiple roles and have multiple symbols"
+        },
+        "creating-a-certificate": {
+            "header": "Creating a certificate - Website",
+            "content": "Example text for the content that would be under the title of the selected document section. That can span on multiple roles and have multiple symbols"
+        },
+        "viewing-a-certificate": {
+            "header": "Viewing a certificate - Website",
+            "content": "Example text for the content that would be under the title of the selected document section. That can span on multiple roles and have multiple symbols"
+        },
+        "editing-a-certificate": {
+            "header": "Editing a certificate - Website",
+            "content": "Example text for the content that would be under the title of the selected document section. That can span on multiple roles and have multiple symbols"
+        },
+        "deleting-a-certificate": {
+            "header": "Deleting a certificate - Website",
+            "content": "Example text for the content that would be under the title of the selected document section. That can span on multiple roles and have multiple symbols"
+        }
+    },
+    "api": {
+        "introduction": {
+            "header": "Introduction - API",
+            "content": "Example text for the content that would be under the title of the selected document section. That can span on multiple roles and have multiple symbols"
+        },
+        "getting-started": {
+            "header": "Getting started - API",
+            "content": "Example text for the content that would be under the title of the selected document section. That can span on multiple roles and have multiple symbols"
+        },
+        "creating-a-template": {
+            "header": "Creating a template - API",
+            "content": "Example text for the content that would be under the title of the selected document section. That can span on multiple roles and have multiple symbols"
+        },
+        "viewing-a-template": {
+            "header": "Viewing a template - API",
+            "content": "Example text for the content that would be under the title of the selected document section. That can span on multiple roles and have multiple symbols"
+        },
+        "editing-a-template": {
+            "header": "Editing a template - API",
+            "content": "Example text for the content that would be under the title of the selected document section. That can span on multiple roles and have multiple symbols"
+        },
+        "deleting-a-template": {
+            "header": "Deleting a template - API",
+            "content": "Example text for the content that would be under the title of the selected document section. That can span on multiple roles and have multiple symbols"
+        },
+        "creating-a-certificate": {
+            "header": "Creating a certificate - API",
+            "content": "Example text for the content that would be under the title of the selected document section. That can span on multiple roles and have multiple symbols"
+        },
+        "viewing-a-certificate": {
+            "header": "Viewing a certificate - API",
+            "content": "Example text for the content that would be under the title of the selected document section. That can span on multiple roles and have multiple symbols"
+        },
+        "editing-a-certificate": {
+            "header": "Editing a certificate - API",
+            "content": "Example text for the content that would be under the title of the selected document section. That can span on multiple roles and have multiple symbols"
+        },
+        "deleting-a-certificate": {
+            "header": "Deleting a certificate - API",
+            "content": "Example text for the content that would be under the title of the selected document section. That can span on multiple roles and have multiple symbols"
+        }
+    }
+}

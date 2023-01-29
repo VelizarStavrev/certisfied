@@ -13,6 +13,7 @@ import { TemplateViewComponent } from './components/dashboard/template-view/temp
 import { AuthGuard } from './guards/auth.guard';
 import { VerifyComponent } from './components/verify/verify.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
+import { DocumentationComponent } from './components/documentation/documentation.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -52,6 +53,22 @@ const routes: Routes = [
   },
   { path: 'certificate/:id', component: CertificateViewComponent },
   { path: 'verify', component: VerifyComponent },
+  { 
+    path: 'docs', 
+    redirectTo: '/documentation/website/introduction', 
+    pathMatch: 'full',
+  },
+  { 
+    path: 'documentation', 
+    redirectTo: '/documentation/website/introduction', 
+    pathMatch: 'full',
+  },
+  { path: 'documentation', 
+    children: [
+      { path: ':section', component: DocumentationComponent },
+      { path: ':section/:topic', component: DocumentationComponent },
+    ]
+  },
   { path: 'contacts', component: ContactsComponent },
 
   { path: '**', component: HomeComponent }

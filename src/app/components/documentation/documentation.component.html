@@ -1,0 +1,40 @@
+<div class="documentation-container">
+    <div class="documentation-links-container">
+        <div class="documentation-links-website">
+            <button type="button" [ngClass]="{ 'documentation-links-header': true, 'active': websiteSectionActive }" (click)="toggleWebsiteSectionActive()">Website</button>
+            <div [ngClass]="{ 'documentation-links': true, 'active': websiteSectionActive }">
+                <a class="documentation-link" routerLinkActive="active" routerLink="/documentation/website/introduction">Introduction</a>
+                <a class="documentation-link" routerLinkActive="active" routerLink="/documentation/website/getting-started">Getting started</a>
+                <a class="documentation-link" routerLinkActive="active" routerLink="/documentation/website/creating-a-template">Creating a template</a>
+                <a class="documentation-link" routerLinkActive="active" routerLink="/documentation/website/viewing-a-template">Viewing a template</a>
+                <a class="documentation-link" routerLinkActive="active" routerLink="/documentation/website/editing-a-template">Editing a template</a>
+                <a class="documentation-link" routerLinkActive="active" routerLink="/documentation/website/deleting-a-template">Deleting a template</a>
+                <a class="documentation-link" routerLinkActive="active" routerLink="/documentation/website/creating-a-certificate">Creating a certificate</a>
+                <a class="documentation-link" routerLinkActive="active" routerLink="/documentation/website/viewing-a-certificate">Viewing a certificate</a>
+                <a class="documentation-link" routerLinkActive="active" routerLink="/documentation/website/editing-a-certificate">Editing a certificate</a>
+                <a class="documentation-link" routerLinkActive="active" routerLink="/documentation/website/deleting-a-certificate">Deleting a certificate</a>
+            </div>
+        </div>
+
+        <div class="documentation-links-api">
+            <button type="button" [ngClass]="{ 'documentation-links-header': true, 'active': apiSectionActive }" (click)="toggleApiSectionActive()">API</button>
+            <div [ngClass]="{ 'documentation-links': true, 'active': apiSectionActive }">
+                <a class="documentation-link" routerLinkActive="active" routerLink="/documentation/api/introduction">Introduction</a>
+                <a class="documentation-link" routerLinkActive="active" routerLink="/documentation/api/getting-started">Getting started</a>
+                <a class="documentation-link" routerLinkActive="active" routerLink="/documentation/api/creating-a-template">Creating a template</a>
+                <a class="documentation-link" routerLinkActive="active" routerLink="/documentation/api/viewing-a-template">Viewing a template</a>
+                <a class="documentation-link" routerLinkActive="active" routerLink="/documentation/api/editing-a-template">Editing a template</a>
+                <a class="documentation-link" routerLinkActive="active" routerLink="/documentation/api/deleting-a-template">Deleting a template</a>
+                <a class="documentation-link" routerLinkActive="active" routerLink="/documentation/api/creating-a-certificate">Creating a certificate</a>
+                <a class="documentation-link" routerLinkActive="active" routerLink="/documentation/api/viewing-a-certificate">Viewing a certificate</a>
+                <a class="documentation-link" routerLinkActive="active" routerLink="/documentation/api/editing-a-certificate">Editing a certificate</a>
+                <a class="documentation-link" routerLinkActive="active" routerLink="/documentation/api/deleting-a-certificate">Deleting a certificate</a>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="currentContent" class="documentation-content-container">
+        <p class="documentation-content-header">{{ currentContent.header }}</p>
+        <p>{{ currentContent.content }}</p>
+    </div>
+</div>
