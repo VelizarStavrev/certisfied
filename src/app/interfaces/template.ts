@@ -1,13 +1,7 @@
+import { TemplateData } from "./template-data";
+
 export interface Template {
-    data: {
-        id: string,
-        name: string, 
-        created: number, 
-        edited: number, 
-        notes: string,
-        fields: any[],
-        orientation: string
-    },
+    data: TemplateData,
     message: string,
     status: boolean
 }

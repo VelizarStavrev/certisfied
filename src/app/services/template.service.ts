@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { variables } from '../variables';
 import { Templates } from '../interfaces/templates';
 import { Template} from '../interfaces/template';
+import { TemplateData } from '../interfaces/template-data';
 
 @Injectable({
   providedIn: 'root'
@@ -22,24 +23,14 @@ export class TemplateService {
   }
 
   createTemplate(
-    fieldData: {
-      name: string,
-      notes: string,
-      orientation: string,
-      fields: []
-    }
+    fieldData: TemplateData
   ) {
     return this.http.post<Template>(this.serverUrl + '/template/new', fieldData);
   }
 
   editTemplate(
     templateId: string, 
-    fieldData: {
-      name: string,
-      notes: string,
-      orientation: string,
-      fields: []
-    }
+    fieldData: TemplateData
   ) {
     return this.http.post<Template>(this.serverUrl + '/template/edit/' + templateId, fieldData);
   }
