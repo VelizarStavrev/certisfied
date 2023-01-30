@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-certificate-display',
@@ -55,19 +55,20 @@ export class CertificateDisplayComponent implements OnInit {
     this.updateFieldFunc.emit({ fieldId, fieldX, fieldY });
   }
 
-  constructor() { }
+  constructor(private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
   }
 
-  // TO DO - error on view init
   ngAfterViewInit(): void {
     // Set the dimensions of the certificate
     this.setDimensions();
+    
+    // Run change detection to not get an error due to changes
+    this.cd.detectChanges();
   }
 
   ngOnChanges(): void {
-    // TO DO - impelement a better solution
     // Due to quick updates the properties are not yet updated
     // When the function runs
     setTimeout(() => {
