@@ -163,12 +163,14 @@ header {
                 max-height: 0;
                 opacity: 0;
                 transition: opacity 0.5s, max-height 1s, margin-top 0.5s 0.5s;
+                pointer-events: none;
 
                 &.visible {
                     margin-top: 10px;
                     max-height: 500px;
                     opacity: 1;
                     transition: opacity 0.5s, max-height 1s;
+                    pointer-events: all;
                 }
     
                 li {
