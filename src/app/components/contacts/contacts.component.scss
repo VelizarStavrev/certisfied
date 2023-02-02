@@ -58,4 +58,17 @@
             margin-bottom: 20px;
         }
     }
+
+    @media only screen and (max-width: 776px) {
+        flex-direction: column;
+        align-items: center;
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        .contacts-text {
+            margin-left: 0;
+        }
+    }
 }

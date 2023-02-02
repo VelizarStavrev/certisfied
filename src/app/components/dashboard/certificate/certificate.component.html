@@ -54,14 +54,13 @@
                     </label>
                 </div>
             
-                <div class="template-certificate-button-container-button">
+                <div class="button-container-button">
                     <app-button 
                         [buttonText]="buttonSaveText" 
                         [buttonType]="buttonSaveType" 
                         [buttonHTMLType]="buttonSaveHTMLType" 
                         (click)="saveCertificate()" 
-                    >
-                    </app-button>
+                    ></app-button>
     
                     <app-button 
                         [buttonText]="buttonResetText" 
@@ -69,8 +68,7 @@
                         [buttonHTMLType]="buttonResetHTMLType" 
                         [buttonMarginLeft]="buttonResetMarginLeft"
                         (click)="getCertificate()" 
-                    >
-                    </app-button>
+                    ></app-button>
                     
                     <app-button 
                         *ngIf="isEditCertificate"
@@ -79,16 +77,14 @@
                         [buttonHTMLType]="buttonDeleteHTMLType" 
                         [buttonMarginLeft]="buttonDeleteMarginLeft"
                         (click)="deleteCertificate()" 
-                    >
-                    </app-button>
+                    ></app-button>
     
                     <app-button-link 
                         [buttonText]="buttonCancelText" 
                         [buttonType]="buttonCancelType" 
                         [buttonLink]="buttonCancelLink"
                         [buttonMarginLeft]="buttonCancelMarginLeft"
-                    >
-                    </app-button-link>
+                    ></app-button-link>
                 </div>
             </div>
         </div>

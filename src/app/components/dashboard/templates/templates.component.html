@@ -6,45 +6,47 @@
         <app-button-link [buttonText]="buttonOtherTextLink" [buttonType]="buttonOtherTypeLink" [buttonLink]="buttonOtherLink" [buttonMarginLeft]="buttonNewMarginLeft"></app-button-link>
     </div>
 
-    <table class="dashboard-table">
-        <thead>
-            <tr>
-                <th colspan="4" class="dashboard-table-header">YOUR TEMPLATES</th>
-            </tr>
-
-            <tr>
-                <th class="dashboard-table-number">№</th>
-                <th class="dashboard-table-name">Name</th>
-                <th class="dashboard-table-created">Date created</th>
-                <th class="dashboard-table-actions">Actions</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            <tr *ngFor="let template of templates; index as i;">
-                <td class="dashboard-table-number">{{ i + 1 }}</td>
-                <td class="dashboard-table-name">{{ template.name }}</td>
-                <td class="dashboard-table-created">{{ template.created | timestampToDate }}</td>
-                <td class="dashboard-table-actions">
-                    <a class="dashboard-actions-button-link dashboard-actions-item" routerLink="/dashboard/template/{{template.id}}">
-                        <img [src]="viewIcon" alt="View" />
-                    </a>
-
-                    <a class="dashboard-actions-button-link dashboard-actions-item" routerLink="/dashboard/template/edit/{{template.id}}">
-                        <img [src]="editIcon" alt="Edit" />
-                    </a>
-
-                    <button type="button" class="dashboard-actions-item" (click)="deleteTemplate(template.id, i)">
-                        <img [src]="deleteIcon" alt="Delete" />
-                    </button>
-                </td>
-            </tr>
-
-            <tr *ngIf="!templates.length" class="dashboard-table-message" colspan="5">
-                <td colspan="5">No templates were found.</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="dashboard-table-container">
+        <table class="dashboard-table">
+            <thead>
+                <tr>
+                    <th colspan="4" class="dashboard-table-header">YOUR TEMPLATES</th>
+                </tr>
+    
+                <tr>
+                    <th class="dashboard-table-number">№</th>
+                    <th class="dashboard-table-name">Name</th>
+                    <th class="dashboard-table-created">Date created</th>
+                    <th class="dashboard-table-actions">Actions</th>
+                </tr>
+            </thead>
+    
+            <tbody>
+                <tr *ngFor="let template of templates; index as i;">
+                    <td class="dashboard-table-number">{{ i + 1 }}</td>
+                    <td class="dashboard-table-name">{{ template.name }}</td>
+                    <td class="dashboard-table-created">{{ template.created | timestampToDate }}</td>
+                    <td class="dashboard-table-actions">
+                        <a class="dashboard-actions-button-link dashboard-actions-item" routerLink="/dashboard/template/{{template.id}}">
+                            <img [src]="viewIcon" alt="View" />
+                        </a>
+    
+                        <a class="dashboard-actions-button-link dashboard-actions-item" routerLink="/dashboard/template/edit/{{template.id}}">
+                            <img [src]="editIcon" alt="Edit" />
+                        </a>
+    
+                        <button type="button" class="dashboard-actions-item" (click)="deleteTemplate(template.id, i)">
+                            <img [src]="deleteIcon" alt="Delete" />
+                        </button>
+                    </td>
+                </tr>
+    
+                <tr *ngIf="!templates.length" class="dashboard-table-message" colspan="5">
+                    <td colspan="5">No templates were found.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
     <app-button 
         *ngIf="remainingTemplates.length > 0"

@@ -97,4 +97,14 @@
             text-align: left;
         }
     }
+
+    @media only screen and (max-width: 776px) {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+
+        .documentation-links-container {
+            margin-bottom: 20px;
+        }
+    }
 }

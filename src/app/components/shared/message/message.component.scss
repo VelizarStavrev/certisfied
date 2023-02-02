@@ -35,4 +35,11 @@
         background-color: var(--error-color-transparent);
         color: var(--main-color);
     }
+
+    @media only screen and (max-width: 776px) {
+        position: absolute;
+        left: 10px;
+        right: unset;
+        max-width: 300px;
+    }
 }
