@@ -1,4 +1,6 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { CertificateViewComponent } from './certificate-view.component';
 
@@ -8,7 +10,8 @@ describe('CertificateViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CertificateViewComponent ]
+      declarations: [ CertificateViewComponent ],
+      imports: [ RouterTestingModule, HttpClientModule ]
     })
     .compileComponents();
 

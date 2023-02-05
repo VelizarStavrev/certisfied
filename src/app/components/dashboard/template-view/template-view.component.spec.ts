@@ -1,4 +1,7 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TimestampToDatePipe } from 'src/app/pipes/timestamp-to-date.pipe';
 
 import { TemplateViewComponent } from './template-view.component';
 
@@ -8,7 +11,8 @@ describe('TemplateViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TemplateViewComponent ]
+      declarations: [ TemplateViewComponent, TimestampToDatePipe ],
+      imports: [ RouterTestingModule, HttpClientModule ]
     })
     .compileComponents();
 
