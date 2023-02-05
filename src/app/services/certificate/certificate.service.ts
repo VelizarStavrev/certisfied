@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { variables } from '../variables';
-import { Certificates } from '../interfaces/certificates';
-import { Certificate } from '../interfaces/certificate';
+import { variables } from 'src/app/variables';
+import { Certificates } from 'src/app/interfaces/certificates';
+import { Certificate } from 'src/app/interfaces/certificate';
 
 @Injectable({
   providedIn: 'root'

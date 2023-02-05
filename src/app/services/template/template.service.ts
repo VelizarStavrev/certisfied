@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { variables } from '../variables';
-import { Templates } from '../interfaces/templates';
-import { Template} from '../interfaces/template';
-import { TemplateData } from '../interfaces/template-data';
+import { variables } from 'src/app/variables';
+import { Templates } from 'src/app/interfaces/templates';
+import { Template} from 'src/app/interfaces/template';
+import { TemplateData } from 'src/app/interfaces/template-data';
 
 @Injectable({
   providedIn: 'root'

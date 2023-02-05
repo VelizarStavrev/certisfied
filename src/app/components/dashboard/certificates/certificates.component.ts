@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Certificate } from 'src/app/interfaces/certificate';
 import { CertificateInCertificates } from 'src/app/interfaces/certificate-in-certificates';
 import { Certificates } from 'src/app/interfaces/certificates';
-import { CertificateService } from 'src/app/services/certificate.service';
-import { LoaderService } from 'src/app/services/loader.service';
-import { MessageService } from 'src/app/services/message.service';
+import { CertificateService } from 'src/app/services/certificate/certificate.service';
+import { LoaderService } from 'src/app/services/loader/loader.service';
+import { MessageService } from 'src/app/services/message/message.service';
 
 @Component({
   selector: 'app-certificates',

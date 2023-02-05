@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { UserService } from 'src/app/services/user.service';
 import { Register } from 'src/app/interfaces/register';
 import { Router } from '@angular/router';
-import { MessageService } from 'src/app/services/message.service';
-import { LoaderService } from 'src/app/services/loader.service';
+import { UserService } from 'src/app/services/user/user.service';
+import { MessageService } from 'src/app/services/message/message.service';
+import { LoaderService } from 'src/app/services/loader/loader.service';
 
 @Component({
   selector: 'app-register',

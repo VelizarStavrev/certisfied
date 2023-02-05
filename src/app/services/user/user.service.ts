@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Register } from '../interfaces/register';
-import { Login } from '../interfaces/login';
+import { Register } from 'src/app/interfaces/register';
+import { Login } from 'src/app/interfaces/login';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
-import { MessageService } from './message.service';
-import { variables } from '../variables';
+import { MessageService } from 'src/app/services/message/message.service';
+import { variables } from 'src/app/variables';
 
 @Injectable({
   providedIn: 'root'

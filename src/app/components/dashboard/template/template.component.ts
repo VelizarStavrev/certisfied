@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TemplateService } from 'src/app/services/template.service';
-import { LoaderService } from 'src/app/services/loader.service';
-import { MessageService } from 'src/app/services/message.service';
+import { TemplateService } from 'src/app/services/template/template.service';
+import { LoaderService } from 'src/app/services/loader/loader.service';
+import { MessageService } from 'src/app/services/message/message.service';
 import { Template } from 'src/app/interfaces/template';
 import { Router } from '@angular/router';
 import { Field } from 'src/app/interfaces/field';
-import { CertificateHelperService } from 'src/app/services/certificate-helper.service';
+import { CertificateHelperService } from 'src/app/services/certificate-helper/certificate-helper.service';
 import { Properties } from 'src/app/interfaces/properties';
 import { TemplateData } from 'src/app/interfaces/template-data';
 

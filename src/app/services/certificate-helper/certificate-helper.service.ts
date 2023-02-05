@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Properties } from '../interfaces/properties';
-import { Field } from '../interfaces/field';
+import { Properties } from 'src/app/interfaces/properties';
+import { Field } from 'src/app/interfaces/field';
 
 @Injectable({
   providedIn: 'root'
