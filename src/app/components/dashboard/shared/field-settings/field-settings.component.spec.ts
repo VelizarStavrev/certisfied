@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ButtonComponent } from 'src/app/components/shared/button/button.component';
 
 import { FieldSettingsComponent } from './field-settings.component';
 
@@ -8,7 +9,10 @@ describe('FieldSettingsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FieldSettingsComponent ]
+      declarations: [ 
+        FieldSettingsComponent, 
+        ButtonComponent
+      ]
     })
     .compileComponents();
 

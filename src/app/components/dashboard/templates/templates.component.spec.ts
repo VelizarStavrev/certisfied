@@ -1,5 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ButtonLinkComponent } from '../../shared/button-link/button-link.component';
 
 import { TemplatesComponent } from './templates.component';
 
@@ -9,8 +11,14 @@ describe('TemplatesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TemplatesComponent ],
-      imports: [ HttpClientModule ]
+      declarations: [ 
+        TemplatesComponent, 
+        ButtonLinkComponent
+      ],
+      imports: [ 
+        HttpClientModule, 
+        RouterTestingModule
+      ]
     })
     .compileComponents();
 

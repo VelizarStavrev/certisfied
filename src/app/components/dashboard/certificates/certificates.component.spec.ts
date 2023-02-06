@@ -1,5 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ButtonLinkComponent } from '../../shared/button-link/button-link.component';
 
 import { CertificatesComponent } from './certificates.component';
 
@@ -9,8 +11,14 @@ describe('CertificatesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CertificatesComponent ],
-      imports: [ HttpClientModule ]
+      declarations: [ 
+        CertificatesComponent, 
+        ButtonLinkComponent
+      ],
+      imports: [ 
+        HttpClientModule,
+        RouterTestingModule
+      ]
     })
     .compileComponents();
 

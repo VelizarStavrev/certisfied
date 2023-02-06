@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ButtonComponent } from 'src/app/components/shared/button/button.component';
 
 import { FieldListComponent } from './field-list.component';
 
@@ -8,7 +9,10 @@ describe('FieldListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FieldListComponent ]
+      declarations: [ 
+        FieldListComponent, 
+        ButtonComponent
+      ]
     })
     .compileComponents();
 
