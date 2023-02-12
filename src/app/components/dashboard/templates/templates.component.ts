@@ -3,7 +3,7 @@ import { TemplateService } from 'src/app/services/template/template.service';
 import { LoaderService } from 'src/app/services/loader/loader.service';
 import { MessageService } from 'src/app/services/message/message.service';
 import { Templates } from 'src/app/interfaces/templates';
-import { TemplateInTemplates } from 'src/app/interfaces/templateInTemplates';
+import { TemplateInTemplates } from 'src/app/interfaces/template-in-templates';
 import { Template } from 'src/app/interfaces/template';
 import { Router } from '@angular/router';
 
