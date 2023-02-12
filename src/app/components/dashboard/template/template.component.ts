@@ -7,8 +7,10 @@ import { Template } from 'src/app/interfaces/template';
 import { Router } from '@angular/router';
 import { Field } from 'src/app/interfaces/field';
 import { CertificateHelperService } from 'src/app/services/certificate-helper/certificate-helper.service';
-import { Properties } from 'src/app/interfaces/properties';
 import { TemplateData } from 'src/app/interfaces/template-data';
+import { FieldDataCurrent } from 'src/app/interfaces/field-data-current';
+import { FieldList } from 'src/app/interfaces/field-list';
+import { Property } from 'src/app/interfaces/property';
 
 @Component({
   selector: 'app-template',
@@ -61,10 +63,10 @@ export class TemplateComponent implements OnInit {
             const receivedData = data.data;
 
             for (let field in receivedData.fields) {
-              let properties: Properties[] = receivedData.fields[field].properties;
+              let properties = receivedData.fields[field].properties;
 
               for (let property in properties) {
-                let currentProperty: any = properties[property];
+                let currentProperty: Property = properties[property];
 
                 if (currentProperty.unit === 'NULL') {
                   delete currentProperty.unit;
@@ -79,11 +81,11 @@ export class TemplateComponent implements OnInit {
                 }
 
                 if (currentProperty.units) {
-                  currentProperty.units = currentProperty.units.split(', ');
+                  currentProperty.unitsArray = currentProperty.units.split(', ');
                 }
 
                 if (currentProperty.options) {
-                  currentProperty.options = currentProperty.options.split(', ');
+                  currentProperty.optionsArray = currentProperty.options.split(', ');
                 }
               }
             }
@@ -121,6 +123,7 @@ export class TemplateComponent implements OnInit {
 
   saveTemplate(): void {
     let data: TemplateData = {
+      id: '',
       name: this.templateName,
       notes: this.templateNotes,
       orientation: this.orientation,
@@ -170,9 +173,9 @@ export class TemplateComponent implements OnInit {
   }
 
   // Shared field list
-  currentFieldList: any = {};
+  currentFieldList: FieldList = {};
   currentFieldListSorted: Field[] = [];
-  currentFieldListStyling: any[] = [];
+  currentFieldListStyling: {}[] = [];
 
   updateFieldStructureAndStyling() {
     // Update the field sorted array
@@ -209,21 +212,21 @@ export class TemplateComponent implements OnInit {
 
     for (const field in fieldList) {
       const currentField = fieldList[field];
-      const currentFieldZIndex = currentField.properties.zIndex.value;
-      zIndexArray.push(currentFieldZIndex);
+      const currentFieldZIndex = currentField.properties['zIndex'].value;
+      zIndexArray.push(Number(currentFieldZIndex));
     }
 
     let maxZIndex = Math.max(...zIndexArray);
     return maxZIndex + 1;
   }
 
-  createField(fieldData: any): void {
+  createField(fieldData: Field): void {
     // Get current max z-index of all fields
     const zIndex = this.getCurrentMaxZIndex();
 
     // Push the field to the current field list
     let fieldList = structuredClone(this.currentFieldList);
-    fieldData.properties.zIndex.value = zIndex;
+    fieldData.properties['zIndex'].value = zIndex.toString();
     fieldList[fieldData.id] = fieldData;
     this.currentFieldList = fieldList;
 
@@ -246,7 +249,7 @@ export class TemplateComponent implements OnInit {
     this.updateFieldStructureAndStyling();
   }
 
-  updateField(fieldData: any) {
+  updateField(fieldData: { fieldId: number, fieldPropertyName: string, fieldValue: string, fieldIndex: number }) {
     // Set the field data
     let fieldList = structuredClone(this.currentFieldList);
     fieldList[fieldData.fieldId].properties[fieldData.fieldPropertyName].value = fieldData.fieldValue;
@@ -261,7 +264,7 @@ export class TemplateComponent implements OnInit {
 
   updateFieldUnit(fieldData: { fieldId: number, fieldPropertyName: string, fieldUnit: string, fieldIndex: number }) {
     // Set the field data
-    let fieldList: any = structuredClone(this.currentFieldList);
+    let fieldList = structuredClone(this.currentFieldList);
     fieldList[fieldData.fieldId].properties[fieldData.fieldPropertyName].unit = fieldData.fieldUnit;
     this.currentFieldList = fieldList;
 
@@ -274,7 +277,7 @@ export class TemplateComponent implements OnInit {
 
   // Edit field menu
   isFieldSettingsMenuHidden: boolean = true;
-  currentFieldData: Field | null = null;
+  currentFieldData: FieldDataCurrent | null = null;
 
   hideFieldSettingsMenu() {
     // Hide the menu
@@ -295,18 +298,23 @@ export class TemplateComponent implements OnInit {
     // Convert the properties to an array
     let currentFieldDataObject = this.currentFieldList[id];
     let currentFieldDataPropertiesObject = currentFieldDataObject.properties;
-    let currentFieldDataPropertiesArray: any[] = [];
+    let currentFieldDataPropertiesArray: Property[] = [];
 
     Object.entries(currentFieldDataPropertiesObject).map(([key, value]) => {
       currentFieldDataPropertiesArray.push(value);
     });
 
     // Sort the fields by order number
-    currentFieldDataPropertiesArray.sort((a, b): any => {
-      return a.orderNum - b.orderNum;
+    currentFieldDataPropertiesArray.sort((a, b) => {
+      return Number(a.orderNum) - Number(b.orderNum);
     });
 
-    let finalFieldData: any = structuredClone(currentFieldDataObject);
+    let finalFieldData: FieldDataCurrent = {
+      id: currentFieldDataObject.id,
+      template_id: currentFieldDataObject.template_id,
+      type: currentFieldDataObject.type,
+      properties: []
+    };
     finalFieldData.properties = currentFieldDataPropertiesArray;
 
     this.currentFieldData = finalFieldData;
@@ -319,11 +327,11 @@ export class TemplateComponent implements OnInit {
     this.currentFieldListActive = id;
   }
 
-  updateFieldPosition(fieldData: any) {
+  updateFieldPosition(fieldData: { fieldId: number, fieldX: string, fieldY: string }) {
     // Set the field data
     let fieldList = structuredClone(this.currentFieldList);
-    fieldList[fieldData.fieldId].properties.left.value = fieldData.fieldX;
-    fieldList[fieldData.fieldId].properties.top.value = fieldData.fieldY;
+    fieldList[fieldData.fieldId].properties['left'].value = fieldData.fieldX;
+    fieldList[fieldData.fieldId].properties['top'].value = fieldData.fieldY;
     this.currentFieldList = fieldList;
 
     // Update field structure and styling
