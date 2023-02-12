@@ -9,7 +9,11 @@ import { Certificate } from 'src/app/interfaces/certificate';
 import { Field } from 'src/app/interfaces/field';
 import { Templates } from 'src/app/interfaces/templates';
 import { Template } from 'src/app/interfaces/template';
-import { Properties } from 'src/app/interfaces/properties';
+import { Property } from 'src/app/interfaces/property';
+import { TemplateInTemplates } from 'src/app/interfaces/template-in-templates';
+import { FieldList } from 'src/app/interfaces/field-list';
+import { FieldDataCurrent } from 'src/app/interfaces/field-data-current';
+import { FieldsInCertificate } from 'src/app/interfaces/fields-in-certificate';
 
 @Component({
   selector: 'app-certificate',
@@ -18,7 +22,7 @@ import { Properties } from 'src/app/interfaces/properties';
 })
 export class CertificateComponent implements OnInit {
   certificateId: string = '';
-  routeSub = this.route.params.subscribe((params: any) => {
+  routeSub = this.route.params.subscribe(params => {
     this.certificateId = params['id'];
   });
   isEditCertificate: boolean = !!this.certificateId;
@@ -28,8 +32,8 @@ export class CertificateComponent implements OnInit {
   certificateEditedDate: number = 0;
   certificateNotes: string = '';
   orientation: string = 'vertical';
-  templateValue = '';
-  templates: any[] = [];
+  templateValue: string = '';
+  templates: TemplateInTemplates[] = [];
 
   buttonSaveText: string = 'Save';
   buttonSaveType: string = 'Primary';
@@ -64,10 +68,10 @@ export class CertificateComponent implements OnInit {
             const certificateData = data.data;
 
             for (let field in receivedData.fields) {
-              let properties: Properties[] = receivedData.fields[field].properties;
+              let properties = receivedData.fields[field].properties;
 
               for (let property in properties) {
-                let currentProperty: any = properties[property];
+                let currentProperty: Property = properties[property];
 
                 if (currentProperty.unit === 'NULL') {
                   delete currentProperty.unit;
@@ -81,17 +85,17 @@ export class CertificateComponent implements OnInit {
                   delete currentProperty.options;
                 }
 
-                if (currentProperty.units) {
-                  currentProperty.units = currentProperty.units.split(', ');
+                if (typeof currentProperty.units === 'string') {
+                  currentProperty.unitsArray = currentProperty.units.split(', ');
                 }
 
-                if (currentProperty.options) {
-                  currentProperty.options = currentProperty.options.split(', ');
+                if (typeof currentProperty.options === 'string') {
+                  currentProperty.optionsArray = currentProperty.options.split(', ');
                 }
               }
             }
 
-            const editableFields = [];
+            const editableFields: string[] = [];
 
             for (let field in certificateData.fields) {
               let currentField = certificateData.fields[field];
@@ -136,7 +140,7 @@ export class CertificateComponent implements OnInit {
 
   saveCertificate() {
     let fieldList = structuredClone(this.currentFieldList);
-    let fieldListFinal: any = {};
+    let fieldListFinal: FieldsInCertificate = {};
 
     for (const field in fieldList) {
       let currentField = fieldList[field];
@@ -144,8 +148,8 @@ export class CertificateComponent implements OnInit {
       switch (currentField.type) {
         case 'Text':
         case 'Link':
-          if (currentField.properties.editable.value === 1 || currentField.properties.editable.value === '1') {
-            const contentField = currentField.properties.content;
+          if (currentField.properties['editable'].value == '1') {
+            const contentField = currentField.properties['content'];
             fieldListFinal[contentField.field_id] = {
               id: contentField.field_id,
               type: contentField.type,
@@ -167,7 +171,7 @@ export class CertificateComponent implements OnInit {
       notes: this.certificateNotes,
       template_id: this.templateValue,
       fields: fieldListFinal
-    }
+    };
 
     // Show the loader
     this.loaderService.showLoader(true);
@@ -230,10 +234,10 @@ export class CertificateComponent implements OnInit {
           const receivedData = data.data;
 
           for (let field in receivedData.fields) {
-            let properties: Properties[] = receivedData.fields[field].properties;
+            let properties = receivedData.fields[field].properties;
 
             for (let property in properties) {
-              let currentProperty: any = properties[property];
+              let currentProperty: Property = properties[property];
 
               if (currentProperty.unit === 'NULL') {
                 delete currentProperty.unit;
@@ -247,12 +251,12 @@ export class CertificateComponent implements OnInit {
                 delete currentProperty.options;
               }
 
-              if (currentProperty.units) {
-                currentProperty.units = currentProperty.units.split(', ');
+              if (typeof currentProperty.units === 'string') {
+                currentProperty.unitsArray = currentProperty.units.split(', ');
               }
 
-              if (currentProperty.options) {
-                currentProperty.options = currentProperty.options.split(', ');
+              if (typeof currentProperty.options === 'string') {
+                currentProperty.optionsArray = currentProperty.options.split(', ');
               }
             }
           }
@@ -262,7 +266,7 @@ export class CertificateComponent implements OnInit {
           for (let field in receivedData.fields) {
             const currentField = receivedData.fields[field].properties;
 
-            if (currentField.editable.value == 1) {
+            if (currentField['editable'].value == '1') {
               editableFields.push(field);
             }
           }
@@ -294,9 +298,9 @@ export class CertificateComponent implements OnInit {
   }
 
   // Shared field list
-  currentFieldList: any = {};
+  currentFieldList: FieldList = {};
   currentFieldListSorted: Field[] = [];
-  currentFieldListStyling: any[] = [];
+  currentFieldListStyling: {}[] = [];
   currentFieldListActive: number | null = null;
   editableFields: string[] = [];
 
@@ -314,7 +318,7 @@ export class CertificateComponent implements OnInit {
 
   // Edit field menu
   isFieldSettingsMenuHidden: boolean = true;
-  currentFieldData: Field | null = null;
+  currentFieldData: FieldDataCurrent | null = null;
 
   hideFieldSettingsMenu() {
     // Hide the menu
@@ -332,19 +336,24 @@ export class CertificateComponent implements OnInit {
     // Convert the properties to an array
     let currentFieldDataObject = this.currentFieldList[id];
     let currentFieldDataPropertiesObject = currentFieldDataObject.properties;
-    let currentFieldDataPropertiesArray: any[] = [];
+    let currentFieldDataPropertiesArray: Property[] = [];
 
     // Display only editable fields for the certificate component edit menu
-    if (currentFieldDataPropertiesObject.editable.value) {
-      currentFieldDataPropertiesArray.push(currentFieldDataPropertiesObject.content);
+    if (currentFieldDataPropertiesObject['editable'].value) {
+      currentFieldDataPropertiesArray.push(currentFieldDataPropertiesObject['content']);
     }
 
     // Sort the fields by order number
-    currentFieldDataPropertiesArray.sort((a, b): any => {
-      return a.orderNum - b.orderNum;
+    currentFieldDataPropertiesArray.sort((a, b) => {
+      return Number(a.orderNum) - Number(b.orderNum);
     });
 
-    let finalFieldData: any = structuredClone(currentFieldDataObject);
+    let finalFieldData: FieldDataCurrent = {
+      id: currentFieldDataObject.id,
+      template_id: currentFieldDataObject.template_id,
+      type: currentFieldDataObject.type,
+      properties: []
+    };
     finalFieldData.properties = currentFieldDataPropertiesArray;
 
     this.currentFieldData = finalFieldData;
@@ -353,7 +362,7 @@ export class CertificateComponent implements OnInit {
     this.isFieldSettingsMenuHidden = false;
   }
 
-  updateField(fieldData: any) {
+  updateField(fieldData: { fieldId: number, fieldPropertyName: string, fieldValue: string, fieldIndex: number }) {
     // Set the field data
     let fieldList = structuredClone(this.currentFieldList);
     fieldList[fieldData.fieldId].properties[fieldData.fieldPropertyName].value = fieldData.fieldValue;
