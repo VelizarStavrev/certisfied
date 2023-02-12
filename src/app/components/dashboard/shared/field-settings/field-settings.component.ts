@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Field } from 'src/app/interfaces/field';
+import { FieldDataCurrent } from 'src/app/interfaces/field-data-current';
 
 @Component({
   selector: 'app-field-settings',
@@ -12,9 +12,9 @@ export class FieldSettingsComponent implements OnInit {
   buttonHTMLType: string = 'button';
   arrowIcon: string = '../../../../assets/icons/arrow.svg';
   @Input() visibility: boolean = false;
-  @Input() currentFieldData: Field | null = null;
+  @Input() currentFieldData: FieldDataCurrent | null = null;
   @Output() buttonDoneClick = new EventEmitter<{}>();
-  @Output() editField = new EventEmitter<{ fieldId: number, fieldPropertyName: string, fieldValue: string }>();
+  @Output() editField = new EventEmitter<{ fieldId: number, fieldPropertyName: string, fieldValue: string, fieldIndex: number }>();
   @Output() editFieldUnit = new EventEmitter<{ fieldId: number, fieldPropertyName: string, fieldUnit: string, fieldIndex: number }>();
 
   hideFieldSettingsMenu() {

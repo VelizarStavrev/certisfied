@@ -22,7 +22,7 @@
                             <div class="field-settings-input-with-unit field-settings-input-with-unit-selectable">
                                 <input type="text" [value]="data.value" (keyup)="updateField(data.name, $event, '', i)" />
 
-                                <ng-container *ngFor="let unit of data.units">
+                                <ng-container *ngFor="let unit of data.unitsArray">
                                     <div 
                                         (click)="updateFieldUnit(data.name, unit, i)" 
                                         [ngClass]="{
@@ -53,7 +53,7 @@
 
                 <ng-container *ngSwitchCase="'select'">
                     <select [value]="data.value" (change)="updateField(data.name, $event, '', i)">
-                        <option *ngFor="let option of data.options" [value]="option">{{option}}</option>
+                        <option *ngFor="let option of data.optionsArray" [value]="option">{{option}}</option>
                     </select>
                 </ng-container>
 
