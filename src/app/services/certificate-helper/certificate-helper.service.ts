@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Properties } from 'src/app/interfaces/properties';
+import { Property } from 'src/app/interfaces/property';
 import { Field } from 'src/app/interfaces/field';
+import { FieldList } from 'src/app/interfaces/field-list';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CertificateHelperService {
-
-  constructor() { }
-
-  private getFieldStyles(properties: Properties[]): [] {
+  private getFieldStyles(properties: { [key: string]: Property }): { [key: string]: {} } {
     let currentProperties = structuredClone(properties);
 
     for (let property in currentProperties) {
@@ -26,7 +24,7 @@ export class CertificateHelperService {
       }
     }
 
-    let finalCSSObject: any = {};
+    let finalCSSObject: { [key: string]: {} } = {};
 
     for (let property in currentProperties) {
       let currentCSSProperty = property;
@@ -38,13 +36,20 @@ export class CertificateHelperService {
     return finalCSSObject;
   }
 
-  updateFieldListStyling(fieldList: any): [] {
+  updateFieldListStyling(fieldList: Field[]): {}[] {
     // Set the field styles to an array
-    let fieldListStyling: any = [];
+    let fieldListStyling: {}[] = [];
 
-    fieldList.forEach((element: any) => {
-      let currentStyles: any = this.getFieldStyles(element.properties);
-      let currentFieldData: any = {
+    fieldList.forEach((element) => {
+      let currentStyles = this.getFieldStyles(element.properties);
+      let currentFieldData: {
+        id: number,
+        template_id: string,
+        type: string,
+        styles: { [key: string]: {} },
+        content?: string,
+        url?: string
+      } = {
         id: element.id,
         template_id: element.template_id,
         type: element.type,
@@ -54,17 +59,17 @@ export class CertificateHelperService {
       // Field specific data and styles
       switch(element.type) {
         case 'Text':
-          currentFieldData.content = element.properties.content.value;
-          currentFieldData.styles.width = '100%';
+          currentFieldData.content = element.properties['content'].value;
+          currentFieldData.styles['width'] = '100%';
           break;
 
         case 'Image':
-          currentFieldData.url = element.properties.url.value;
+          currentFieldData.url = element.properties['url'].value;
           break;
 
         case 'Link':
-          currentFieldData.content = element.properties.content.value;
-          currentFieldData.url = element.properties.url.value;
+          currentFieldData.content = element.properties['content'].value;
+          currentFieldData.url = element.properties['url'].value;
           break;
       }
 
@@ -74,36 +79,40 @@ export class CertificateHelperService {
     return fieldListStyling;
   }
 
-  updateFieldSortedArray(fieldList: any): Field[] {
-    // Convert to array and sort field list
-    let currentFieldListArray = Object.entries(fieldList);
-    let currentFieldListSortedObject = this.sortFieldList(currentFieldListArray);
-
-    let currentFieldListSortedArray: any[] = [];
-    Object.entries(currentFieldListSortedObject).map(([key, value]) => {
-      currentFieldListSortedArray.push(value);
-    });
-
-    return currentFieldListSortedArray;
-  }
-
-  private sortFieldList(currentFieldListArray: any): [] {
-    currentFieldListArray.sort((a: any, b: any) => {
+  private sortFieldList(fieldListArray: [string, Field][]): {
+    [key: string]: Field
+  } {
+    fieldListArray.sort((a: [string, Field], b: [string, Field]) => {
       let firstValue = a[1]['properties']['zIndex'].value;
       let secondValue = b[1]['properties']['zIndex'].value;
 
-      return secondValue - firstValue;
+      return Number(secondValue) - Number(firstValue);
     });
 
-    let currentFieldListSortedObject: any = {};
+    let fieldListSortedObject: {
+      [key: string]: Field
+    } = {};
 
-    for (let fieldPair of currentFieldListArray) {
+    for (let fieldPair of fieldListArray) {
       let currentKey = fieldPair[0];
       let currentValue = fieldPair[1];
 
-      currentFieldListSortedObject[currentKey] = currentValue;
+      fieldListSortedObject[currentKey] = currentValue;
     }
 
-    return currentFieldListSortedObject;
+    return fieldListSortedObject;
+  }
+
+  updateFieldSortedArray(fieldList: FieldList): Field[] {
+    // Convert to array and sort field list
+    let fieldListArray = Object.entries(fieldList);
+    let fieldListSortedObject = this.sortFieldList(fieldListArray);
+
+    let fieldListSortedArray: Field[] = [];
+    Object.entries(fieldListSortedObject).map(([key, value]) => {
+      fieldListSortedArray.push(value);
+    });
+
+    return fieldListSortedArray;
   }
 }
