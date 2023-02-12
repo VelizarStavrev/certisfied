@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Field } from 'src/app/interfaces/field';
 
 @Component({
   selector: 'app-field-add',
@@ -10,8 +11,8 @@ export class FieldAddComponent implements OnInit {
   buttonAddFieldType: string = 'Primary';
   buttonAddFieldHTMLType: string = 'button';
   @Input() visibility: boolean = false;
-  fieldTypeToAdd: string | null = null;
-  @Output() buttonAddClick = new EventEmitter<{}>();
+  fieldTypeToAdd: string = '';
+  @Output() buttonAddClick = new EventEmitter<Field>();
 
   constructor() { }
 
@@ -25,10 +26,11 @@ export class FieldAddComponent implements OnInit {
   sendNewFieldData() {
     const timestamp = Date.now();
 
-    const currentField = {
+    const currentField: Field = {
       id: timestamp,
       type: this.fieldTypeToAdd,
-      properties: {}
+      properties: {},
+      template_id: ''
     };
 
     let currentProperties: {} = {};
@@ -327,7 +329,7 @@ export class FieldAddComponent implements OnInit {
     currentField.properties = currentProperties;
 
     // Remove the active field status
-    this.fieldTypeToAdd = null;
+    this.fieldTypeToAdd = '';
 
     // Send the data to the parent
     this.buttonAddClick.emit(currentField);
