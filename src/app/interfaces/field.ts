@@ -1,8 +1,10 @@
-import { Properties } from "./properties"
+import { Property } from "./property"
 
 export interface Field {
-    id: number, 
-    properties: Properties[], 
-    template_id: string, 
-    type: string
+    id: number,
+    template_id: string,
+    type: string,
+    properties: { 
+        [key: string]: Property 
+    },
 }
