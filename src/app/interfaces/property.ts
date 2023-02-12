@@ -1,0 +1,15 @@
+export interface Property {
+    field_id: string, 
+    label: string, 
+    name: string, 
+    orderNum: string, 
+    type: string, 
+    value: string, 
+    unit?: string | 'NULL', 
+    units?: string,
+    unitsArray?: string[],
+    options?: string,
+    optionsArray?: string[],
+    content?: any,
+    editable?: any,
+}
