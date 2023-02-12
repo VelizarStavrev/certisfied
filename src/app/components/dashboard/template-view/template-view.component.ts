@@ -6,7 +6,8 @@ import { LoaderService } from 'src/app/services/loader/loader.service';
 import { MessageService } from 'src/app/services/message/message.service';
 import { Template } from 'src/app/interfaces/template';
 import { CertificateHelperService } from 'src/app/services/certificate-helper/certificate-helper.service';
-import { Properties } from 'src/app/interfaces/properties';
+import { FieldList } from 'src/app/interfaces/field-list';
+import { Property } from 'src/app/interfaces/property';
 
 @Component({
   selector: 'app-template-view',
@@ -33,9 +34,9 @@ export class TemplateViewComponent implements OnInit {
   certificateHeight: string = '297mm';
 
   // Shared field list
-  currentFieldList: any = {};
+  currentFieldList: FieldList = {};
   currentFieldListSorted: Field[] = [];
-  currentFieldListStyling: any[] = [];
+  currentFieldListStyling: {}[] = [];
 
   buttonCancelText: string = 'Return';
   buttonCancelType: string = 'Secondary';
@@ -54,10 +55,10 @@ export class TemplateViewComponent implements OnInit {
             const receivedData = data.data;
 
             for (let field in receivedData.fields) {
-              let properties: Properties[] = receivedData.fields[field].properties;
+              let properties = receivedData.fields[field].properties;
 
               for (let property in properties) {
-                let currentProperty: any = properties[property];
+                let currentProperty: Property = properties[property];
 
                 if (currentProperty.unit === 'NULL') {
                   delete currentProperty.unit;
@@ -69,14 +70,6 @@ export class TemplateViewComponent implements OnInit {
 
                 if (currentProperty.options === 'NULL') {
                   delete currentProperty.options;
-                }
-
-                if (currentProperty.units) {
-                  currentProperty.units = currentProperty.units.split(', ');
-                }
-
-                if (currentProperty.options) {
-                  currentProperty.options = currentProperty.options.split(', ');
                 }
               }
             }
