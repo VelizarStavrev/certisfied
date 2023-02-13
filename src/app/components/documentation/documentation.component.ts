@@ -15,7 +15,7 @@ export class DocumentationComponent implements OnInit {
   currentTopic: string = '';
   currentContent: { header: string, content: string } | null = null;
   
-  routeSub = this.route.params.subscribe((params: any) => {
+  routeSub = this.route.params.subscribe(params => {
     this.currentSection = params['section'];
     this.currentTopic = params['topic'];
 
