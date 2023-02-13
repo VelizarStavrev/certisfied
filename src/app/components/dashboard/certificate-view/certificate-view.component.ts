@@ -14,7 +14,7 @@ import { MessageService } from 'src/app/services/message/message.service';
 export class CertificateViewComponent implements OnInit {
   certificateURL: string | SafeResourceUrl = '';
   certificateId: string = '';
-  routeSub = this.route.params.subscribe((params: any) => {
+  routeSub = this.route.params.subscribe(params => {
     this.certificateId = params['id'];
   });
   isEditCertificate: boolean = !!this.certificateId;
