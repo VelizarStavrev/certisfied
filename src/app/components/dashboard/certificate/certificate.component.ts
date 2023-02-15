@@ -66,40 +66,12 @@ export class CertificateComponent implements OnInit {
           if (data.status) {
             const receivedData = data.template_data;
             const certificateData = data.data;
-
-            for (let field in receivedData.fields) {
-              let properties = receivedData.fields[field].properties;
-
-              for (let property in properties) {
-                let currentProperty: Property = properties[property];
-
-                if (currentProperty.unit === 'NULL') {
-                  delete currentProperty.unit;
-                }
-
-                if (currentProperty.units === 'NULL') {
-                  delete currentProperty.units;
-                }
-
-                if (currentProperty.options === 'NULL') {
-                  delete currentProperty.options;
-                }
-
-                if (typeof currentProperty.units === 'string') {
-                  currentProperty.unitsArray = currentProperty.units.split(', ');
-                }
-
-                if (typeof currentProperty.options === 'string') {
-                  currentProperty.optionsArray = currentProperty.options.split(', ');
-                }
-              }
-            }
-
+            const updatedData = this.certificateHelperService.updateTemplateDataProperties(receivedData);
             const editableFields: string[] = [];
 
             for (let field in certificateData.fields) {
               let currentField = certificateData.fields[field];
-              let currentFieldInTemplate = receivedData.fields[field];
+              let currentFieldInTemplate = updatedData.fields[field];
               currentFieldInTemplate.properties[currentField.name].value = currentField.value;
               editableFields.push(field);
             }
@@ -107,13 +79,13 @@ export class CertificateComponent implements OnInit {
             this.editableFields = editableFields;
 
             // Set the data
-            this.currentFieldList = receivedData.fields;
+            this.currentFieldList = updatedData.fields;
             this.certificateName = certificateData.name;
             this.certificateCreatedDate = certificateData.created;
             this.certificateEditedDate = certificateData.edited;
             this.certificateNotes = certificateData.notes;
-            this.orientation = receivedData.orientation;
-            this.templateValue = receivedData.id;
+            this.orientation = updatedData.orientation;
+            this.templateValue = updatedData.id;
 
             // Update field structure and styling
             this.updateFieldStructureAndStyling();
@@ -139,11 +111,11 @@ export class CertificateComponent implements OnInit {
   }
 
   saveCertificate() {
-    let fieldList = structuredClone(this.currentFieldList);
-    let fieldListFinal: FieldsInCertificate = {};
+    const fieldList = structuredClone(this.currentFieldList);
+    const fieldListFinal: FieldsInCertificate = {};
 
     for (const field in fieldList) {
-      let currentField = fieldList[field];
+      const currentField = fieldList[field];
 
       switch (currentField.type) {
         case 'Text':
@@ -166,7 +138,7 @@ export class CertificateComponent implements OnInit {
       }
     }
 
-    let data = {
+    const data = {
       name: this.certificateName,
       notes: this.certificateNotes,
       template_id: this.templateValue,
@@ -232,39 +204,12 @@ export class CertificateComponent implements OnInit {
       .subscribe((data: Template) => {
         if (data.status) {
           const receivedData = data.data;
-
-          for (let field in receivedData.fields) {
-            let properties = receivedData.fields[field].properties;
-
-            for (let property in properties) {
-              let currentProperty: Property = properties[property];
-
-              if (currentProperty.unit === 'NULL') {
-                delete currentProperty.unit;
-              }
-
-              if (currentProperty.units === 'NULL') {
-                delete currentProperty.units;
-              }
-
-              if (currentProperty.options === 'NULL') {
-                delete currentProperty.options;
-              }
-
-              if (typeof currentProperty.units === 'string') {
-                currentProperty.unitsArray = currentProperty.units.split(', ');
-              }
-
-              if (typeof currentProperty.options === 'string') {
-                currentProperty.optionsArray = currentProperty.options.split(', ');
-              }
-            }
-          }
+          const updatedData = this.certificateHelperService.updateTemplateDataProperties(receivedData);
 
           const editableFields = [];
 
-          for (let field in receivedData.fields) {
-            const currentField = receivedData.fields[field].properties;
+          for (const field in updatedData.fields) {
+            const currentField = updatedData.fields[field].properties;
 
             if (currentField['editable'].value == '1') {
               editableFields.push(field);
@@ -274,9 +219,9 @@ export class CertificateComponent implements OnInit {
           this.editableFields = editableFields;
 
           // Set the data
-          this.currentFieldList = receivedData.fields;
-          this.orientation = receivedData.orientation;
-          this.templateValue = receivedData.id || '';
+          this.currentFieldList = updatedData.fields;
+          this.orientation = updatedData.orientation;
+          this.templateValue = updatedData.id || '';
 
           // Update field structure and styling
           this.updateFieldStructureAndStyling();
@@ -334,9 +279,9 @@ export class CertificateComponent implements OnInit {
 
     // Get and set the field data
     // Convert the properties to an array
-    let currentFieldDataObject = this.currentFieldList[id];
-    let currentFieldDataPropertiesObject = currentFieldDataObject.properties;
-    let currentFieldDataPropertiesArray: Property[] = [];
+    const currentFieldDataObject = this.currentFieldList[id];
+    const currentFieldDataPropertiesObject = currentFieldDataObject.properties;
+    const currentFieldDataPropertiesArray: Property[] = [];
 
     // Display only editable fields for the certificate component edit menu
     if (currentFieldDataPropertiesObject['editable'].value) {
@@ -348,7 +293,7 @@ export class CertificateComponent implements OnInit {
       return Number(a.orderNum) - Number(b.orderNum);
     });
 
-    let finalFieldData: FieldDataCurrent = {
+    const finalFieldData: FieldDataCurrent = {
       id: currentFieldDataObject.id,
       template_id: currentFieldDataObject.template_id,
       type: currentFieldDataObject.type,
@@ -364,7 +309,7 @@ export class CertificateComponent implements OnInit {
 
   updateField(fieldData: { fieldId: number, fieldPropertyName: string, fieldValue: string, fieldIndex: number }) {
     // Set the field data
-    let fieldList = structuredClone(this.currentFieldList);
+    const fieldList = structuredClone(this.currentFieldList);
     fieldList[fieldData.fieldId].properties[fieldData.fieldPropertyName].value = fieldData.fieldValue;
     this.currentFieldList = fieldList;
 

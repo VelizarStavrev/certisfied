@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Property } from 'src/app/interfaces/property';
 import { Field } from 'src/app/interfaces/field';
 import { FieldList } from 'src/app/interfaces/field-list';
+import { TemplateData } from 'src/app/interfaces/template-data';
 
 @Injectable({
   providedIn: 'root'
@@ -114,5 +115,56 @@ export class CertificateHelperService {
     });
 
     return fieldListSortedArray;
+  }
+
+  updateTemplateDataProperties(data: TemplateData): TemplateData {
+    for (const field in data.fields) {
+      const properties = data.fields[field].properties;
+
+      for (const property in properties) {
+        const currentProperty: Property = properties[property];
+
+        if (currentProperty.unit === 'NULL') {
+          delete currentProperty.unit;
+        }
+
+        if (currentProperty.units === 'NULL') {
+          delete currentProperty.units;
+        }
+
+        if (currentProperty.options === 'NULL') {
+          delete currentProperty.options;
+        }
+
+        if (currentProperty.units) {
+          currentProperty.unitsArray = currentProperty.units.split(', ');
+        }
+
+        if (currentProperty.options) {
+          currentProperty.optionsArray = currentProperty.options.split(', ');
+        }
+      }
+    }
+
+    return data;
+  }
+
+  getMaxZIndex(fieldList: FieldList): number {
+    const zIndexArray: number[] = [];
+
+    // If there are no fields, set a z-index of 0
+    if (Object.keys(fieldList).length <= 0) {
+      return 0;
+    }
+
+    for (const field in fieldList) {
+      const currentField = fieldList[field];
+      const currentFieldZIndex = currentField.properties['zIndex'].value;
+      zIndexArray.push(Number(currentFieldZIndex));
+    }
+
+    const maxZIndex = Math.max(...zIndexArray);
+    
+    return maxZIndex + 1;
   }
 }

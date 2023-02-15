@@ -53,34 +53,15 @@ export class TemplateViewComponent implements OnInit {
         .subscribe((data: Template) => {
           if (data.status) {
             const receivedData = data.data;
-
-            for (let field in receivedData.fields) {
-              let properties = receivedData.fields[field].properties;
-
-              for (let property in properties) {
-                let currentProperty: Property = properties[property];
-
-                if (currentProperty.unit === 'NULL') {
-                  delete currentProperty.unit;
-                }
-
-                if (currentProperty.units === 'NULL') {
-                  delete currentProperty.units;
-                }
-
-                if (currentProperty.options === 'NULL') {
-                  delete currentProperty.options;
-                }
-              }
-            }
+            const updatedData = this.certificateHelperService.updateTemplateDataProperties(receivedData);
 
             // Set the data
-            this.currentFieldList = receivedData.fields;
-            this.templateName = receivedData.name;
-            this.templateCreatedDate = receivedData.created || 0;
-            this.templateEditedDate = receivedData.edited || 0;
-            this.templateNotes = receivedData.notes;
-            this.setOrientation(receivedData.orientation);
+            this.currentFieldList = updatedData.fields;
+            this.templateName = updatedData.name;
+            this.templateCreatedDate = updatedData.created || 0;
+            this.templateEditedDate = updatedData.edited || 0;
+            this.templateNotes = updatedData.notes;
+            this.setOrientation(updatedData.orientation);
 
             // Update the field sorted array
             this.currentFieldListSorted = this.certificateHelperService.updateFieldSortedArray(this.currentFieldList);
