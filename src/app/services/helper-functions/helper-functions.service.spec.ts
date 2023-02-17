@@ -1,10 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { Field } from 'src/app/interfaces/field';
 import { FieldList } from 'src/app/interfaces/field-list';
-
 import { TemplateData } from 'src/app/interfaces/template-data';
-import { fieldList, fieldListSortedArray, expectedFieldListStyling } from '../../utils/field-related-data';
-
+import { fieldList, fieldListSortedArray, expectedFieldListStyling } from 'src/app/utils/field-related-data';
 import { HelperFunctionsService } from './helper-functions.service';
 
 describe('HelperFunctionsService', () => {
