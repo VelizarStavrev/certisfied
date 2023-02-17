@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { LoaderService } from 'src/app/services/loader/loader.service';
 
 @Component({
@@ -7,20 +8,21 @@ import { LoaderService } from 'src/app/services/loader/loader.service';
   styleUrls: ['./loader.component.scss']
 })
 export class LoaderComponent implements OnInit {
-  loaderImg: string = '../../../../assets/icons/loader.svg';
-  loaderClass: string[] = ['loader-container', 'hidden'];
+  loaderImg: string = '/assets/icons/loader.svg';
+  isLoaderVisible: boolean = false;
 
-  _subscription = this.loaderService.loaderClasses.subscribe((value) => {
-    this.loaderClass = value;
-  });
+  private _subscription: Subscription = Subscription.EMPTY;
 
-  constructor(public loaderService: LoaderService) { }
+  constructor(private loaderService: LoaderService) { }
 
   ngOnInit(): void {
+    this._subscription = this.loaderService.showLoaderObservable.subscribe((value) => {
+      this.isLoaderVisible = value;
+    });
   }
 
   ngOnDestroy(): void {
-    this._subscription.unsubscribe();
+    this._subscription?.unsubscribe();
   }
   
 }

@@ -5,19 +5,12 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class LoaderService {
-  loaderClasses: Subject<string[]> = new Subject();
-  currentLoaderClasses: string[] = ['loader-container', 'hidden'];
+  showLoaderObservable: Subject<boolean> = new Subject();
+  isLoaderVisible: boolean = false;
 
-  constructor() { }
-
-  showLoader(visibility: boolean): object {
-    if (visibility) {
-      this.currentLoaderClasses = ['loader-container'];
-    } else {
-      this.currentLoaderClasses = ['loader-container', 'hidden'];
-    }
-
-    this.loaderClasses.next(this.currentLoaderClasses);
-    return this.currentLoaderClasses;
+  showLoader(isLoaderVisible: boolean): boolean {
+    this.isLoaderVisible = isLoaderVisible;
+    this.showLoaderObservable.next(this.isLoaderVisible);
+    return this.isLoaderVisible;
   }
 }
