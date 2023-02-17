@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { Message } from 'src/app/interfaces/message';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MessageService {
-  messages: Subject<{type: string, message: string}[]> = new Subject();
-  currentMessages: {type: string, message: string}[] = [];
+  messagesObservable: Subject<Message[]> = new Subject();
+  currentMessages: Message[] = [];
 
-  constructor() { }
-
-  setMessage(messageData: {type: string, message: string}): object {
+  setMessage(messageData: Message): Message[] {
     this.currentMessages.push(messageData);
-    this.messages.next(this.currentMessages);
+    this.messagesObservable.next(this.currentMessages);
     return this.currentMessages;
   }
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Message } from 'src/app/interfaces/message';
 import { MessageService } from 'src/app/services/message/message.service';
 
 @Component({
@@ -7,22 +9,23 @@ import { MessageService } from 'src/app/services/message/message.service';
   styleUrls: ['./message.component.scss']
 })
 export class MessageComponent implements OnInit {
-  currentMessages: {type: string, message: string}[] = [];
-  _subscription = this.messageService.messages.subscribe((value) => {
-    this.currentMessages = value;
-  });
+  _subscription: Subscription = Subscription.EMPTY;
+  currentMessages: Message[] = [];
 
   removeMessage(index: number): void {
     this.currentMessages.splice(index, 1);
   }
 
-  constructor(public messageService: MessageService) { }
+  constructor(private messageService: MessageService) { }
 
   ngOnInit(): void {
+    this._subscription = this.messageService.messagesObservable.subscribe((value) => {
+      this.currentMessages = value;
+    });
   }
 
   ngOnDestroy(): void {
     this._subscription.unsubscribe();
   }
-  
+
 }
