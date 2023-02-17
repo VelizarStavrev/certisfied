@@ -6,7 +6,7 @@ import { MessageService } from 'src/app/services/message/message.service';
 import { Template } from 'src/app/interfaces/template';
 import { Router } from '@angular/router';
 import { Field } from 'src/app/interfaces/field';
-import { CertificateHelperService } from 'src/app/services/certificate-helper/certificate-helper.service';
+import { HelperFunctionsService } from 'src/app/services/helper-functions/helper-functions.service';
 import { TemplateData } from 'src/app/interfaces/template-data';
 import { FieldDataCurrent } from 'src/app/interfaces/field-data-current';
 import { FieldList } from 'src/app/interfaces/field-list';
@@ -61,7 +61,7 @@ export class TemplateComponent implements OnInit {
         .subscribe((data: Template) => {
           if (data.status) {
             const receivedData = data.data;
-            const updatedData = this.certificateHelperService.updateTemplateDataProperties(receivedData);
+            const updatedData = this.helperFunctionsService.updateTemplateDataProperties(receivedData);
 
             // Set the data
             this.currentFieldList = updatedData.fields;
@@ -152,10 +152,10 @@ export class TemplateComponent implements OnInit {
 
   updateFieldStructureAndStyling() {
     // Update the field sorted array
-    this.currentFieldListSorted = this.certificateHelperService.updateFieldSortedArray(this.currentFieldList);
+    this.currentFieldListSorted = this.helperFunctionsService.updateFieldSortedArray(this.currentFieldList);
 
     // Update the field list styling
-    this.currentFieldListStyling = this.certificateHelperService.updateFieldListStyling(this.currentFieldListSorted);
+    this.currentFieldListStyling = this.helperFunctionsService.updateFieldListStyling(this.currentFieldListSorted);
   }
 
   // Add field menu
@@ -176,7 +176,7 @@ export class TemplateComponent implements OnInit {
 
   createField(fieldData: Field): void {
     // Get current max z-index of all fields
-    const zIndex = this.certificateHelperService.getMaxZIndex(this.currentFieldList);
+    const zIndex = this.helperFunctionsService.getMaxZIndex(this.currentFieldList);
 
     // Push the field to the current field list
     const fieldList = structuredClone(this.currentFieldList);
@@ -300,12 +300,13 @@ export class TemplateComponent implements OnInit {
     this.orientation = type;
   }
 
-  constructor(private route: ActivatedRoute,
-    public templateService: TemplateService,
-    public loaderService: LoaderService,
-    public messageService: MessageService,
-    public router: Router,
-    public certificateHelperService: CertificateHelperService
+  constructor(
+    private route: ActivatedRoute,
+    private templateService: TemplateService,
+    private loaderService: LoaderService,
+    private messageService: MessageService,
+    private router: Router,
+    private helperFunctionsService: HelperFunctionsService
   ) { }
 
   ngOnInit(): void {

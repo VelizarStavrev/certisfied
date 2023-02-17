@@ -4,7 +4,7 @@ import { LoaderService } from 'src/app/services/loader/loader.service';
 import { MessageService } from 'src/app/services/message/message.service';
 import { TemplateService } from 'src/app/services/template/template.service';
 import { CertificateService } from 'src/app/services/certificate/certificate.service';
-import { CertificateHelperService } from 'src/app/services/certificate-helper/certificate-helper.service';
+import { HelperFunctionsService } from 'src/app/services/helper-functions/helper-functions.service';
 import { Certificate } from 'src/app/interfaces/certificate';
 import { Field } from 'src/app/interfaces/field';
 import { Templates } from 'src/app/interfaces/templates';
@@ -66,7 +66,7 @@ export class CertificateComponent implements OnInit {
           if (data.status) {
             const receivedData = data.template_data;
             const certificateData = data.data;
-            const updatedData = this.certificateHelperService.updateTemplateDataProperties(receivedData);
+            const updatedData = this.helperFunctionsService.updateTemplateDataProperties(receivedData);
             const editableFields: string[] = [];
 
             for (let field in certificateData.fields) {
@@ -204,7 +204,7 @@ export class CertificateComponent implements OnInit {
       .subscribe((data: Template) => {
         if (data.status) {
           const receivedData = data.data;
-          const updatedData = this.certificateHelperService.updateTemplateDataProperties(receivedData);
+          const updatedData = this.helperFunctionsService.updateTemplateDataProperties(receivedData);
 
           const editableFields = [];
 
@@ -251,10 +251,10 @@ export class CertificateComponent implements OnInit {
 
   updateFieldStructureAndStyling() {
     // Update the field sorted array
-    this.currentFieldListSorted = this.certificateHelperService.updateFieldSortedArray(this.currentFieldList);
+    this.currentFieldListSorted = this.helperFunctionsService.updateFieldSortedArray(this.currentFieldList);
 
     // Update the field list styling
-    this.currentFieldListStyling = this.certificateHelperService.updateFieldListStyling(this.currentFieldListSorted);
+    this.currentFieldListStyling = this.helperFunctionsService.updateFieldListStyling(this.currentFieldListSorted);
   }
 
   setFieldId(id: number | null) {
@@ -320,13 +320,14 @@ export class CertificateComponent implements OnInit {
     this.currentFieldData ? this.currentFieldData.properties[fieldData.fieldIndex].value = fieldData.fieldValue : null;
   }
 
-  constructor(private route: ActivatedRoute,
-    public certificateService: CertificateService,
-    public templateService: TemplateService,
-    public loaderService: LoaderService,
-    public messageService: MessageService,
-    public router: Router,
-    public certificateHelperService: CertificateHelperService
+  constructor(
+    private route: ActivatedRoute,
+    private certificateService: CertificateService,
+    private templateService: TemplateService,
+    private loaderService: LoaderService,
+    private messageService: MessageService,
+    private router: Router,
+    private helperFunctionsService: HelperFunctionsService
   ) { }
 
   ngOnInit(): void {

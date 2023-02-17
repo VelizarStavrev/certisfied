@@ -5,9 +5,8 @@ import { TemplateService } from 'src/app/services/template/template.service';
 import { LoaderService } from 'src/app/services/loader/loader.service';
 import { MessageService } from 'src/app/services/message/message.service';
 import { Template } from 'src/app/interfaces/template';
-import { CertificateHelperService } from 'src/app/services/certificate-helper/certificate-helper.service';
+import { HelperFunctionsService } from 'src/app/services/helper-functions/helper-functions.service';
 import { FieldList } from 'src/app/interfaces/field-list';
-import { Property } from 'src/app/interfaces/property';
 
 @Component({
   selector: 'app-template-view',
@@ -53,7 +52,7 @@ export class TemplateViewComponent implements OnInit {
         .subscribe((data: Template) => {
           if (data.status) {
             const receivedData = data.data;
-            const updatedData = this.certificateHelperService.updateTemplateDataProperties(receivedData);
+            const updatedData = this.helperFunctionsService.updateTemplateDataProperties(receivedData);
 
             // Set the data
             this.currentFieldList = updatedData.fields;
@@ -64,10 +63,10 @@ export class TemplateViewComponent implements OnInit {
             this.setOrientation(updatedData.orientation);
 
             // Update the field sorted array
-            this.currentFieldListSorted = this.certificateHelperService.updateFieldSortedArray(this.currentFieldList);
+            this.currentFieldListSorted = this.helperFunctionsService.updateFieldSortedArray(this.currentFieldList);
 
             // Update the field list styling
-            this.currentFieldListStyling = this.certificateHelperService.updateFieldListStyling(this.currentFieldListSorted);
+            this.currentFieldListStyling = this.helperFunctionsService.updateFieldListStyling(this.currentFieldListSorted);
 
             // Add a success message
             this.messageService.setMessage({ type: 'message-success', message: data.message });
@@ -94,12 +93,13 @@ export class TemplateViewComponent implements OnInit {
     this.orientation = type;
   }
 
-  constructor(private route: ActivatedRoute,
-    public templateService: TemplateService,
-    public loaderService: LoaderService,
-    public messageService: MessageService,
-    public router: Router,
-    public certificateHelperService: CertificateHelperService
+  constructor(
+    private route: ActivatedRoute,
+    private templateService: TemplateService,
+    private loaderService: LoaderService,
+    private messageService: MessageService,
+    private router: Router,
+    private helperFunctionsService: HelperFunctionsService
   ) { }
 
   ngOnInit(): void {

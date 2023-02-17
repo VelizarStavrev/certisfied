@@ -7,7 +7,7 @@ import { TemplateData } from 'src/app/interfaces/template-data';
 @Injectable({
   providedIn: 'root'
 })
-export class CertificateHelperService {
+export class HelperFunctionsService {
   private getFieldStyles(properties: { [key: string]: Property }): { [key: string]: {} } {
     let currentProperties = structuredClone(properties);
 
