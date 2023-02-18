@@ -4,14 +4,22 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'timestampToDate'
 })
 export class TimestampToDatePipe implements PipeTransform {
-  addZeroForTwoDigits(dateData: number | string): number | string {
-    return dateData < 10 ? '0' + dateData : dateData;
+  private addZeroForTwoDigits(value: number): number | string {
+    return value < 10 ? '0' + value : value;
   }
 
-  transform(value: number): string {
-    const dateInitial: Date = new Date(value * 1000);
-    const date: string = this.addZeroForTwoDigits(dateInitial.getDate()) + '/' + this.addZeroForTwoDigits(dateInitial.getMonth() + 1) + '/' + this.addZeroForTwoDigits(dateInitial.getFullYear());
-    const time: string = this.addZeroForTwoDigits(dateInitial.getHours()) + ':' + this.addZeroForTwoDigits(dateInitial.getMinutes());
+  transform(timestamp: number): string {
+    const dateInitial: Date = new Date(timestamp * 1000);
+    
+    const day = this.addZeroForTwoDigits(dateInitial.getDate());
+    const month = this.addZeroForTwoDigits(dateInitial.getMonth() + 1);
+    const year = this.addZeroForTwoDigits(dateInitial.getFullYear());
+    const date: string = day + '/' + month + '/' + year;
+    
+    const hours = this.addZeroForTwoDigits(dateInitial.getHours());
+    const minutes = this.addZeroForTwoDigits(dateInitial.getMinutes());
+    const time: string = hours + ':' + minutes;
+    
     const dateFinal: string = date + ' - ' + time;
     return dateFinal;
   }
