@@ -14,6 +14,7 @@ import { TemplateInTemplates } from 'src/app/interfaces/template-in-templates';
 import { FieldList } from 'src/app/interfaces/field-list';
 import { FieldDataCurrent } from 'src/app/interfaces/field-data-current';
 import { FieldsInCertificate } from 'src/app/interfaces/fields-in-certificate';
+import { CertificateData } from 'src/app/interfaces/certificate-data';
 
 @Component({
   selector: 'app-certificate',
@@ -138,7 +139,7 @@ export class CertificateComponent implements OnInit {
       }
     }
 
-    const data = {
+    const data: CertificateData = {
       name: this.certificateName,
       notes: this.certificateNotes,
       template_id: this.templateValue,
