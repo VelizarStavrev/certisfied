@@ -3,15 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { variables } from 'src/app/variables';
 import { Certificates } from 'src/app/interfaces/certificates';
 import { Certificate } from 'src/app/interfaces/certificate';
+import { CertificateData } from 'src/app/interfaces/certificate-data';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CertificateService {
+  serverUrl = variables.serverURL;
 
   constructor(private http: HttpClient) { }
-
-  serverUrl = variables.serverURL;
 
   getCertificates() {
     return this.http.get<Certificates>(this.serverUrl + '/certificates');
@@ -21,11 +21,11 @@ export class CertificateService {
     return this.http.get<Certificate>(this.serverUrl + '/certificate/' + certificateId);
   }
 
-  createCertificate(data: {}) {
+  createCertificate(data: CertificateData) {
     return this.http.post<Certificate>(this.serverUrl + '/certificate/new', data);
   }
 
-  editCertificate(certificateId: string, data: {}) {
+  editCertificate(certificateId: string, data: CertificateData) {
     return this.http.post<Certificate>(this.serverUrl + '/certificate/edit/' + certificateId, data);
   }
 
@@ -40,5 +40,4 @@ export class CertificateService {
   verifyCertificate(certificateId: string) {
     return this.http.get<Certificate>(this.serverUrl + '/verify/' + certificateId);
   }
-
 }
