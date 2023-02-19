@@ -11,12 +11,15 @@ import { variables } from 'src/app/variables';
   providedIn: 'root'
 })
 export class UserService {
-
-  constructor(private http: HttpClient, public router: Router, public messageService: MessageService) { }
-
   userUrl = variables.serverURL + '/user';
 
-  userRegister(data: object) {
+  constructor(
+    private http: HttpClient,
+    public router: Router,
+    public messageService: MessageService
+  ) { }
+
+  userRegister(data: {}) {
     return this.http.post<Register>(this.userUrl + '/register', data);
   }
 
@@ -31,7 +34,7 @@ export class UserService {
     this.router.navigate(['/login']);
 
     // Add a message for successful logout
-    this.messageService.setMessage({type: 'message-success', message: 'Successfully logged out.'});
+    this.messageService.setMessage({ type: 'message-success', message: 'Successfully logged out.' });
   }
 
   // Allow the user status to be subscribed to
