@@ -31,6 +31,7 @@ describe('UserService', () => {
     router = TestBed.inject(Router);
     messageService = TestBed.inject(MessageService);
     service.userUrl = serverURL;
+    localStorage.removeItem('token');
   });
 
   afterEach(() => {
