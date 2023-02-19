@@ -15,8 +15,8 @@ export class UserService {
 
   constructor(
     private http: HttpClient,
-    public router: Router,
-    public messageService: MessageService
+    private router: Router,
+    private messageService: MessageService
   ) { }
 
   userRegister(data: {}) {
