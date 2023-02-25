@@ -9,7 +9,7 @@ import { HeaderComponent } from './components/shared/header/header.component';
 import { LoaderComponent } from './components/shared/loader/loader.component';
 import { MessageComponent } from './components/shared/message/message.component';
 
-fdescribe('AppComponent', () => {
+describe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
   let de: DebugElement;
