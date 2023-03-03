@@ -6,18 +6,16 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./button-link.component.scss']
 })
 export class ButtonLinkComponent implements OnInit {
-  @Input() buttonText: string = 'Click'; // decorate the property with @Input()
-  @Input() buttonType: string = 'Primary'; // decorate the property with @Input()
-  @Input() buttonLink: string = ''; // decorate the property with @Input()
-  @Input() buttonMarginTop: boolean = false; // decorate the property with @Input()
-  @Input() buttonMarginBottom: boolean = false; // decorate the property with @Input()
-  @Input() buttonMarginLeft: boolean = false; // decorate the property with @Input()
-  @Input() buttonMarginRight: boolean = false; // decorate the property with @Input()
-  @Input() buttonWidth80: boolean = false; // decorate the property with @Input()
-  @Input() buttonFunc = () => { }; // decorate the property with @Input()
+  @Input() buttonText: string = 'Click';
+  @Input() buttonType: string = 'Primary';
+  @Input() buttonLink: string = '';
+  @Input() buttonMarginTop: boolean = false;
+  @Input() buttonMarginBottom: boolean = false;
+  @Input() buttonMarginLeft: boolean = false;
+  @Input() buttonMarginRight: boolean = false;
+  @Input() buttonWidth80: boolean = false;
+  @Input() buttonFunc = () => { };
   buttonClasses: string[] = [];
-
-  constructor() { }
 
   ngOnInit(): void {
     switch (this.buttonType) {

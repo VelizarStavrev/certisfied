@@ -12,10 +12,6 @@ export class MessageComponent implements OnInit {
   _subscription: Subscription = Subscription.EMPTY;
   currentMessages: Message[] = [];
 
-  removeMessage(index: number): void {
-    this.currentMessages.splice(index, 1);
-  }
-
   constructor(private messageService: MessageService) { }
 
   ngOnInit(): void {
@@ -26,6 +22,10 @@ export class MessageComponent implements OnInit {
 
   ngOnDestroy(): void {
     this._subscription.unsubscribe();
+  }
+
+  removeMessage(index: number): void {
+    this.currentMessages.splice(index, 1);
   }
 
 }

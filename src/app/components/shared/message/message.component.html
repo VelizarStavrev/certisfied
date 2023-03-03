@@ -1,9 +1,10 @@
 <div class="message-container">
-    <p *ngFor="let message of currentMessages; index as i;" 
+    <p 
+        *ngFor="let message of currentMessages; index as i;" 
         [class]="message?.type" 
         (animationend)="removeMessage(i)" 
         (click)="removeMessage(i)"
     >
-        {{message?.message}}
+        {{ message?.message }}
     </p>
 </div>

@@ -3,7 +3,7 @@
         <a class="link-home" routerLink="/">
             certisfied
         </a>
-        
+
         <button [ngClass]="hamburgerClassList" type="button" (click)="toggleVisibleClass()">
             <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <rect x="2" y="2" width="20" height="4" rx="2"></rect>
@@ -12,12 +12,12 @@
             </svg>
         </button>
 
-        <ul [class]="isVisible ? 'visible' : ''">
+        <ul [ngClass]="{ 'visible': isVisible }">
             <ng-container *ngIf="!isLogged">
                 <li>
                     <a routerLink="/login" routerLinkActive="active">Login</a>
                 </li>
-    
+
                 <li>
                     <a routerLink="/register" routerLinkActive="active">Register</a>
                 </li>
@@ -27,7 +27,7 @@
                 <li>
                     <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
                 </li>
-    
+
                 <li>
                     <a routerLink="/profile" routerLinkActive="active">Profile</a>
                 </li>

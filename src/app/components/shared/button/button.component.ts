@@ -6,19 +6,17 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./button.component.scss']
 })
 export class ButtonComponent implements OnInit {
-  @Input() buttonText: string = 'Click'; // decorate the property with @Input()
-  @Input() buttonType: string = 'Primary'; // decorate the property with @Input()
-  @Input() buttonHTMLType: string = 'button'; // decorate the property with @Input()
-  @Input() buttonMarginTop: boolean = false; // decorate the property with @Input()
-  @Input() buttonMarginBottom: boolean = false; // decorate the property with @Input()
-  @Input() buttonMarginLeft: boolean = false; // decorate the property with @Input()
-  @Input() buttonMarginRight: boolean = false; // decorate the property with @Input()
-  @Input() buttonDisabled: boolean = false; // decorate the property with @Input()
-  @Input() buttonWidth80: boolean = false; // decorate the property with @Input()
-  @Input() buttonFunc = () => {}; // decorate the property with @Input()
+  @Input() buttonText: string = 'Click';
+  @Input() buttonType: string = 'Primary';
+  @Input() buttonHTMLType: string = 'button';
+  @Input() buttonMarginTop: boolean = false;
+  @Input() buttonMarginBottom: boolean = false;
+  @Input() buttonMarginLeft: boolean = false;
+  @Input() buttonMarginRight: boolean = false;
+  @Input() buttonDisabled: boolean = false;
+  @Input() buttonWidth80: boolean = false;
+  @Input() buttonFunc = () => {};
   buttonClasses: string[] = ['button-base'];
-
-  constructor() { }
 
   ngOnInit(): void {
     switch (this.buttonType) {
